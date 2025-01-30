@@ -22,6 +22,10 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     std::filesystem::path data_;
   };
 
+/**
+ * Produces SiPixelFedCablingMap data from binary file and stores it in EventSetup
+ */
+// The above comment was written by an LLM. 
   void SiPixelFedCablingMapESProducer::produce(edm::EventSetup& eventSetup) {
     std::ifstream in(data_ / "cablingMap.bin", std::ios::binary);
 

@@ -14,6 +14,14 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
   namespace {
     struct setHitsLayerStart {
       template <typename TAcc>
+/**
+ * @brief Applies the layer start indices calculation
+ * @param[in] acc Accelerator object
+ * @param[in] hitsModuleStart Array of module start indices
+ * @param[in] cpeParams Parameters for pixel CPE on GPU
+ * @param[out] hitsLayerStart Array to store calculated layer start indices
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                     uint32_t const* __restrict__ hitsModuleStart,
                                     pixelCPEforGPU::ParamsOnGPU const* cpeParams,
@@ -32,6 +40,16 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
   namespace pixelgpudetails {
 
+/**
+ * @brief Creates tracking rec hits asynchronously
+ * @param[in] digis_d SiPixelDigisAlpaka object containing digitized data
+ * @param[in] clusters_d SiPixelClustersAlpaka object containing cluster data
+ * @param[in] bs_d BeamSpotAlpaka object containing beam spot data
+ * @param[in] cpeParams pointer to pixelCPEforGPU parameters
+ * @param[out] queue Queue object for asynchronous operations
+ * @return TrackingRecHit2DAlpaka object containing generated hits
+ */
+// The above comment was written by an LLM. 
     TrackingRecHit2DAlpaka PixelRecHitGPUKernel::makeHitsAsync(SiPixelDigisAlpaka const& digis_d,
                                                                SiPixelClustersAlpaka const& clusters_d,
                                                                BeamSpotAlpaka const& bs_d,

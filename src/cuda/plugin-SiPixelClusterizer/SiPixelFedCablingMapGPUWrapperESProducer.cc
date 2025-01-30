@@ -17,6 +17,12 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces the required data for the event setup.
+ *
+ * @param eventSetup The event setup object to store the produced data.
+ */
+// The above comment was written by an LLM. 
 void SiPixelFedCablingMapGPUWrapperESProducer::produce(edm::EventSetup& eventSetup) {
   {
     std::ifstream in(data_ / "fedIds.bin", std::ios::binary);

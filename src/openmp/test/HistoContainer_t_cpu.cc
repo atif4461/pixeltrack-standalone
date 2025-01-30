@@ -9,6 +9,33 @@
 using namespace cms::cuda;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief This function tests the functionality of the HistoContainer class.
+ *
+ * It generates random numbers, fills histograms with these numbers,
+ * and checks various properties of the histograms.
+ 
+void go()
+ * @brief This lambda function is used to verify that the values in a bin
+ *        are within a certain range.
+ *
+ * @param i The index of the current bin.
+ * @param j The index of another bin to compare with.
+ * @param k The index of the value being checked.
+ * @param t1 The first value to compare.
+ * @param t2 The second value to compare.
+ 
+auto verify = [&](uint32_t i, uint32_t j, uint32_t k, uint32_t t1, uint32_t t2)
+ * @brief This function iterates over all elements in the bins of a histogram
+ *        that are within a certain distance from a given value.
+ *
+ * @param hist The histogram to iterate over.
+ * @param val The value around which to iterate.
+ * @param dist The maximum distance from the value.
+ * @param func A callback function to call for each element.
+ 
+forEachInBins(h, v[j], w, ftest)*/
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -136,6 +163,20 @@ void go() {
   }
 }
 
+/**
+ * @brief Program entry point
+ *
+ * @return Integer value indicating program execution status
+  
+ * @brief Template function to perform operations with specified data type and parameters
+ *
+ * @tparam T Data type for operation
+ * @param arg1 First parameter
+ * @param arg2 Second parameter
+ * @param arg3 Third parameter
+ * @param arg4 Fourth parameter
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int16_t>();
   go<uint8_t, 128, 8, 4>();

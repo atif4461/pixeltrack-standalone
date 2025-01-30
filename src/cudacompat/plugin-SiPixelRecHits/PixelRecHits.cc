@@ -12,6 +12,13 @@
 #include "gpuPixelRecHits.h"
 
 namespace {
+/**
+ * Sets the layer start values in the hitsLayerStart array based on the input parameters.
+ * @param[in] hitsModuleStart pointer to an array of hit module start indices
+ * @param[in] cpeParams pointer to constants and parameters for pixel CPE calculation on GPU
+ * @param[out] hitsLayerStart pointer to an array where layer start indices will be stored
+ */
+// The above comment was written by an LLM. 
   __global__ void setHitsLayerStart(uint32_t const* __restrict__ hitsModuleStart,
                                     pixelCPEforGPU::ParamsOnGPU const* cpeParams,
                                     uint32_t* hitsLayerStart) {
@@ -30,6 +37,15 @@ namespace {
 
 namespace pixelgpudetails {
 
+/**
+ * @brief Creates 2D CPU tracking rec hits from pixel digis and clusters
+ * @param[in] digis_d input digis in SoA format
+ * @param[in] clusters_d input clusters in SoA format
+ * @param[in] bs_d beam spot object
+ * @param[in] cpeParams parameters for GPU cluster parameter estimation
+ * @return vector of 2D CPU tracking rec hits
+ */
+// The above comment was written by an LLM. 
   TrackingRecHit2DCPU PixelRecHitGPUKernel::makeHits(SiPixelDigisSoA const& digis_d,
                                                      SiPixelClustersSoA const& clusters_d,
                                                      BeamSpotPOD const& bs_d,

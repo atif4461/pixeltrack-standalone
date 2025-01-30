@@ -35,6 +35,15 @@ namespace {
 
 ErrorChecker::ErrorChecker() { includeErrors = false; }
 
+/**
+ * @brief Checks the CRC of an event and updates error status accordingly
+ * @param[out] errorsInEvent flag indicating whether errors were found in the event
+ * @param[in] fedId identifier of the FED
+ * @param[in] trailer pointer to the trailer data
+ * @param[out] errors collection of errors
+ * @return true if CRC check passes, false otherwise
+ */
+// The above comment was written by an LLM. 
 bool ErrorChecker::checkCRC(bool& errorsInEvent, int fedId, const Word64* trailer, Errors& errors) {
   int CRC_BIT = (*trailer >> CRC_shift) & CRC_mask;
   if (CRC_BIT == 0)
@@ -48,6 +57,15 @@ bool ErrorChecker::checkCRC(bool& errorsInEvent, int fedId, const Word64* traile
   return false;
 }
 
+/**
+ * @brief Checks the validity of a header in an event
+ * @param[out] errorsInEvent flag indicating whether errors were found in the event
+ * @param[in] fedId identifier of the federated unit
+ * @param[in] header raw data containing the header to be checked
+ * @param[out] errors collection of errors encountered during checking
+ * @return true if more headers are expected, false otherwise
+ */
+// The above comment was written by an LLM. 
 bool ErrorChecker::checkHeader(bool& errorsInEvent, int fedId, const Word64* header, Errors& errors) {
   FEDHeader fedHeader(reinterpret_cast<const unsigned char*>(header));
   if (!fedHeader.check())
@@ -65,6 +83,16 @@ bool ErrorChecker::checkHeader(bool& errorsInEvent, int fedId, const Word64* hea
   return fedHeader.moreHeaders();
 }
 
+/**
+ * @brief Checks the trailer of an event for errors
+ * @param[out] errorsInEvent flag indicating whether errors were found in the event
+ * @param[in] fedId identifier of the FED being checked
+ * @param[in] nWords number of words in the trailer
+ * @param[in] trailer pointer to the trailer data
+ * @param[out] errors container for storing error information
+ * @return true if there are more trailers to process, false otherwise
+ */
+// The above comment was written by an LLM. 
 bool ErrorChecker::checkTrailer(
     bool& errorsInEvent, int fedId, unsigned int nWords, const Word64* trailer, Errors& errors) {
   FEDTrailer fedTrailer(reinterpret_cast<const unsigned char*>(trailer));

@@ -16,6 +16,14 @@ using namespace cms::alpakatools;
 using namespace ALPAKA_ACCELERATOR_NAMESPACE;
 
 template <typename T>
+/**
+ * @brief Function to perform various operations on a device buffer
+ * 
+ * @param[in] host The development host
+ * @param[in] device The device to be used
+ * @param[out] queue The queue where the operations will be performed
+ */
+// The above comment was written by an LLM. 
 void go(const DevHost& host, const Device& device, Queue& queue) {
   std::mt19937 eng;
   std::uniform_int_distribution<T> rgen(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
@@ -157,6 +165,25 @@ void go(const DevHost& host, const Device& device, Queue& queue) {
   }
 }
 
+/**
+ * @brief Program entry point
+ *
+ * @return Integer value indicating program execution status
+   * @brief Initialises the system
+  * @brief Retrieves a list of available devices for the current platform
+ *
+ * @return List of available devices
+  * @brief Creates a command queue object for the specified device
+ *
+ * @param device Device associated with the queue
+  * @brief Performs operation on the specified data type
+ *
+ * @tparam DataType Data type to be processed
+ * @param host Host data to be transferred
+ * @param device Device where the operation is executed
+ * @param queue Command queue used for the operation
+ */
+// The above comment was written by an LLM. 
 int main() {
   initialise();
   const Device device = devices<Platform>().at(0);

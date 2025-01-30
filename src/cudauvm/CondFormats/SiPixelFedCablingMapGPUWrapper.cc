@@ -14,6 +14,10 @@
 #include "CUDACore/StreamCache.h"
 #include "CondFormats/SiPixelFedCablingMapGPUWrapper.h"
 
+/**
+ * Constructor initializing SiPixelFedCablingMapGPUWrapper object with given cabling map and module to unpinning data.
+ */
+// The above comment was written by an LLM. 
 SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCablingMapGPU const& cablingMap,
                                                                std::vector<unsigned char> const& modToUnp)
     : hasQuality_(true) {
@@ -35,6 +39,9 @@ SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCabling
   }
 }
 
+/**
+ * Destructor to release GPU memory allocated for cabling map and module to unpin default data structures */
+// The above comment was written by an LLM. 
 SiPixelFedCablingMapGPUWrapper::~SiPixelFedCablingMapGPUWrapper() {
   cudaCheck(cudaFree(cablingMap_));
   cudaCheck(cudaFree(modToUnpDefault_));

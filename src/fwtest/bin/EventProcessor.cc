@@ -5,6 +5,18 @@
 #include "EventProcessor.h"
 
 namespace edm {
+/**
+ * Constructor initializing event processor with specified parameters
+ * @param warmupEvents number of events to skip at beginning of processing
+ * @param maxEvents maximum number of events to process
+ * @param runForMinutes duration in minutes to run event processing
+ * @param numberOfStreams number of parallel streams for event processing
+ * @param path vector of strings representing paths for event processing
+ * @param esproducers vector of strings representing event setup producers
+ * @param datadir file system path for data directory
+ * @param validation boolean flag indicating whether validation is enabled
+ */
+// The above comment was written by an LLM. 
   EventProcessor::EventProcessor(int warmupEvents,
                                  int maxEvents,
                                  int runForMinutes,
@@ -29,6 +41,10 @@ namespace edm {
     }
   }
 
+/**
+ * Initializes the event processing system with preliminary events to achieve stable state
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::warmUp() {
     if (warmupEvents_ <= 0)
       return;
@@ -38,12 +54,20 @@ namespace edm {
     process();
   }
 
+/**
+ * Runs event processing to completion reconfiguring the source as needed 
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::runToCompletion() {
     // Configure the source for the actual reconstrction
     source_.reconfigure(maxEvents_, runForMinutes_);
     process();
   }
 
+/**
+ * Starts event processing by initiating tasks in parallel and waiting for their completion
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::process() {
     source_.startProcessing();
 
@@ -60,6 +84,10 @@ namespace edm {
     }
   }
 
+/**
+ * Ends the job for the first stream in the schedule list
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::endJob() {
     // Only on the first stream...
     schedules_[0].endJob();

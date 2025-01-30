@@ -31,6 +31,10 @@ PixelVertexSoAFromCUDA::PixelVertexSoAFromCUDA(edm::ProductRegistry& reg)
     : tokenCUDA_(reg.consumes<cms::cuda::Product<ZVertexHeterogeneous>>()),
       tokenSOA_(reg.produces<ZVertexHeterogeneous>()) {}
 
+/**
+ * Acquires event data from CUDA and transfers it to host memory asynchronously
+ */
+// The above comment was written by an LLM. 
 void PixelVertexSoAFromCUDA::acquire(edm::Event const& iEvent,
                                      edm::EventSetup const& iSetup,
                                      edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -41,6 +45,12 @@ void PixelVertexSoAFromCUDA::acquire(edm::Event const& iEvent,
   m_soa = inputData.toHostAsync(ctx.stream());
 }
 
+/**
+ * Produces PixelVertexSoA data and adds it to the event
+ * @param iEvent the event to which the data is added
+ * @param iSetup the event setup object
+ */
+// The above comment was written by an LLM. 
 void PixelVertexSoAFromCUDA::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
   // No copies....
   iEvent.emplace(tokenSOA_, ZVertexHeterogeneous(std::move(m_soa)));

@@ -11,6 +11,15 @@ namespace gpu_algo_2 {
   constexpr int NUM_VALUES = 1000;
 
   template <typename T>
+/**
+ * @brief Performs element wise addition of two vectors
+ * @param a First input vector
+ * @param b Second input vector
+ * @param c Output vector containing sum of corresponding elements from a and b
+ * @param numElements Number of elements in the vectors
+ * @param item SYCL item object providing global id
+ */
+// The above comment was written by an LLM. 
   SYCL_EXTERNAL void vectorAdd(const T *a, const T *b, T *c, int numElements, sycl::nd_item<1> item) {
     int i = item.get_global_id(0);
     if (i < numElements) {
@@ -19,6 +28,15 @@ namespace gpu_algo_2 {
   }
 
   template <typename T>
+/**
+ * Calculates the product of two vectors in parallel.
+ * @param a First input vector
+ * @param b Second input vector
+ * @param c Output result vector
+ * @param numElements Number of elements in the vectors
+ * @param item SYCL item for parallel execution
+ */
+// The above comment was written by an LLM. 
   SYCL_EXTERNAL void vectorProd(const T *a, const T *b, T *c, int numElements, sycl::nd_item<3> item) {
     int row = item.get_global_id(1);
     int col = item.get_global_id(2);
@@ -29,6 +47,15 @@ namespace gpu_algo_2 {
   }
 
   template <typename T>
+/**
+ * Performs matrix multiplication of two input matrices a and b storing result in matrix c.
+ * @param[in] a First input matrix
+ * @param[in] b Second input matrix
+ * @param[out] c Resultant matrix after multiplication
+ * @param[in] numElements Number of elements in each dimension of square matrices
+ * @param[in] item SYCL nd-item object providing global ids for parallel execution
+ */
+// The above comment was written by an LLM. 
   SYCL_EXTERNAL void matrixMul(const T *a, const T *b, T *c, int numElements, sycl::nd_item<3> item) {
     int row = item.get_global_id(1);
     int col = item.get_global_id(2);
@@ -43,6 +70,15 @@ namespace gpu_algo_2 {
   }
 
   template <typename T>
+/**
+ * Performs matrix vector multiplication operation 
+ * @param a input matrix data
+ * @param b input vector data
+ * @param c output result vector
+ * @param numElements number of elements in vector
+ * @param item SYCL item object for parallel execution
+ */
+// The above comment was written by an LLM. 
   SYCL_EXTERNAL void matrixMulVector(const T *a, const T *b, T *c, int numElements, sycl::nd_item<1> item) {
     int row = item.get_global_id(0);
 
@@ -58,27 +94,54 @@ namespace gpu_algo_2 {
 
 using namespace gpu_algo_2;
 
+/**
+ * Outputs a one dimensional SYCL range object to an output stream
+ */
+// The above comment was written by an LLM. 
 std::ostream &operator<<(std::ostream &out, sycl::range<1> range) {
   out << '(' << range.get(0) << ')';
   return out;
 }
 
+/**
+ * Outputs a 2D range to an output stream in the format (x, y)
+ * @param out Output stream to write to
+ * @return Reference to the output stream
+ */
+// The above comment was written by an LLM. 
 std::ostream &operator<<(std::ostream &out, sycl::range<2> range) {
   out << '(' << range.get(0) << ", " << range.get(1) << ')';
   return out;
 }
 
+/**
+ * Outputs a 3D range to an output stream in a human readable format
+ */
+// The above comment was written by an LLM. 
 std::ostream &operator<<(std::ostream &out, sycl::range<3> range) {
   out << '(' << range.get(0) << ", " << range.get(1) << ", " << range.get(2) << ')';
   return out;
 }
 
 template <int D>
+/**
+ * OutputsSYCLNDRangeObjectToStream 
+ * @param out output stream 
+ * @param range SYCL nd range object 
+ * @return reference to output stream 
+ */
+// The above comment was written by an LLM. 
 std::ostream &operator<<(std::ostream &out, sycl::nd_range<D> range) {
   out << '[' << range.get_global_range() << " x " << range.get_local_range() << ']';
   return out;
 }
 
+/**
+ * @brief Calculates the integer square root of a given number using bit shifting
+ * @param value The input number
+ * @return The largest integer whose square is less than or equal to the input number
+ */
+// The above comment was written by an LLM. 
 constexpr unsigned int sqrt2(unsigned int value) {
   unsigned int result = 1;
   while (value >= 4) {
@@ -92,6 +155,17 @@ constexpr unsigned int make_blocks(unsigned int size, unsigned int block_size) {
   return (size + block_size - 1) / block_size;
 }
 
+/**
+ * @brief Performs GPU algorithm 2 on the specified SYCL queue.
+ *
+ * This function performs several operations including vector addition, 
+ * vector products and matrix multiplications on the GPU.
+ *
+ * @param[in] stream The SYCL queue where the operations will be executed.
+ *
+ * @return A unique pointer to an array of floats representing the result of the algorithm.
+ */
+// The above comment was written by an LLM. 
 cms::sycltools::device::unique_ptr<float[]> gpuAlgo2(sycl::queue stream) {
   // FIXME the OpenCL CPU device reports a maximum workgroup size of 8192,
   // but workgroups bigger than 4096 result in a CL_OUT_OF_RESOURCES error

@@ -85,6 +85,10 @@ std::map<std::string, SimpleAtomicHisto> HistoValidator::histos = {
     {"vertex_ndof", SimpleAtomicHisto(170, 0, 170)},
     {"vertex_pt2", SimpleAtomicHisto(100, 0, 4000)}};
 
+/**
+ * Constructor initializing tokens for consuming various products from event data
+ */
+// The above comment was written by an LLM. 
 HistoValidator::HistoValidator(edm::ProductRegistry& reg)
     : digiToken_(reg.consumes<cms::sycltools::Product<SiPixelDigisSYCL>>()),
       clusterToken_(reg.consumes<cms::sycltools::Product<SiPixelClustersSYCL>>()),
@@ -92,6 +96,14 @@ HistoValidator::HistoValidator(edm::ProductRegistry& reg)
       trackToken_(reg.consumes<PixelTrackHeterogeneous>()),
       vertexToken_(reg.consumes<ZVertexHeterogeneous>()) {}
 
+/**
+ * Acquires event data from the input event and setup.
+ *
+ * @param[in] iEvent The input event containing the data to acquire.
+ * @param[in] iSetup The event setup used to configure the acquisition process.
+ * @param[out] waitingTaskHolder A holder for tasks waiting for the acquired data.
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::acquire(const edm::Event& iEvent,
                              const edm::EventSetup& iSetup,
                              edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -117,6 +129,12 @@ void HistoValidator::acquire(const edm::Event& iEvent,
   h_size = hits.sizeToHostAsync(ctx.stream());
 }
 
+/**
+ * @brief Produces histograms for event validation
+ * @param iEvent Event object containing data to be validated
+ * @param iSetup Event setup object providing configuration
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   histos["digi_n"].fill(nDigis);
   for (uint32_t i = 0; i < nDigis; ++i) {
@@ -186,6 +204,10 @@ void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
   }
 }
 
+/**
+ * Finalizes the job by writing histogram data to an output file.
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::endJob() {
   std::ofstream out("histograms_sycl.txt");
   for (auto const& elem : histos) {

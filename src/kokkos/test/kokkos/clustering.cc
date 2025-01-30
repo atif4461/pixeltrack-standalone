@@ -16,6 +16,68 @@
 #include "plugin-SiPixelClusterizer/kokkos/gpuClustering.h"
 #include "plugin-SiPixelClusterizer/kokkos/gpuClusterChargeCut.h"
 
+/**
+ * @brief Test function to initialize variables and launch kernels for clustering algorithm.
+ 
+void test()
+ * @brief Lambda function to generate clusters.
+ * 
+ * This function generates clusters based on the input parameter kn.
+ * It creates big noise, isolated, first column, last column, diagonal, reversed, messy, and holes patterns.
+ * 
+ * @param kn Input parameter to determine the type of pattern to be generated.
+ 
+auto generateClusters = [&](int kn)
+ * @brief Kernel function to count modules.
+ * 
+ * This function counts the number of modules for each cluster.
+ * 
+ * @param d_id View of module IDs.
+ * @param d_moduleStart View of module start indices.
+ * @param d_clus View of cluster assignments.
+ * @param n Number of elements.
+ * @param i Thread index.
+ 
+KOKKOS_INLINE_FUNCTION void countModules(const uint16_t* d_id, const uint32_t* d_moduleStart, int* d_clus, const int& n, const size_t& i)
+ * @brief Kernel function to set zeros.
+ * 
+ * This function sets all values in the view to zero.
+ * 
+ * @param i Thread index.
+ 
+KOKKOS_INLINE_FUNCTION void setZero(const size_t& i)
+ * @brief Function to find clusters.
+ * 
+ * This function finds clusters based on the input views and parameters.
+ * 
+ * @param d_id View of module IDs.
+ * @param d_x View of x-coordinates.
+ * @param d_y View of y-coordinates.
+ * @param d_moduleStart View of module start indices.
+ * @param d_clusInModule View of cluster assignments per module.
+ * @param d_moduleId View of module IDs.
+ * @param d_clus View of cluster assignments.
+ * @param n Number of elements.
+ * @param teamPolicy Team policy for parallel execution.
+ * @param execSpace Execution space.
+ 
+void findClus(const uint16_t* d_id, const uint16_t* d_x, const uint16_t* d_y, const uint32_t* d_moduleStart, uint32_t* d_clusInModule, uint32_t* d_moduleId, int* d_clus, const int& n, const TeamPolicy& teamPolicy, ExecSpace& execSpace)
+ * @brief Function to apply charge cut to clusters.
+ * 
+ * This function applies charge cut to the clusters based on the input views and parameters.
+ * 
+ * @param d_id View of module IDs.
+ * @param d_adc View of ADC values.
+ * @param d_moduleStart View of module start indices.
+ * @param d_clusInModule View of cluster assignments per module.
+ * @param d_moduleId View of module IDs.
+ * @param d_clus View of cluster assignments.
+ * @param n Number of elements.
+ * @param teamPolicy Team policy for parallel execution.
+ * @param execSpace Execution space.
+ 
+void clusterChargeCut(const uint16_t* d_id, const uint16_t* d_adc, const uint32_t* d_moduleStart, uint32_t* d_clusInModule, const uint32_t* d_moduleId, int* d_clus, const int& n, const TeamPolicy& teamPolicy, ExecSpace& execSpace)*/
+// The above comment was written by an LLM. 
 void test() {
   using namespace gpuClustering;
 
@@ -386,6 +448,10 @@ void test() {
   }  /// end loop kkk
 }
 
+/**
+ * Initializes the Kokkos scope and sets up the execution environment 
+ */
+// The above comment was written by an LLM. 
 int main(void) {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
 #ifdef KOKKOS_BACKEND_CUDA

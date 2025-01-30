@@ -45,6 +45,16 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and hits covariance matrix with
+ * specific numerical data depending on the value of N at compile time.
+ *
+ * @param[out] hits Matrix to be filled with hit values.
+ * @param[out] hits_ge Hits covariance matrix to be populated.
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +97,76 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests the fit functionality of the program
+ 
+void testFit()
+ * @brief Fills the hits matrix with generated data and computes covariance matrix
+ * @param[out] hits The hits matrix
+ * @param[out] hits_ge The global error matrix for hits
+ 
+void fillHitsAndHitsCov(riemannFit::Matrix3xNd<N>& hits, riemannFit::Matrix6xNf<N>& hits_ge)
+ * @brief Performs a fast fit calculation
+ * @param[in] hits The input hits matrix
+ * @param[out] results The resulting fitted parameters
+ 
+void fastFit(const riemannFit::Matrix3xNd<N>& hits, Vector4d& results)
+ * @brief Prepares the broken line data for fitting
+ * @param[in] hits The input hits matrix
+ * @param[in] fast_fit_results The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[out] data The prepared broken line data
+ 
+void prepareBrokenLineData(const riemannFit::Matrix3xNd<N>& hits, const Vector4d& fast_fit_results, double B, brokenline::PreparedBrokenLineData<N>& data)
+ * @brief Performs a line fit calculation
+ * @param[in] hits_ge The global error matrix for hits
+ * @param[in] fast_fit_results The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[in] data The prepared broken line data
+ * @param[out] results The resulting fitted parameters
+ 
+void lineFit(const riemannFit::Matrix6xNf<N>& hits_ge, const Vector4d& fast_fit_results, double B, const brokenline::PreparedBrokenLineData<N>& data, riemannFit::LineFit& results)
+ * @brief Performs a circle fit calculation
+ * @param[in] hits The input hits matrix
+ * @param[in] hits_ge The global error matrix for hits
+ * @param[in] fast_fit_results The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[in] data The prepared broken line data
+ * @param[out] results The resulting fitted parameters
+ 
+void circleFit(const riemannFit::Matrix3xNd<N>& hits, const riemannFit::Matrix6xNf<N>& hits_ge, const Vector4d& fast_fit_results, double B, const brokenline::PreparedBrokenLineData<N>& data, brokenline::KarimakiCircleFit& results)
+ * @brief Loads the 2D covariance matrix from the global error matrix
+ * @param[in] hits_ge The global error matrix for hits
+ * @param[out] hits_cov The loaded 2D covariance matrix
+ 
+void loadCovariance2D(const riemannFit::Matrix6xNf<N>& hits_ge, riemannFit::Matrix2Nd<N>& hits_cov)
+ * @brief Performs a circle fit calculation using the provided hits and covariance matrices
+ * @param[in] hits The input hits matrix
+ * @param[in] hits_cov The 2D covariance matrix
+ * @param[in] fast_fit_results The initial fit results
+ * @param[in] rad The radii of the hits
+ * @param[in] B The curvature parameter
+ * @param[in] use_paruvr Whether to use par-uv-r parametrization
+ * @return The resulting fitted parameters
+ 
+riemannFit::CircleFit circleFit(const riemannFit::Matrix2Nd<N>& hits, const riemannFit::Matrix2Nd<N>& hits_cov, const Vector4d& fast_fit_results, const riemannFit::VectorNd<N>& rad, double B, bool use_paruvr)
+ * @brief Performs a line fit calculation using the provided hits and covariance matrices
+ * @param[in] hits The input hits matrix
+ * @param[in] hits_ge The global error matrix for hits
+ * @param[in] circle_fit_results The circle fit results
+ * @param[in] fast_fit_results The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[in] use_paruvr Whether to use par-uv-r parametrization
+ * @return The resulting fitted parameters
+ 
+riemannFit::LineFit lineFit(const riemannFit::Matrix3xNd<N>& hits, const riemannFit::Matrix6xNf<N>& hits_ge, const riemannFit::CircleFit& circle_fit_results, const Vector4d& fast_fit_results, double B, bool use_paruvr)
+ * @brief Converts the fitted parameters to par-uv-r representation
+ * @param[inout] circle_fit_results The circle fit results to convert
+ * @param[in] B The curvature parameter
+ * @param[in] use_paruvr Whether to use par-uv-r parametrization
+ 
+void par_uvrtopak(riemannFit::CircleFit& circle_fit_results, double B, bool use_paruvr)*/
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   riemannFit::Matrix3xNd<N> hits;
@@ -145,6 +225,10 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * Main program entry point 
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

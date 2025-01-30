@@ -17,6 +17,11 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces SiPixelGainCalibrationForHLTGPU object from binary file data
+ * @param eventSetup reference to EventSetup object to store produced calibration data
+ */
+// The above comment was written by an LLM. 
 void SiPixelGainCalibrationForHLTGPUESProducer::produce(edm::EventSetup& eventSetup) {
   using DecodingStructure = SiPixelGainForHLTonGPU_DecodingStructure;
   std::ifstream in(data_ / "gain.bin", std::ios::binary);

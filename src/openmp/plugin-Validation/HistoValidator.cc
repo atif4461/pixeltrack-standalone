@@ -65,6 +65,10 @@ std::map<std::string, SimpleAtomicHisto> HistoValidator::histos = {
     {"vertex_ndof", SimpleAtomicHisto(170, 0, 170)},
     {"vertex_pt2", SimpleAtomicHisto(100, 0, 4000)}};
 
+/**
+ * Constructor initializing tokens for consuming various data products from the event
+ */
+// The above comment was written by an LLM. 
 HistoValidator::HistoValidator(edm::ProductRegistry& reg)
     : digiToken_(reg.consumes<SiPixelDigisSoA>()),
       clusterToken_(reg.consumes<SiPixelClustersSoA>()),
@@ -72,6 +76,12 @@ HistoValidator::HistoValidator(edm::ProductRegistry& reg)
       trackToken_(reg.consumes<PixelTrackHeterogeneous>()),
       vertexToken_(reg.consumes<ZVertexHeterogeneous>()) {}
 
+/**
+ * @brief Produces histograms for event validation
+ * @param iEvent the input event
+ * @param iSetup the event setup
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const& digis = iEvent.get(digiToken_);
   auto const& clusters = iEvent.get(clusterToken_);
@@ -146,6 +156,10 @@ void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
   }
 }
 
+/**
+ * Finalizes the job by writing histogram data to a file.
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::endJob() {
   std::ofstream out("histograms_serial.txt");
   for (auto const& elem : histos) {

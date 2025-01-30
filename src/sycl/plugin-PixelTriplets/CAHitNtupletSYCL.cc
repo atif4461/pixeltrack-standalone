@@ -26,11 +26,23 @@ private:
   CAHitNtupletGeneratorOnGPU gpuAlgo_;
 };
 
+/**
+ * Constructor initializing the object with ProductRegistry reference
+ * @param reg Reference to the ProductRegistry object
+ */
+// The above comment was written by an LLM. 
 CAHitNtupletSYCL::CAHitNtupletSYCL(edm::ProductRegistry& reg)
     : tokenHitGPU_{reg.consumes<cms::sycltools::Product<TrackingRecHit2DSYCL>>()},
       tokenTrackGPU_{reg.produces<cms::sycltools::Product<PixelTrackHeterogeneous>>()},
       gpuAlgo_(reg) {}
 
+/**
+ * Produces tuples of hits in an event using GPU acceleration.
+ *
+ * @param iEvent The input event containing hit data.
+ * @param es The event setup object.
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletSYCL::produce(edm::Event& iEvent, const edm::EventSetup& es) {
   auto bf = 0.0114256972711507;  // 1/fieldInGeV
 

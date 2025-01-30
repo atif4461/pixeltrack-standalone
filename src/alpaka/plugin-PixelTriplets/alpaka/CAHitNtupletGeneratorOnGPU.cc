@@ -20,6 +20,10 @@ namespace {
     return x * x;
   }
 
+/**
+ * @return QualityCuts object containing parameters for track quality assessment
+ */
+// The above comment was written by an LLM. 
   cAHitNtupletGenerator::QualityCuts makeQualityCuts() {
     auto coeff = std::vector<double>{0.68177776, 0.74609577, -0.08035491, 0.00315399};  // chi2Coeff
     return cAHitNtupletGenerator::QualityCuts{// polynomial coefficients for the pT-dependent chi2 cut
@@ -46,6 +50,11 @@ namespace {
 using namespace std;
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
+/**
+ * @brief Constructor for CAHitNtupletGeneratorOnGPU class
+ * @param reg edm ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
   CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg)
       : m_params(true,               // onGPU
                  3,                  // minHitsPerNtuplet,
@@ -88,6 +97,14 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 #endif
   }
 
+/**
+ * @brief Generates tuples of tracking hits asynchronously on GPU
+ * @param hits_d 2D tracking hits on device
+ * @param bfield magnetic field strength
+ * @param queue execution queue
+ * @return generated pixel tracks
+ */
+// The above comment was written by an LLM. 
   PixelTrackAlpaka CAHitNtupletGeneratorOnGPU::makeTuplesAsync(TrackingRecHit2DAlpaka const& hits_d,
                                                                float bfield,
                                                                Queue& queue) const {

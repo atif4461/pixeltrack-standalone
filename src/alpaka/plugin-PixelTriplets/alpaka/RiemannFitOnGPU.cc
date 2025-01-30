@@ -6,6 +6,19 @@
 
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
+/**
+ * @brief Launches Riemann kernels on GPU for helix fit.
+ *
+ * This function launches a series of kernels on the GPU to perform helix fits
+ * on the provided hit data. It takes in the hit view, number of hits, maximum
+ * number of tuples, and a queue as input parameters.
+ *
+ * @param hv The hit view containing the hit data.
+ * @param nhits The total number of hits.
+ * @param maxNumberOfTuples The maximum number of tuples to process.
+ * @param queue The queue to launch the kernels on.
+ */
+// The above comment was written by an LLM. 
   void HelixFitOnGPU::launchRiemannKernels(HitsView const* hv,
                                            uint32_t nhits,
                                            uint32_t maxNumberOfTuples,

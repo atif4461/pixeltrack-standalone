@@ -36,6 +36,13 @@ namespace KOKKOS_NAMESPACE {
   }  // namespace Rfit
 
   template <int N>
+/**
+ * @brief Prints GPU memory layout sizes for debugging purposes
+ * @param vhits View of doubles representing hit data
+ * @param vhits_ge View of floats representing geometric hit data
+ * @param i Index for accessing specific hit data
+ */
+// The above comment was written by an LLM. 
   KOKKOS_INLINE_FUNCTION void kernelPrintSizes(Kokkos::View<double*, KokkosExecSpace> vhits,
                                                Kokkos::View<float*, KokkosExecSpace> vhits_ge,
                                                const int& i) {
@@ -58,6 +65,14 @@ namespace KOKKOS_NAMESPACE {
 using namespace KOKKOS_NAMESPACE;
 
 template <int N>
+/**
+ * Performs fast fit calculation on input data.
+ *
+ * @param[in]  vhits     Input data view
+ * @param[out] vresults  Output results view
+ * @param[in]  i        Index of the data to process
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void kernelFastFit(Kokkos::View<double*, KokkosExecSpace> vhits,
                                           Kokkos::View<double*, KokkosExecSpace> vresults,
                                           const int& i) {
@@ -76,6 +91,23 @@ KOKKOS_INLINE_FUNCTION void kernelFastFit(Kokkos::View<double*, KokkosExecSpace>
 #ifdef USE_BL
 
 template <int N>
+/**
+ * @brief Fits broken lines to input hit data in parallel using Kokkos.
+ *
+ * This function takes in various views of data including hits, geometry, 
+ * and fit inputs, as well as magnetic field strength and fit results objects.
+ * It prepares broken line data, performs line and circle fits, 
+ * and updates the fit results with the calculated parameters.
+ *
+ * @param[in]  vhits             View of doubles representing hit data.
+ * @param[in]  vhits_ge         View of floats representing geometric hit data.
+ * @param[in]  vfast_fit_input   View of doubles representing fast fit input data.
+ * @param[in]  B                Double representing magnetic field strength.
+ * @param[out] vcircle_fit     View of circle fit result objects.
+ * @param[out] vline_fit        View of line fit result objects.
+ * @param[in]  i                Integer index for threading.
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void kernelBrokenLineFit(Kokkos::View<double*, KokkosExecSpace> vhits,
                                                 Kokkos::View<float*, KokkosExecSpace> vhits_ge,
                                                 Kokkos::View<double*, KokkosExecSpace> vfast_fit_input,
@@ -117,6 +149,17 @@ KOKKOS_INLINE_FUNCTION void kernelBrokenLineFit(Kokkos::View<double*, KokkosExec
 #else
 
 template <int N>
+/**
+ * @brief Fits a circle to a set of 2D points with uncertainties using a linear algebra approach
+ * 
+ * @param[in] vhits View of 3D hit coordinates
+ * @param[in] vhits_ge View of 6D hit geometry errors
+ * @param[in] vfast_fit_input View of 4D input parameters for fast fit
+ * @param[in] B Magnetic field strength
+ * @param[out] vcircle_fit View of fitted circle parameters
+ * @param[in] i Index of current element being processed
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void kernelCircleFit(Kokkos::View<double*, KokkosExecSpace> vhits,
                                             Kokkos::View<float*, KokkosExecSpace> vhits_ge,
                                             Kokkos::View<double*, KokkosExecSpace> vfast_fit_input,
@@ -165,6 +208,17 @@ KOKKOS_INLINE_FUNCTION void kernelCircleFit(Kokkos::View<double*, KokkosExecSpac
 }
 
 template <int N>
+/**
+ * @brief Performs a line fit operation on a set of input data points
+ * @param[in] vhits Input data points in double precision
+ * @param[in] vhits_ge Additional input data points in single precision
+ * @param[in] B Magnetic field strength
+ * @param[in] vcircle_fit Circle fit results
+ * @param[in] vfast_fit_input Fast fit input parameters
+ * @param[out] vline_fit Line fit output results
+ * @param[in] i Index of the current data point being processed
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void kernelLineFit(Kokkos::View<double*, KokkosExecSpace> vhits,
                                           Kokkos::View<float*, KokkosExecSpace> vhits_ge,
                                           double B,
@@ -186,6 +240,16 @@ KOKKOS_INLINE_FUNCTION void kernelLineFit(Kokkos::View<double*, KokkosExecSpace>
 #endif
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and the corresponding columns of the hits_ge matrix
+ * based on the number of columns in the input matrix.
+ *
+ * @param[out] hits Matrix to be filled with hit values
+ * @param[out] hits_ge Matrix whose columns are partially filled with hit covariance values
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -228,6 +292,13 @@ KOKKOS_INLINE_FUNCTION void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Fills hits and hits covariance data structures
+ * @param[in,out] vhits Double precision view of hits data
+ * @param[in,out] vhits_ge Single precision view of hits geometry data
+ * @param[in] i Index of the data to be filled
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void kernelFillHitsAndHitsCov(Kokkos::View<double*, KokkosExecSpace> vhits,
                                                      Kokkos::View<float*, KokkosExecSpace> vhits_ge,
                                                      const int& i) {
@@ -241,6 +312,15 @@ KOKKOS_INLINE_FUNCTION void kernelFillHitsAndHitsCov(Kokkos::View<double*, Kokko
 }
 
 template <int N>
+/**
+ * @brief Test fitting functions
+ *
+ * This function tests various fitting functions including Fast Fit, Circle Fit and Line Fit.
+ * It initializes the necessary variables, performs fits on both CPU and GPU, and compares the results.
+ *
+ * @return void
+ */
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
 
@@ -390,6 +470,10 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): GPU\n" << p_line_fit_res->cov << std::endl;
 }
 
+/**
+ * Main program entry point 
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   testFit<4>();

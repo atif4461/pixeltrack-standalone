@@ -1,5 +1,12 @@
 #include "BrokenLineFitOnGPU.h"
 
+/**
+ * Launches broken line kernels on CPU for helix fit.
+ * @param hv              Hits view object
+ * @param hitsInFit        Number of hits in fit
+ * @param maxNumberOfTuples Maximum number of tuples
+ */
+// The above comment was written by an LLM. 
 void HelixFitOnGPU::launchBrokenLineKernelsOnCPU(HitsView const* hv, uint32_t hitsInFit, uint32_t maxNumberOfTuples) {
   assert(tuples_);
 

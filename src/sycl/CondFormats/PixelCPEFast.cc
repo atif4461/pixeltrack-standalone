@@ -30,6 +30,16 @@ PixelCPEFast::PixelCPEFast(std::string const &path) {
   }
 }
 
+/**
+ * @brief Retrieves the product asynchronously from the GPU.
+ *
+ * This method is used to fetch the product from the GPU in an asynchronous manner.
+ *
+ * @param stream The SYCL queue object representing the command queue.
+ *
+ * @return A pointer to the ParamsOnGPU structure containing the product data.
+ */
+// The above comment was written by an LLM. 
 const pixelCPEforGPU::ParamsOnGPU *PixelCPEFast::getGPUProductAsync(sycl::queue stream) const {
   const auto &data = gpuData_.dataForCurrentDeviceAsync(stream, [this](GPUData &data, sycl::queue stream) {
     // and now copy to device...

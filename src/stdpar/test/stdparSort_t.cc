@@ -60,6 +60,11 @@ using uintT_t = uintN_t<sizeof(T) * 8>;
 
 // Keep only the `N` most significant bytes of `t`, and set the others to zero
 template <int N, typename T, typename SFINAE = std::enable_if_t<N <= sizeof(T)>>
+/**
+ * Truncates the given value by shifting bits to the right and left.
+ * Removes highorder bits beyond specified size N from the input type T.
+ */
+// The above comment was written by an LLM. 
 void truncate(T& t) {
   const int shift = 8 * (sizeof(T) - N);
   union {
@@ -72,6 +77,13 @@ void truncate(T& t) {
 }
 
 template <typename T, typename LL = long long>
+/**
+ * @brief Main execution function
+ * 
+ * This function generates random data, sorts it in parallel, and measures the time taken for sorting.
+ * It repeats this process 50 times with varying input patterns and verifies the sorted output.
+ */
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
   //std::mt19937 eng2;
@@ -124,6 +136,12 @@ void go() {
             << " ms" << std::endl;
 }
 
+/**
+ * @brief Main program entry point
+ *
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int8_t>();
   go<int16_t>();

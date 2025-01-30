@@ -1,5 +1,10 @@
 #include "CUDADataFormats/SiPixelDigisSoA.h"
 
+/**
+ * Constructor initializing data structures with specified maximum number of FED words.
+ * @param maxFedWords Maximum number of FED words to allocate memory for.
+ */
+// The above comment was written by an LLM. 
 SiPixelDigisSoA::SiPixelDigisSoA(size_t maxFedWords) {
   xx_d = std::make_unique<uint16_t[]>(maxFedWords);
   yy_d = std::make_unique<uint16_t[]>(maxFedWords);

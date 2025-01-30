@@ -24,6 +24,13 @@ public:
 template <typename T>
 struct testPrefixScan {
   template <typename TAcc>
+/**
+ * Performs parallel operations on an array of elements within a block.
+ *
+ * @param acc accelerator object
+ * @param size number of elements in the block
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, unsigned int size) const {
     auto& ws = alpaka::declareSharedVar<T[32], __COUNTER__>(acc);
     auto& c = alpaka::declareSharedVar<T[1024], __COUNTER__>(acc);
@@ -53,6 +60,13 @@ struct testPrefixScan {
 template <typename T>
 struct testWarpPrefixScan {
   template <typename TAcc>
+/**
+ * @brief Performs parallel prefix scan operation on shared variables within a block of threads.
+ *
+ * @param acc Accelerator handle
+ * @param size Size of data being processed
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, uint32_t size) const {
 #if defined(ALPAKA_ACC_GPU_CUDA_ASYNC_BACKEND) && defined(__CUDA_ARCH__) || \
     defined(ALPAKA_ACC_GPU_HIP_ASYNC_BACKEND) && defined(__HIP_DEVICE_COMPILE__)
@@ -87,6 +101,14 @@ struct testWarpPrefixScan {
 
 struct init {
   template <typename TAcc>
+/**
+ * Performs an operation on a grid of elements setting their values.
+ * @param acc access object for the grid
+ * @param v pointer to the array of values to be modified
+ * @param val value to be assigned to each element in the grid
+ * @param n number of elements in the grid
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, uint32_t* v, uint32_t val, uint32_t n) const {
     for_each_element_in_grid(acc, n, [&](uint32_t index) {
       v[index] = val;
@@ -99,6 +121,14 @@ struct init {
 
 struct verify {
   template <typename TAcc>
+/**
+ * Performs verification of grid elements against an expected sequence.
+ *
+ * @param[in] acc Accessor object for grid operations
+ * @param[in] v Array of values to verify
+ * @param[in] n Number of elements in the array
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, uint32_t const* v, uint32_t n) const {
     for_each_element_in_grid(acc, n, [&](uint32_t index) {
       assert(v[index] == index + 1);
@@ -109,6 +139,131 @@ struct verify {
   }
 };
 
+/**
+ * @brief Main program entry point.
+ *
+ * This is the primary function where execution begins.
+ 
+  * @brief Initializes the environment.
+ 
+  * @brief Retrieves a reference to the first available device.
+ *
+ * Returns a constant reference to the device at index 0 from the list of devices for the current platform.
+ *
+ * @return A constant reference to the device object.
+ 
+  * @brief Creates a new command queue for the specified device.
+ *
+ * Constructs a new queue object associated with the provided device.
+ *
+ * @param device The device to create the queue for.
+ 
+  * @brief Configures warp-level parallelism parameters.
+ *
+ * Defines constants for threads per block and blocks per grid for warp-level operations.
+ 
+  * @brief Calculates the work division for warp-level tasks.
+ *
+ * Computes the work division based on the number of blocks and threads per block.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param blocksPerGrid Number of blocks in the grid.
+ * @param threadsPerBlockOrElementsPerThread Threads per block or elements per thread.
+ * @return Work division object.
+ 
+  * @brief Enqueues a task kernel for warp prefix scan operation.
+ *
+ * Submits a task kernel to the queue for executing the warp prefix scan operation.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param workDiv Work division object.
+ * @param func Function to execute.
+ * @param arg Argument for the function.
+ 
+  * @brief Configures block-level parallelism parameters.
+ *
+ * Prints a message indicating block-level operations.
+ 
+  * @brief Iterates over different block sizes for portable block prefix scan.
+ *
+ * Loops through various block sizes for testing purposes.
+ 
+  * @brief Calculates the work division for single-block tasks.
+ *
+ * Computes the work division based on the number of blocks and threads per block.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param blocksPerGrid2 Number of blocks in the grid.
+ * @param bs Block size or elements per thread.
+ * @return Work division object.
+ 
+  * @brief Enqueues a task kernel for portable block prefix scan operation.
+ *
+ * Submits a task kernel to the queue for executing the portable block prefix scan operation.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param workDivSingleBlock Work division object.
+ * @param func Function to execute.
+ * @param arg Argument for the function.
+ 
+  * @brief Tests multiblock prefix scan functionality.
+ *
+ * Performs multiple iterations of multiblock prefix scan with varying problem sizes.
+ 
+  * @brief Allocates memory buffers on the device.
+ *
+ * Creates device buffers for storing input and output data.
+ *
+ * @tparam T Data type.
+ * @param queue Command queue.
+ * @param numItems Number of items to allocate.
+ * @return Device buffer objects.
+ 
+  * @brief Initializes the input data.
+ *
+ * Enqueues an initialization task kernel to prepare the input data.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param workDivMultiBlockInit Work division object.
+ * @param func Initialization function.
+ * @param input_d Input data buffer.
+ * @param arg Argument for the function.
+ * @param num_items Number of items.
+ 
+  * @brief Performs the first step of multiblock prefix scan.
+ *
+ * Enqueues a task kernel to perform the initial step of the multiblock prefix scan algorithm.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param workDivMultiBlock Work division object.
+ * @param func First-step function.
+ * @param input_d Input data buffer.
+ * @param output1_d Output data buffer.
+ * @param num_items Number of items.
+ 
+  * @brief Performs the second step of multiblock prefix scan.
+ *
+ * Enqueues a task kernel to complete the multiblock prefix scan algorithm.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param workDivMultiBlockSecondStep Work division object.
+ * @param func Second-step function.
+ * @param input_d Input data buffer.
+ * @param output1_d Output data buffer.
+ * @param num_items Number of items.
+ * @param nBlocks Number of blocks.
+ 
+  * @brief Verifies the results.
+ *
+ * Enqueues a verification task kernel to validate the output.
+ *
+ * @tparam Acc1D Accelerator type.
+ * @param workDivMultiBlock Work division object.
+ * @param func Verification function.
+ * @param output1_d Output data buffer.
+ * @param num_items Number of items.
+ */
+// The above comment was written by an LLM. 
 int main() {
   initialise();
   Device const& device = devices<Platform>().at(0);

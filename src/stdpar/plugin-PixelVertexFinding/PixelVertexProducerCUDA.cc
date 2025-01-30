@@ -25,6 +25,11 @@ private:
   const float m_ptMin;
 };
 
+/**
+ * Constructor for PixelVertexProducerCUDA class 
+ * initializes member variables with product registry
+ */
+// The above comment was written by an LLM. 
 PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
     : tokenTrack_{reg.consumes<PixelTrack>()},
       tokenVertex_{reg.produces<ZVertex>()},
@@ -40,6 +45,13 @@ PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
       m_ptMin(0.5)  // 0.5 GeV
 {}
 
+/**
+ * Produces pixel vertex data from track data in an event.
+ *
+ * @param iEvent The event containing the track data.
+ * @param iSetup The event setup configuration.
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const* tracks = iEvent.get(tokenTrack_).get();
 

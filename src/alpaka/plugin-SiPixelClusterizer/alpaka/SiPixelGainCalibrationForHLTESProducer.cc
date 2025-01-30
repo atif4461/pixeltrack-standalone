@@ -23,6 +23,11 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     std::filesystem::path data_;
   };
 
+/**
+ * Produces SiPixelGainCalibrationForHLT data from binary file
+ * @param eventSetup reference to EventSetup object to store produced data
+ */
+// The above comment was written by an LLM. 
   void SiPixelGainCalibrationForHLTESProducer::produce(edm::EventSetup& eventSetup) {
     using DecodingStructure = SiPixelGainForHLTonGPU::DecodingStructure;
 

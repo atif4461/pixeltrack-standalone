@@ -32,11 +32,23 @@ namespace KOKKOS_NAMESPACE {
     edm::EDGetTokenT<cms::kokkos::Product<Kokkos::View<const float*, KokkosExecSpace>>> getToken_;
   };
 
+/**
+ * Constructor initializing the TestProducer2 object with a reference to an edm ProductRegistry
+ * @param reg Reference to an edm ProductRegistry object
+ */
+// The above comment was written by an LLM. 
   TestProducer2::TestProducer2(edm::ProductRegistry& reg)
       : getToken_(reg.consumes<cms::kokkos::Product<Kokkos::View<const float*, KokkosExecSpace>>>()) {
     nevents = 0;
   }
 
+/**
+ * Acquires an event and processes it within a scoped Kokkos context.
+ * @param event The input event to be processed.
+ * @param eventSetup The event setup associated with the input event.
+ * @param holder The waiting task with arena holder.
+ */
+// The above comment was written by an LLM. 
   void TestProducer2::acquire(edm::Event const& event,
                               edm::EventSetup const& eventSetup,
                               edm::WaitingTaskWithArenaHolder holder) {
@@ -51,6 +63,12 @@ namespace KOKKOS_NAMESPACE {
               << array.data() << std::endl;
   }
 
+/**
+ * @brief Produces data for an event in the TestProducer2 module
+ * @param event Reference to the current event being processed
+ * @param eventSetup Constant reference to the event setup configuration
+ */
+// The above comment was written by an LLM. 
   void TestProducer2::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
     std::cout << "TestProducer2::produce Event " << event.eventID() << " stream " << event.streamID() << std::endl;
     ++nevents;

@@ -51,6 +51,10 @@ namespace KOKKOS_NAMESPACE {
   std::mutex CountValidator::sumTrackDifferenceMutex;
   float CountValidator::sumTrackDifference = 0;
 
+/**
+ * Constructor initializing validator with necessary tokens from product registry
+ */
+// The above comment was written by an LLM. 
   CountValidator::CountValidator(edm::ProductRegistry& reg)
       : digiClusterCountToken_(reg.consumes<DigiClusterCount>()),
         trackCountToken_(reg.consumes<TrackCount>()),
@@ -60,6 +64,12 @@ namespace KOKKOS_NAMESPACE {
         trackToken_(reg.consumes<cms::kokkos::shared_ptr<pixelTrack::TrackSoA, KokkosHostMemSpace>>()),
         vertexToken_(reg.consumes<cms::kokkos::shared_ptr<ZVertexSoA, KokkosHostMemSpace>>()) {}
 
+/**
+ * @brief Produces validation results for an event
+ * @param iEvent The input event
+ * @param iSetup The event setup
+ */
+// The above comment was written by an LLM. 
   void CountValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     // values from cuda program
     constexpr float trackTolerance = 0.012f;  // in 200 runs of 1k events all events are withing this tolerance
@@ -136,6 +146,12 @@ namespace KOKKOS_NAMESPACE {
     }
   }
 
+/**
+ * Ends the job and prints validation results to the console.
+ * If all events pass validation it displays success message with average differences,
+ * otherwise it displays failure message with number of failed events and throws runtime error.
+ */
+// The above comment was written by an LLM. 
   void CountValidator::endJob() {
     if (allEvents == goodEvents) {
       std::cout << "CountValidator: all " << allEvents << " events passed validation\n";

@@ -6,6 +6,11 @@
 #include "CUDACore/ScopedSetDevice.h"
 
 namespace cms::cuda {
+/**
+ * Destroys a CUDA event object when it goes out of scope.
+ * @param event The CUDA event object to be destroyed.
+ */
+// The above comment was written by an LLM. 
   void EventCache::Deleter::operator()(cudaEvent_t event) const {
     if (device_ != -1) {
       ScopedSetDevice deviceGuard{device_};
@@ -17,6 +22,12 @@ namespace cms::cuda {
   // getEventCache() only if we have CUDA devices present
   EventCache::EventCache() : cache_(deviceCount()) {}
 
+/**
+ * Retrieves an event from the cache, ensuring that the captured work has been completed.
+ *
+ * @return A shared pointer to the retrieved event.
+ */
+// The above comment was written by an LLM. 
   SharedEventPtr EventCache::get() {
     const auto dev = currentDevice();
     auto event = makeOrGet(dev);
@@ -41,6 +52,14 @@ namespace cms::cuda {
     return event;
   }
 
+/**
+ * Returns a shared pointer to an event object for the specified device,
+ * creating one if it does not already exist in the cache.
+ *
+ * @param dev The identifier of the device for which to retrieve or create an event.
+ * @return A shared pointer to the event object for the specified device.
+ */
+// The above comment was written by an LLM. 
   SharedEventPtr EventCache::makeOrGet(int dev) {
     return cache_[dev].makeOrGet([dev]() {
       cudaEvent_t event;
@@ -50,6 +69,9 @@ namespace cms::cuda {
     });
   }
 
+/**
+ * Resets the event cache contents while preserving device holders for testing purposes.*/
+// The above comment was written by an LLM. 
   void EventCache::clear() {
     // Reset the contents of the caches, but leave an
     // edm::ReusableObjectHolder alive for each device. This is needed
@@ -60,6 +82,10 @@ namespace cms::cuda {
     cache_.resize(deviceCount());
   }
 
+/**
+ * Returns the event cache in a thread safe manner
+ */
+// The above comment was written by an LLM. 
   EventCache& getEventCache() {
     // the public interface is thread safe
     static EventCache cache;

@@ -28,12 +28,23 @@ namespace KOKKOS_NAMESPACE {
     CAHitNtupletGeneratorOnGPU gpuAlgo_;
   };
 
+/**
+ * Constructor for CAHitNtupletKokkos class 
+ * initializes data members with product registry information 
+ */
+// The above comment was written by an LLM. 
   CAHitNtupletKokkos::CAHitNtupletKokkos(edm::ProductRegistry& reg)
       : tokenHitGPU_{reg.consumes<cms::kokkos::Product<TrackingRecHit2DKokkos<KokkosDeviceMemSpace>>>()},
         tokenTrackGPU_{
             reg.produces<cms::kokkos::Product<cms::kokkos::shared_ptr<pixelTrack::TrackSoA, KokkosDeviceMemSpace>>>()},
         gpuAlgo_(reg) {}
 
+/**
+ * Produces event data by processing hits and creating tuples in parallel using Kokkos
+ * @param iEvent reference to the current event being processed
+ * @param es reference to the event setup containing configuration data
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletKokkos::produce(edm::Event& iEvent, const edm::EventSetup& es) {
     auto bf = 0.0114256972711507;  // 1/fieldInGeV
 

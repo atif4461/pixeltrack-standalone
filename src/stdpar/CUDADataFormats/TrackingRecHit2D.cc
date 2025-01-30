@@ -3,6 +3,13 @@
 #include "CUDADataFormats/TrackingRecHit2D.h"
 #include "CUDADataFormats/TrackingRecHit2DSOAView.h"
 
+/**
+ * @brief Constructor for TrackingRecHit2D class
+ * @param nHits number of hits
+ * @param cpeParams parameters for GPU
+ * @param hitsModuleStart start index of hits per module
+ */
+// The above comment was written by an LLM. 
 TrackingRecHit2D::TrackingRecHit2D(uint32_t nHits,
                                    pixelCPEforGPU::ParamsOnGPU const* cpeParams,
                                    uint32_t const* hitsModuleStart)

@@ -3,6 +3,15 @@
 namespace {
   constexpr int NUM_VALUES = 1000;
 
+/**
+ * @brief Computes the product of two vectors at specific positions.
+ * @param[in] a First input vector.
+ * @param[in] b Second input vector.
+ * @param[out] c Resulting value from vector product.
+ * @param[in] row Row index for first vector.
+ * @param[in] col Column index for second vector.
+ */
+// The above comment was written by an LLM. 
   KOKKOS_INLINE_FUNCTION void vectorProd(const Kokkos::View<float*, KokkosExecSpace> a,
                                          const Kokkos::View<float*, KokkosExecSpace> b,
                                          Kokkos::View<float**, KokkosExecSpace> c,
@@ -13,6 +22,46 @@ namespace {
 }  // namespace
 
 namespace KOKKOS_NAMESPACE {
+/**
+ * @brief Initializes device views with host data and performs parallel operations
+ * @param execSpace Execution space for Kokkos operations
+ * @return Device view of floats
+ 
+ 
+  * @brief Performs element wise addition of two vectors
+ * @param[in] d_a First vector
+ * @param[in] d_b Second vector
+ * @param[out] d_c Resultant vector
+ * @param[in] i Index for parallel iteration
+  
+  * @brief Computes outer product of two vectors
+ * @param[in] d_a First vector
+ * @param[in] d_b Second vector
+ * @param[out] d_ma Resultant matrix
+ * @param[in] row Row index for parallel iteration
+ * @param[in] col Column index for parallel iteration
+ 
+  * @brief Computes outer product of two vectors
+ * @param[in] d_a First vector
+ * @param[in] d_c Second vector
+ * @param[out] d_mb Resultant matrix
+ * @param[in] row Row index for parallel iteration
+ * @param[in] col Column index for parallel iteration
+ 
+  * @brief Computes matrix product of two matrices
+ * @param[in] d_ma First matrix
+ * @param[in] d_mb Second matrix
+ * @param[out] d_mc Resultant matrix
+ * @param[in] row Row index for parallel iteration
+ * @param[in] col Column index for parallel iteration
+ 
+  * @brief Computes dot product of a matrix and a vector
+ * @param[in] d_ma Matrix
+ * @param[in] d_b Vector
+ * @param[out] d_c Resultant vector
+ * @param[in] row Row index for parallel iteration
+ */
+// The above comment was written by an LLM. 
   Kokkos::View<float*, KokkosExecSpace> kokkosAlgo1(KokkosExecSpace const& execSpace) {
     Kokkos::View<float*, KokkosExecSpace> d_a{"d_a", NUM_VALUES};
     Kokkos::View<float*, KokkosExecSpace> d_b{"d_b", NUM_VALUES};

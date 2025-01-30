@@ -9,6 +9,12 @@ namespace {
   constexpr int ELEMENTS_PER_TEAM = 1000;
   constexpr int ELEMENTS = TEAMS * ELEMENTS_PER_TEAM;
 
+/**
+ * @brief Parallel kernel function to scale data elements in parallel using Kokkos.
+ * @param data View of integers to be scaled.
+ * @param teamMember Team policy member type for parallel execution.
+ */
+// The above comment was written by an LLM. 
   KOKKOS_INLINE_FUNCTION void kernel(Kokkos::View<int*, KokkosExecSpace> data,
                                      Kokkos::TeamPolicy<KokkosExecSpace>::member_type const& teamMember) {
     //printf("%d %d %d\n", static_cast<int>(teamMember.league_rank()), static_cast<int>(teamMember.team_size()), static_cast<int>(teamMember.team_rank()));
@@ -63,6 +69,10 @@ void test() {
       });
 }
 
+/**
+ * Initializes the Kokkos scope and calls the test function
+ */
+// The above comment was written by an LLM. 
 int main() {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   test();

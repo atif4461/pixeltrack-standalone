@@ -25,6 +25,10 @@ namespace KOKKOS_NAMESPACE {
   BeamSpotToKokkos::BeamSpotToKokkos(edm::ProductRegistry& reg)
       : bsPutToken_{reg.produces<cms::kokkos::Product<BeamSpotKokkos<KokkosDeviceMemSpace>>>()} {}
 
+/**
+ * Produces beam spot data in Kokkos environment 
+ */
+// The above comment was written by an LLM. 
   void BeamSpotToKokkos::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     auto const& bsRaw = iSetup.get<BeamSpotPOD>();
     cms::kokkos::ScopedContextProduce<KokkosExecSpace> ctx;

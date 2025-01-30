@@ -30,6 +30,10 @@ private:
 #endif
 };
 
+/**
+ * Constructor initializing BeamSpotToCUDA object with product registry
+ */
+// The above comment was written by an LLM. 
 BeamSpotToCUDA::BeamSpotToCUDA(edm::ProductRegistry& reg)
     : bsPutToken_(reg.produces<cms::cuda::Product<BeamSpotCUDA>>())
 #ifdef CUDAUVM_DISABLE_MANAGED_BEAMSPOT
@@ -39,6 +43,12 @@ BeamSpotToCUDA::BeamSpotToCUDA(edm::ProductRegistry& reg)
 {
 }
 
+/**
+ * Produces beam spot data for an event and transfers it to the GPU
+ * @param iEvent the event being processed
+ * @param iSetup the event setup containing configuration data
+ */
+// The above comment was written by an LLM. 
 void BeamSpotToCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
 #ifdef CUDAUVM_DISABLE_MANAGED_BEAMSPOT
   *bsHost = iSetup.get<BeamSpotPOD>();

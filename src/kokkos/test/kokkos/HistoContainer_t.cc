@@ -9,6 +9,31 @@
 #include "KokkosCore/HistoContainer.h"
 
 template <typename T>
+/**
+ * @brief Main execution function
+ *
+ * This function generates random data, creates histograms, and performs various tests on them.
+ 
+void go()
+ * @brief Verify function for histogram contents
+ *
+ * Verifies that the values in two positions of the histogram satisfy certain conditions.
+ *
+ * @param i The index of the first position
+ * @param k The value at the second position
+ * @param t1 The first value to compare
+ * @param t2 The second value to compare
+ 
+auto verify = [&](uint32_t i, uint32_t k, uint32_t t1, uint32_t t2)
+ * @brief Increment operator for histogram indices
+ *
+ * Increments the given index modulo the number of bins in the histogram.
+ *
+ * @param k The index to increment
+ * @return The incremented index
+ 
+auto incr = [](auto& k) { return k = (k + 1) % Hist::nbins(); }*/
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
   std::uniform_int_distribution<T> rgen(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
@@ -148,6 +173,14 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ *
+ * Initializes Kokkos scope guard and calls go function with different data types
+ *
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main() {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   go<int16_t>();

@@ -4,6 +4,28 @@
 #include <iterator>
 #include <vector>
 
+/**
+ * @brief Tests the functionality of binary find operations
+ 
+  * @brief Finds the lower bound of a given value in a sorted range
+ * @param first Beginning of the sorted range
+ * @param last End of the sorted range
+ * @param val Value to search for
+ * @return Iterator pointing to the first element not less than val
+ 
+ * @brief Finds the upper bound of a given value in a sorted range
+ * @param first Beginning of the sorted range
+ * @param last End of the sorted range
+ * @param val Value to search for
+ * @return Iterator pointing to the first element greater than val
+ 
+ * @brief Performs a classic binary search for a value in a sorted range
+ * @param first Beginning of the sorted range
+ * @param last End of the sorted range
+ * @param val Value to search for
+ * @return Iterator pointing to the value if found, end iterator otherwise
+ */
+// The above comment was written by an LLM. 
 void testBinaryFind() {
   std::vector<int> data = {1, 1, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6};
 

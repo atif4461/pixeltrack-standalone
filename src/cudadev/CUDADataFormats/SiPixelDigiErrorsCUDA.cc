@@ -6,6 +6,13 @@
 #include "CUDACore/memsetAsync.h"
 #include "CUDADataFormats/SiPixelDigiErrorsCUDA.h"
 
+/**
+ * Constructor for initializing the object with specified parameters
+ * @param maxFedWords Maximum number of FED words
+ * @param errors Formatter errors object
+ * @param stream CUDA stream for asynchronous operations
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsCUDA::SiPixelDigiErrorsCUDA(size_t maxFedWords, SiPixelFormatterErrors errors, cudaStream_t stream)
     : data_d(cms::cuda::make_device_unique<SiPixelErrorCompact[]>(maxFedWords, stream)),
       error_d(cms::cuda::make_device_unique<SiPixelErrorCompactVector>(stream)),
@@ -24,6 +31,10 @@ void SiPixelDigiErrorsCUDA::copyErrorToHostAsync(cudaStream_t stream) {
   cms::cuda::copyAsync(error_h, error_d, stream);
 }
 
+/**
+ * Returns host data error asynchronously from device memory to host memory
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsCUDA::HostDataError SiPixelDigiErrorsCUDA::dataErrorToHostAsync(cudaStream_t stream) const {
   // On one hand size() could be sufficient. On the other hand, if
   // someone copies the SimpleVector<>, (s)he might expect the data

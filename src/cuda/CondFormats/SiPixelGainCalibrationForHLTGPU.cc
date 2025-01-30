@@ -4,6 +4,12 @@
 #include "CondFormats/SiPixelGainForHLTonGPU.h"
 #include "CUDACore/cudaCheck.h"
 
+/**
+ * Constructor initializing SiPixelGainCalibrationForHLTGPU object with gain data
+ * @param gain reference to SiPixelGainForHLTonGPU object containing gain calibration data
+ * @param gainData vector of character data representing gain values
+ */
+// The above comment was written by an LLM. 
 SiPixelGainCalibrationForHLTGPU::SiPixelGainCalibrationForHLTGPU(SiPixelGainForHLTonGPU const& gain,
                                                                  std::vector<char> gainData)
     : gainData_(std::move(gainData)) {
@@ -13,11 +19,22 @@ SiPixelGainCalibrationForHLTGPU::SiPixelGainCalibrationForHLTGPU(SiPixelGainForH
 
 SiPixelGainCalibrationForHLTGPU::~SiPixelGainCalibrationForHLTGPU() { cudaCheck(cudaFreeHost(gainForHLTonHost_)); }
 
+/**
+ * Destructor for GPUData object releasing allocated memory on the GPU 
+ */
+// The above comment was written by an LLM. 
 SiPixelGainCalibrationForHLTGPU::GPUData::~GPUData() {
   cudaCheck(cudaFree(gainForHLTonGPU));
   cudaCheck(cudaFree(gainDataOnGPU));
 }
 
+/**
+ * Returns a pointer to the GPU product of SiPixelGainForHLTonGPU asynchronously.
+ *
+ * @param[in] cudaStream CUDA stream for asynchronous operation
+ * @return Pointer to the GPU product of SiPixelGainForHLTonGPU
+ */
+// The above comment was written by an LLM. 
 const SiPixelGainForHLTonGPU* SiPixelGainCalibrationForHLTGPU::getGPUProductAsync(cudaStream_t cudaStream) const {
   const auto& data = gpuData_.dataForCurrentDeviceAsync(cudaStream, [this](GPUData& data, cudaStream_t stream) {
     cudaCheck(cudaMalloc((void**)&data.gainForHLTonGPU, sizeof(SiPixelGainForHLTonGPU)));

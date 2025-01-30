@@ -14,11 +14,22 @@
 
 SiPixelRawDataError::SiPixelRawDataError() {}
 
+/**
+ * Constructor initializing error data with 32bit error word, type and FED identifier
+ */
+// The above comment was written by an LLM. 
 SiPixelRawDataError::SiPixelRawDataError(uint32_t errorWord32, const int errorType, int fedId)
     : errorWord32_(errorWord32), errorType_(errorType), fedId_(fedId) {
   setMessage();
 }
 
+/**
+ * Constructor initializing pixel raw data error with error word, type and FED ID
+ * @param errorWord64 64bit error word
+ * @param errorType type of error
+ * @param fedId FED identifier
+ */
+// The above comment was written by an LLM. 
 SiPixelRawDataError::SiPixelRawDataError(uint64_t errorWord64, const int errorType, int fedId)
     : errorWord64_(errorWord64), errorType_(errorType), fedId_(fedId) {
   setMessage();
@@ -34,6 +45,11 @@ void SiPixelRawDataError::setWord32(uint32_t errorWord32) { errorWord32_ = error
 
 void SiPixelRawDataError::setWord64(uint64_t errorWord64) { errorWord64_ = errorWord64; }
 
+/**
+ * Sets the type of error in the raw data object
+ * @param errorType integer value representing the type of error
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawDataError::setType(int errorType) {
   errorType_ = errorType;
   setMessage();
@@ -41,6 +57,10 @@ void SiPixelRawDataError::setType(int errorType) {
 
 void SiPixelRawDataError::setFedId(int fedId) { fedId_ = fedId; }
 
+/**
+ * Sets the error message based on the current error type.
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawDataError::setMessage() {
   switch (errorType_) {
     case (25): {

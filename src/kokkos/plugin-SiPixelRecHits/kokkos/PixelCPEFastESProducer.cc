@@ -20,6 +20,10 @@ namespace KOKKOS_NAMESPACE {
     std::string data_;
   };
 
+/**
+ * Produces pixel CPE fast parameters from binary file and stores them on GPU memory space
+ */
+// The above comment was written by an LLM. 
   void PixelCPEFastESProducer::produce(edm::EventSetup &eventSetup) {
     std::ifstream in((data_ + "/cpefast.bin").c_str(), std::ios::binary);
     in.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);

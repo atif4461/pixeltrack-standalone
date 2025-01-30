@@ -27,6 +27,12 @@ TestProducer::TestProducer(edm::ProductRegistry& reg)
     : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
       putToken_(reg.produces<cms::sycltools::Product<cms::sycltools::device::unique_ptr<float[]>>>()) {}
 
+/**
+ * Produce data for an event in the framework of a particle physics experiment
+ * @param event Reference to the current event being processed
+ * @param eventSetup Constant reference to the setup for the current event
+ */
+// The above comment was written by an LLM. 
 void TestProducer::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
   auto const value = event.get(rawGetToken_).FEDData(1200).size();
   std::cout << "TestProducer  Event " << event.eventID() << " stream " << event.streamID() << " ES int "

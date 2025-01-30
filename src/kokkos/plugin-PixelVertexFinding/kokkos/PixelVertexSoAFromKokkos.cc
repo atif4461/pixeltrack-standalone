@@ -35,6 +35,10 @@ namespace KOKKOS_NAMESPACE {
       : tokenKokkos_(reg.consumes<cms::kokkos::Product<VerticesDeviceMemSpace>>()),
         tokenSOA_(reg.produces<VerticesHostMemSpace>()) {}
 
+/**
+ * Acquires event data from the input event and setup 
+ * and initializes the vertex SoA object in host memory space */
+// The above comment was written by an LLM. 
   void PixelVertexSoAFromKokkos::acquire(edm::Event const& iEvent,
                                          edm::EventSetup const& iSetup,
                                          edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -46,6 +50,10 @@ namespace KOKKOS_NAMESPACE {
     cms::kokkos::deep_copy(ctx.execSpace(), m_soa, inputData);
   }
 
+/**
+ * Produces pixel vertex data in StructureOfArrays format and stores it in the event
+ */
+// The above comment was written by an LLM. 
   void PixelVertexSoAFromKokkos::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
     // No copies....
     iEvent.emplace(tokenSOA_, std::move(m_soa));

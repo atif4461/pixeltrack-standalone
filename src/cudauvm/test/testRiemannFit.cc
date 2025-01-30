@@ -45,6 +45,16 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and the corresponding columns of the hits_ge matrix
+ * based on the number of columns in the hits matrix at compile time.
+ *
+ * @param[out] hits Matrix to be filled with hit values
+ * @param[out] hits_ge Matrix to be partially filled with hit covariance values
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +97,76 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests the fitting functions with generated hits
+ 
+void testFit()
+ * @brief Fills the hits matrix and its covariance matrix
+ * @param[out] hits The hit matrix
+ * @param[out] hits_ge The hit covariance matrix
+ 
+fillHitsAndHitsCov(Rfit::Matrix3xNd<N>& hits, Rfit::Matrix6xNf<N>& hits_ge)
+ * @brief Performs a fast fit of the track parameters
+ * @param[in] hits The hit matrix
+ * @param[out] fast_fit_results The fitted track parameters
+ 
+Rfit::Fast_fit(const Rfit::Matrix3xNd<N>& hits, Vector4d& fast_fit_results)
+ * @brief Prepares the broken line data for fitting
+ * @param[in] hits The hit matrix
+ * @param[in] fast_fit_results The initial track parameters
+ * @param[in] B The magnetic field strength
+ * @param[out] data The prepared broken line data
+ 
+BrokenLine::prepareBrokenLineData(const Rfit::Matrix3xNd<N>& hits, const Vector4d& fast_fit_results, double B, BrokenLine::PreparedBrokenLineData<N>& data)
+ * @brief Performs a line fit of the track parameters
+ * @param[in] hits_ge The hit covariance matrix
+ * @param[in] fast_fit_results The initial track parameters
+ * @param[in] B The magnetic field strength
+ * @param[in] data The prepared broken line data
+ * @param[out] line_fit_results The fitted track parameters
+ 
+BrokenLine::BL_Line_fit(const Rfit::Matrix6xNf<N>& hits_ge, const Vector4d& fast_fit_results, double B, const BrokenLine::PreparedBrokenLineData<N>& data, Rfit::line_fit& line_fit_results)
+ * @brief Performs a circle fit of the track parameters
+ * @param[in] hits The hit matrix
+ * @param[in] hits_ge The hit covariance matrix
+ * @param[in] fast_fit_results The initial track parameters
+ * @param[in] B The magnetic field strength
+ * @param[in] data The prepared broken line data
+ * @param[out] circle_fit_results The fitted track parameters
+ 
+BrokenLine::BL_Circle_fit(const Rfit::Matrix3xNd<N>& hits, const Rfit::Matrix6xNf<N>& hits_ge, const Vector4d& fast_fit_results, double B, const BrokenLine::PreparedBrokenLineData<N>& data, BrokenLine::karimaki_circle_fit& circle_fit_results)
+ * @brief Loads the 2D covariance matrix from the hit covariance matrix
+ * @param[in] hits_ge The hit covariance matrix
+ * @param[out] hits_cov The 2D covariance matrix
+ 
+Rfit::loadCovariance2D(const Rfit::Matrix6xNf<N>& hits_ge, Rfit::Matrix2Nd<N>& hits_cov)
+ * @brief Performs a circle fit of the track parameters
+ * @param[in] hits The hit matrix
+ * @param[in] hits_cov The 2D covariance matrix
+ * @param[in] fast_fit_results The initial track parameters
+ * @param[in] rad The radii of the hits
+ * @param[in] B The magnetic field strength
+ * @param[in] use_radius Whether to use the radius in the fit
+ * @param[out] circle_fit_results The fitted track parameters
+ 
+Rfit::Circle_fit(const Rfit::Matrix2Xd<N>& hits, const Rfit::Matrix2Nd<N>& hits_cov, const Vector4d& fast_fit_results, const Rfit::VectorNd<N>& rad, double B, bool use_radius)
+ * @brief Performs a line fit of the track parameters
+ * @param[in] hits The hit matrix
+ * @param[in] hits_ge The hit covariance matrix
+ * @param[in] circle_fit_results The circle fit results
+ * @param[in] fast_fit_results The initial track parameters
+ * @param[in] B The magnetic field strength
+ * @param[in] use_radius Whether to use the radius in the fit
+ * @param[out] line_fit_results The fitted track parameters
+ 
+Rfit::Line_fit(const Rfit::Matrix3xNd<N>& hits, const Rfit::Matrix6xNf<N>& hits_ge, const Rfit::circle_fit& circle_fit_results, const Vector4d& fast_fit_results, double B, bool use_radius)
+ * @brief Converts the circle fit parameters to uvrt format
+ * @param[inout] circle_fit_results The circle fit results
+ * @param[in] B The magnetic field strength
+ * @param[in] use_radius Whether to use the radius in the conversion
+ 
+Rfit::par_uvrtopak(Rfit::circle_fit& circle_fit_results, double B, bool use_radius)*/
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -144,6 +224,13 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * @brief Main program entry point
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

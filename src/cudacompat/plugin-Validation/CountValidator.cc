@@ -42,6 +42,10 @@ private:
   edm::EDGetTokenT<ZVertexHeterogeneous> vertexToken_;
 };
 
+/**
+ * Constructor initializing validator with necessary tokens from product registry
+ */
+// The above comment was written by an LLM. 
 CountValidator::CountValidator(edm::ProductRegistry& reg)
     : digiClusterCountToken_(reg.consumes<DigiClusterCount>()),
       trackCountToken_(reg.consumes<TrackCount>()),
@@ -51,6 +55,18 @@ CountValidator::CountValidator(edm::ProductRegistry& reg)
       trackToken_(reg.consumes<PixelTrackHeterogeneous>()),
       vertexToken_(reg.consumes<ZVertexHeterogeneous>()) {}
 
+/**
+ * @brief Produces validation results for an event by comparing counts of various physics objects.
+ *
+ * This function checks the consistency between different collections of physics objects,
+ * such as digi clusters, tracks, and vertices, within a given event. It verifies that the
+ * actual number of these objects matches the expected counts stored in dedicated data structures.
+ * Any discrepancies found during this process are logged and tracked for further analysis.
+ *
+ * @param iEvent The input event containing the physics object collections to be validated.
+ * @param iSetup The event setup providing additional configuration information.
+ */
+// The above comment was written by an LLM. 
 void CountValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   constexpr float trackTolerance = 0.012f;  // in 200 runs of 1k events all events are withing this tolerance
   constexpr int vertexTolerance = 1;
@@ -125,6 +141,10 @@ void CountValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
   }
 }
 
+/**
+ * Ends the job and prints validation results to the console, including event counts and average differences,
+ * throwing an exception if validation fails */
+// The above comment was written by an LLM. 
 void CountValidator::endJob() {
   if (allEvents == goodEvents) {
     std::cout << "CountValidator: all " << allEvents << " events passed validation\n";

@@ -6,6 +6,13 @@
 #include "Source.h"
 
 namespace {
+/**
+ * Reads raw data from an input stream into a collection of FED raw data objects
+ * @param is Input stream containing raw data
+ * @param nfeds Number of FEDs to read from the stream
+ * @return Collection of FED raw data objects populated with data from the stream
+ */
+// The above comment was written by an LLM. 
   FEDRawDataCollection readRaw(std::ifstream &is, unsigned int nfeds) {
     FEDRawDataCollection rawCollection;
     for (unsigned int ifed = 0; ifed < nfeds; ++ifed) {
@@ -23,6 +30,15 @@ namespace {
 }  // namespace
 
 namespace edm {
+/**
+ * Constructor for Source class
+ * @param maxEvents maximum number of events to process
+ * @param runForMinutes duration to run in minutes
+ * @param reg ProductRegistry reference
+ * @param datadir data directory path
+ * @param validation flag for validation mode
+ */
+// The above comment was written by an LLM. 
   Source::Source(
       int maxEvents, int runForMinutes, ProductRegistry &reg, std::filesystem::path const &datadir, bool validation)
       : maxEvents_(maxEvents),
@@ -83,12 +99,23 @@ namespace edm {
     }
   }
 
+/**
+ * Starts the processing of the source data when run time is nonnegative
+ */
+// The above comment was written by an LLM. 
   void Source::startProcessing() {
     if (runForMinutes_ >= 0) {
       startTime_ = std::chrono::steady_clock::now();
     }
   }
 
+/**
+ * @brief Produces an event based on the provided parameters
+ * @param streamId The ID of the stream
+ * @param reg The product registry
+ * @return A unique pointer to the produced event or nullptr if production should stop
+ */
+// The above comment was written by an LLM. 
   std::unique_ptr<Event> Source::produce(int streamId, ProductRegistry const &reg) {
     if (shouldStop_) {
       return nullptr;

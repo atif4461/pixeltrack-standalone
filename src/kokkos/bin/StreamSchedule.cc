@@ -12,6 +12,16 @@
 #include "StreamSchedule.h"
 
 namespace edm {
+/**
+ * Constructor for StreamSchedule object
+ * @param reg ProductRegistry instance
+ * @param pluginManager PluginManager reference
+ * @param source Source pointer
+ * @param eventSetup EventSetup constant pointer
+ * @param streamId integer identifier for stream
+ * @param path vector of string constants representing module paths
+ */
+// The above comment was written by an LLM. 
   StreamSchedule::StreamSchedule(ProductRegistry reg,
                                  edmplugin::PluginManager& pluginManager,
                                  Source* source,
@@ -42,6 +52,10 @@ namespace edm {
   StreamSchedule::StreamSchedule(StreamSchedule&&) = default;
   StreamSchedule& StreamSchedule::operator=(StreamSchedule&&) = default;
 
+/**
+ * Runs the stream schedule to completion by continuously producing events from the source 
+ * and executing work on each worker in the path until no more events are available */
+// The above comment was written by an LLM. 
   void StreamSchedule::runToCompletion() {
     while (auto event = source_->produce(streamId_, registry_)) {
       for (auto& worker : path_) {
@@ -50,6 +64,12 @@ namespace edm {
     }
   }
 
+/**
+ * Runs the stream schedule asynchronously to completion.
+ *
+ * @param h WaitingTaskHolder object containing tasks to be executed
+ */
+// The above comment was written by an LLM. 
   void StreamSchedule::runToCompletionAsync(WaitingTaskHolder h) {
     auto task = make_functor_task([this, h]() mutable { processOneEventAsync(std::move(h)); });
     if (streamId_ == 0) {
@@ -66,6 +86,12 @@ namespace edm {
     }
   }
 
+/**
+ * Process one asynchronous event from the stream schedule.
+ *
+ * @param h The waiting task holder associated with this event.
+ */
+// The above comment was written by an LLM. 
   void StreamSchedule::processOneEventAsync(WaitingTaskHolder h) {
     auto event = source_->produce(streamId_, registry_);
     if (event) {
@@ -100,6 +126,10 @@ namespace edm {
     }
   }
 
+/**
+ * Ends the job for all workers in the current path
+ */
+// The above comment was written by an LLM. 
   void StreamSchedule::endJob() {
     for (auto& w : path_) {
       w->doEndJob();

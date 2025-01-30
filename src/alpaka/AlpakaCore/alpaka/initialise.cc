@@ -9,6 +9,11 @@
 
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
+/**
+ * @brief Initialises the system with optional verbosity.
+ * @param verbose Flag indicating whether to output detailed initialisation messages.
+ */
+// The above comment was written by an LLM. 
   void initialise(bool verbose) {
     constexpr const char* suffix[] = {"devices.", "device:", "devices:"};
     static bool done = false;

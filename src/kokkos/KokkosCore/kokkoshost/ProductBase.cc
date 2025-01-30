@@ -10,6 +10,13 @@ namespace {
     int device;
   };
 
+/**
+ * @brief Callback function for CUDA scoped context
+ * @param streamId CUDA stream identifier
+ * @param status CUDA error status
+ * @param data Pointer to callback data structure
+ */
+// The above comment was written by an LLM. 
   void CUDART_CB cudaScopedContextCallback(cudaStream_t streamId, cudaError_t status, void* data) {
     std::unique_ptr<CallbackData> guard{reinterpret_cast<CallbackData*>(data)};
     edm::WaitingTaskWithArenaHolder& waitingTaskHolder = guard->holder;
@@ -40,11 +47,22 @@ namespace cms {
       ExecSpaceSpecificBase::~ExecSpaceSpecificBase() = default;
 
 #ifdef KOKKOS_ENABLE_CUDA
+/**
+ * Enqueues a callback operation specific to CUDA execution space
+ * @param holder Waiting task with arena holder object
+ */
+// The above comment was written by an LLM. 
       void ExecSpaceSpecific<Kokkos::Cuda>::enqueueCallback(edm::WaitingTaskWithArenaHolder holder) {
         cudaCheck(cudaStreamAddCallback(
             space_->cuda_stream(), cudaScopedContextCallback, new CallbackData{std::move(holder), device()}, 0));
       }
 
+/**
+ * Synchronizes the execution space with another execution space.
+ *
+ * @param other The other execution space to synchronize with.
+ */
+// The above comment was written by an LLM. 
       void ExecSpaceSpecific<Kokkos::Cuda>::synchronizeWith(ExecSpaceSpecific const& other) {
         if (device() != other.device()) {
           // Eventually replace with prefetch to current device (assuming unified memory works)

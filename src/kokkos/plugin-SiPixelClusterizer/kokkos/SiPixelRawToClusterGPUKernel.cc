@@ -37,6 +37,14 @@ namespace KOKKOS_NAMESPACE {
         : word_(cms::kokkos::make_shared<unsigned int[], KokkosHostMemSpace>(MAX_FED_WORDS, execSpace)),
           fedId_(cms::kokkos::make_shared<unsigned char[], KokkosHostMemSpace>(MAX_FED_WORDS, execSpace)) {}
 
+/**
+ * Initializes the WordFedAppender with the specified parameters
+ * @param[in] fedId identifier of the FED
+ * @param[in] wordCounterGPU current word counter on GPU
+ * @param[in] src source data to be copied
+ * @param[in] length number of words to copy from source
+ */
+// The above comment was written by an LLM. 
     void SiPixelRawToClusterGPUKernel::WordFedAppender::initializeWordFed(int fedId,
                                                                           unsigned int wordCounterGPU,
                                                                           const uint32_t *src,
@@ -60,6 +68,14 @@ namespace KOKKOS_NAMESPACE {
 
     KOKKOS_INLINE_FUNCTION bool isBarrel(uint32_t rawId) { return (1 == ((rawId >> 25) & 0x7)); }
 
+/**
+ * Returns raw detector identifier for given FED, link and ROC
+ * @param cablingMap pointer to SiPixelFedCablingMapGPU object
+ * @param fed front end controller number
+ * @param link link number in FED
+ * @param roc readout chip number
+ * @return DetIdGPU object containing raw id, roc and module id */
+// The above comment was written by an LLM. 
     KOKKOS_INLINE_FUNCTION ::pixelgpudetails::DetIdGPU getRawId(const SiPixelFedCablingMapGPU *cablingMap,
                                                                 uint8_t fed,
                                                                 uint32_t link,
@@ -142,6 +158,14 @@ namespace KOKKOS_NAMESPACE {
       return global;
     }
 
+/**
+ * @brief Returns error type based on the provided status and federal ID
+ * @param[in] fedId Federal ID
+ * @param[in] status Status code
+ * @param[in] debug Debug mode flag
+ * @return Error type as an unsigned 8-bit integer
+ */
+// The above comment was written by an LLM. 
     KOKKOS_INLINE_FUNCTION uint8_t conversionError(uint8_t fedId, uint8_t status, bool debug = false) {
       uint8_t errorType = 0;
 
@@ -180,6 +204,13 @@ namespace KOKKOS_NAMESPACE {
       return errorType;
     }
 
+/**
+ * @brief Checks if a row and column in ROC representation are valid
+ * @param rocRow Row index in ROC representation
+ * @param rocCol Column index in ROC representation
+ * @return True if row and column are within valid range false otherwise
+ */
+// The above comment was written by an LLM. 
     KOKKOS_INLINE_FUNCTION bool rocRowColIsValid(uint32_t rocRow, uint32_t rocCol) {
       uint32_t numRowsInRoc = 80;
       uint32_t numColsInRoc = 52;
@@ -192,6 +223,15 @@ namespace KOKKOS_NAMESPACE {
       return ((dcol < 26) & (2 <= pxid) & (pxid < 162));
     }
 
+/**
+ * @brief Checks the ROC status based on the provided error word and returns an error type if an issue is detected
+ * @param errorWord The input error word to be checked
+ * @param fedId The FED ID associated with the error word
+ * @param link The link number related to the error word
+ * @param cablingMap A pointer to the SiPixelFedCablingMapGPU object containing the mapping details
+ * @param debug An optional flag to enable debugging print statements
+ * @return The error type if an issue is detected, otherwise zero */
+// The above comment was written by an LLM. 
     KOKKOS_INLINE_FUNCTION uint8_t checkROC(uint32_t errorWord,
                                             uint8_t fedId,
                                             uint32_t link,
@@ -272,6 +312,16 @@ namespace KOKKOS_NAMESPACE {
       return errorFound ? errorType : 0;
     }
 
+/**
+ * @brief Returns raw detector ID based on error word, error type and FED ID
+ * @param[in] fedId Front End Board ID
+ * @param[in] errWord Error word containing error details
+ * @param[in] errorType Type of error occurred
+ * @param[in] cablingMap Mapping between pixel and GPU details
+ * @param[in] debug Flag to enable debugging mode
+ * @return Raw detector ID
+ */
+// The above comment was written by an LLM. 
     KOKKOS_INLINE_FUNCTION uint32_t getErrRawID(uint8_t fedId,
                                                 uint32_t errWord,
                                                 uint32_t errorType,
@@ -474,6 +524,14 @@ namespace KOKKOS_NAMESPACE {
 
 namespace pixelgpudetails {
   template <typename MemSpace, typename ExecSpace>
+/**
+ * Fills the module start array with the minimum of max hits in module and cluster start values.
+ *
+ * @param[in] cluStart      Array of cluster start indices.
+ * @param[out] moduleStart Array to store the cumulative sum of min hits per module.
+ * @param execSpace     Execution space for parallel operations.
+ */
+// The above comment was written by an LLM. 
   void fillHitsModuleStart(const Kokkos::View<uint32_t const *, MemSpace, RestrictUnmanaged> &cluStart,
                            const Kokkos::View<uint32_t *, MemSpace, RestrictUnmanaged> &moduleStart,
                            ExecSpace const &execSpace) {

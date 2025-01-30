@@ -11,6 +11,17 @@
 #include "SYCLCore/device_unique_ptr.h"
 
 template <typename T>
+/**
+ * @brief Function to perform histogram operations on a dataset
+ *
+ * This function performs various operations such as generating random data,
+ * creating histograms, and verifying the correctness of the histogram data.
+ *
+ * It uses SYCL queues and device memory to manage the computations.
+ *
+ * @param queue The SYCL queue object used for managing the computations
+ */
+// The above comment was written by an LLM. 
 void go(sycl::queue queue) {
   std::mt19937 eng;
   std::uniform_int_distribution<T> rgen(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
@@ -144,6 +155,13 @@ void go(sycl::queue queue) {
   }
 }
 
+/**
+ * @brief Main program entry point
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char** argv) {
   std::string devices(argv[1]);
   setenv("ONEAPI_DEVICE_SELECTOR", devices.c_str(), true);

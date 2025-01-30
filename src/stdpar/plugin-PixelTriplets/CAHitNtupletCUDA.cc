@@ -26,6 +26,12 @@ private:
 CAHitNtupletCUDA::CAHitNtupletCUDA(edm::ProductRegistry& reg)
     : tokenHitGPU_{reg.consumes<TrackingRecHit2D>()}, tokenTrackGPU_{reg.produces<PixelTrack>()}, gpuAlgo_(reg) {}
 
+/**
+ * Produces track tuples from hit data in an event using GPU algorithm
+ * @param iEvent reference to the current event being processed
+ * @param es reference to the event setup containing configuration data
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletCUDA::produce(edm::Event& iEvent, const edm::EventSetup& es) {
   auto bf = 0.0114256972711507;  // 1/fieldInGeV
 

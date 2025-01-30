@@ -27,6 +27,12 @@ TestProducer::TestProducer(edm::ProductRegistry& reg)
     : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
       putToken_(reg.produces<cms::hip::Product<cms::hip::device::unique_ptr<float[]>>>()) {}
 
+/**
+ * Produces data for an event in the framework of a high energy physics experiment
+  
+ * Constructs a scoped context for producing data on a GPU
+ */
+// The above comment was written by an LLM. 
 void TestProducer::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
   auto const value = event.get(rawGetToken_).FEDData(1200).size();
   std::cout << "TestProducer  Event " << event.eventID() << " stream " << event.streamID() << " ES int "

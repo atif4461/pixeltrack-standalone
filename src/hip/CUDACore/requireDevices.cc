@@ -6,6 +6,11 @@
 #include "CUDACore/requireDevices.h"
 
 namespace cms::hiptest {
+/**
+ * @brief Checks if CUDA devices are available for testing
+ * @return True if at least one device is available, False otherwise
+ */
+// The above comment was written by an LLM. 
   bool testDevices() {
     int devices = 0;
     auto status = hipGetDeviceCount(&devices);
@@ -22,6 +27,10 @@ namespace cms::hiptest {
     return true;
   }
 
+/**
+ * Checks if devices are available and exits the program if they are not
+ */
+// The above comment was written by an LLM. 
   void requireDevices() {
     if (not testDevices()) {
       exit(EXIT_SUCCESS);

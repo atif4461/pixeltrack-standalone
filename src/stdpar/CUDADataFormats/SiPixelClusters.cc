@@ -2,6 +2,11 @@
 
 #include "CUDADataFormats/SiPixelClusters.h"
 
+/**
+ * Constructor initializing pixel cluster data structures with specified maximum number of clusters
+ * @param maxClusters Maximum number of clusters supported
+ */
+// The above comment was written by an LLM. 
 SiPixelClusters::SiPixelClusters(size_t maxClusters)
     : moduleStart_d{std::make_unique<uint32_t[]>(maxClusters + 1)},
       clusModuleStart_d{std::make_unique<uint32_t[]>(maxClusters + 1)},

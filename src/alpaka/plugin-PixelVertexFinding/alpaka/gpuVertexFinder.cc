@@ -18,6 +18,15 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
     struct loadTracks {
       template <typename TAcc>
+/**
+ * @brief Processes tracks in parallel across the accelerator
+ * @param acc Accelerator object
+ * @param ptracks Pointer to SoA of tracks
+ * @param soa Vertex SoA object
+ * @param pws Workspace pointer
+ * @param ptMin Minimum transverse momentum threshold
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(
           const TAcc& acc, TkSoA const* ptracks, ZVertexSoA* soa, WorkSpace* pws, float ptMin) const {
         ALPAKA_ASSERT_OFFLOAD(ptracks);
@@ -58,6 +67,17 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 #ifndef THREE_KERNELS
     struct vertexFinderOneKernel {
       template <typename TAcc>
+/**
+ * @brief Performs vertex finding operation on GPU
+ * @param acc accelerator object
+ * @param pdata pointer to vertices data
+ * @param pws pointer to workspace data
+ * @param minT minimum number of neighbors required
+ * @param eps maximum absolute distance for clustering
+ * @param errmax maximum error allowed for seeding
+ * @param chi2max maximum normalized distance for clustering
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                     gpuVertexFinder::ZVertices* pdata,
                                     gpuVertexFinder::WorkSpace* pws,
@@ -80,6 +100,17 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 #else
     struct vertexFinderKernel1 {
       template <typename TAcc>
+/**
+ * @brief Performs vertex finding operation
+ * @param[in] acc accelerator object
+ * @param[out] pdata pointer to vertices data
+ * @param[out] pws pointer to workspace data
+ * @param[in] minT minimum number of neighbors required
+ * @param[in] eps maximum absolute distance for clustering
+ * @param[in] errmax maximum error allowed for seeding
+ * @param[in] chi2max maximum normalized distance for clustering
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                     gpuVertexFinder::ZVertices* pdata,
                                     gpuVertexFinder::WorkSpace* pws,
@@ -96,6 +127,13 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
     struct vertexFinderKernel2 {
       template <typename TAcc>
+/**
+ * @brief Performs vertex finding operation with synchronization and sorting
+ * @param acc accelerator object
+ * @param pdata pointer to vertices data
+ * @param pws pointer to workspace data
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                     gpuVertexFinder::ZVertices* pdata,
                                     gpuVertexFinder::WorkSpace* pws) const {
@@ -106,6 +144,19 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     };
 #endif
 
+/**
+ * @brief Produces vertices asynchronously on the GPU.
+ *
+ * This function generates ZVertexAlpaka objects from input TkSoA data, 
+ * utilizing various kernel operations to process tracks and produce final vertices.
+ *
+ * @param[in] tksoa Input track data in SoA format.
+ * @param[in] ptMin Minimum transverse momentum threshold.
+ * @param[out] queue The queue where asynchronous operations are executed.
+ *
+ * @return A ZVertexAlpaka object containing produced vertices.
+ */
+// The above comment was written by an LLM. 
     ZVertexAlpaka Producer::makeAsync(TkSoA const* tksoa, float ptMin, Queue& queue) const {
       // std::cout << "producing Vertices on GPU" << std::endl;
       ALPAKA_ASSERT_OFFLOAD(tksoa);

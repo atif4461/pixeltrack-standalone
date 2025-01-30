@@ -2,6 +2,12 @@
 #include "CUDACore/eventWorkHasCompleted.h"
 
 namespace cms::cuda {
+/**
+ * Checks if the product is currently available
+ *
+ * @return true if the product is available, false otherwise
+ */
+// The above comment was written by an LLM. 
   bool ProductBase::isAvailable() const {
     // if default-constructed, the product is not available
     if (not event_) {
@@ -10,6 +16,10 @@ namespace cms::cuda {
     return eventWorkHasCompleted(event_.get());
   }
 
+/**
+ * Destructor ensuring completion of asynchronous product processing on GPU 
+ */
+// The above comment was written by an LLM. 
   ProductBase::~ProductBase() {
     // Make sure that the production of the product in the GPU is
     // complete before destructing the product. This is to make sure

@@ -39,6 +39,13 @@ PixelCPEFast::PixelCPEFast(std::string const &path) {
   };
 }
 
+/**
+ * Returns a pointer to GPU product parameters asynchronously.
+ *
+ * @param[in] cudaStream CUDA stream used for asynchronous operations
+ * @return Pointer to ParamsOnGPU object on the GPU
+ */
+// The above comment was written by an LLM. 
 const pixelCPEforGPU::ParamsOnGPU *PixelCPEFast::getGPUProductAsync(cudaStream_t cudaStream) const {
   const auto &data = gpuData_.dataForCurrentDeviceAsync(cudaStream, [this](GPUData &data, cudaStream_t stream) {
     // and now copy to device...
@@ -75,6 +82,10 @@ const pixelCPEforGPU::ParamsOnGPU *PixelCPEFast::getGPUProductAsync(cudaStream_t
   return data.paramsOnGPU_d;
 }
 
+/**
+ * Destructor to release GPU memory allocated for parameters
+ */
+// The above comment was written by an LLM. 
 PixelCPEFast::GPUData::~GPUData() {
   if (paramsOnGPU_d != nullptr) {
     cudaFree((void *)paramsOnGPU_h.m_commonParams);

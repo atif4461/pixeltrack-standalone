@@ -27,6 +27,14 @@ using TeamView = Kokkos::View<Multiplicity::CountersOnly, KokkosExecSpace::scrat
 //using TK = Kokkos::View<uint16_t**,KokkosExecSpace>; std::array<uint16_t, 4>;
 
 template <typename MemSpace, typename ExecSpace>
+/**
+ * @brief Counts multiplicity in parallel using Kokkos
+ * @param[in] tk 
+ * @param[in] assoc 
+ * @param[in] n 
+ * @param[in] execSpace 
+ */
+// The above comment was written by an LLM. 
 void countMultiLocal(Kokkos::View<uint16_t**, MemSpace, RestrictUnmanaged> const& tk,
                      Kokkos::View<Multiplicity, MemSpace, RestrictUnmanaged> const& assoc,
                      const int32_t& n,
@@ -59,6 +67,13 @@ void countMultiLocal(Kokkos::View<uint16_t**, MemSpace, RestrictUnmanaged> const
 }
 
 template <typename T, typename MemSpace, typename ExecSpace>
+/**
+ * @brief Counts multiple associations in parallel
+ * @param assoc Association view
+ * @param n Number of iterations
+ * @param execSpace Execution space
+ */
+// The above comment was written by an LLM. 
 void countMulti(Kokkos::View<T, MemSpace, RestrictUnmanaged> const& assoc,
                 const uint32_t& n,
                 ExecSpace const& execSpace) {
@@ -69,6 +84,13 @@ void countMulti(Kokkos::View<T, MemSpace, RestrictUnmanaged> const& assoc,
 }
 
 template <typename MemSpace, typename ExecSpace>
+/**
+ * @brief Verifies two multiplicity views for equality in parallel.
+ * @param[in] m1 First multiplicity view to compare.
+ * @param[in] m2 Second multiplicity view to compare.
+ * @param[in] execSpace Execution space for parallel operation.
+ */
+// The above comment was written by an LLM. 
 void verifyMulti(Kokkos::View<Multiplicity, MemSpace> const& m1,
                  Kokkos::View<Multiplicity, MemSpace> const& m2,
                  ExecSpace const& execSpace) {
@@ -79,6 +101,14 @@ void verifyMulti(Kokkos::View<Multiplicity, MemSpace> const& m1,
 }
 
 template <typename MemSpace, typename ExecSpace>
+/**
+ * @brief Counts elements in a 2D view within a specified range.
+ * @param[in] tk 2D view of unsigned 16-bit integers.
+ * @param[in] assoc association object for counting.
+ * @param[in] n upper limit for the range.
+ * @param[in] execSpace execution space for parallel operation.
+ */
+// The above comment was written by an LLM. 
 void count(Kokkos::View<uint16_t**, MemSpace> const& tk,
            Kokkos::View<Assoc, MemSpace> const& assoc,
            const uint32_t& n,
@@ -98,6 +128,14 @@ void count(Kokkos::View<uint16_t**, MemSpace> const& tk,
 }
 
 template <typename MemSpace, typename ExecSpace>
+/**
+ * Fills associative array with data from input view.
+ * @param[in] tk Input view of type uint16_t
+ * @param[out] assoc Associative array to be filled
+ * @param[in] n Size parameter
+ * @param[in] execSpace Execution space
+ */
+// The above comment was written by an LLM. 
 void fill(Kokkos::View<uint16_t**, MemSpace> const& tk,
           Kokkos::View<Assoc, MemSpace>& assoc,
           const uint32_t& n,
@@ -120,6 +158,15 @@ void verify(Kokkos::View<Assoc, ArrayLayout, MemSpace> const& assoc) {
 }
 
 template <typename Assoc, typename MemSpace, typename ExecSpace>
+/**
+ * Fills bulk data in parallel using Kokkos.
+ * @param apc Atomic pair counter view
+ * @param tk Track view
+ * @param assoc Association view
+ * @param n Number of iterations
+ * @param execSpace Execution space
+ */
+// The above comment was written by an LLM. 
 void fillBulk(Kokkos::View<cms::kokkos::AtomicPairCounter, MemSpace, RestrictUnmanaged> const& apc,
               Kokkos::View<uint16_t**, MemSpace, RestrictUnmanaged> const& tk,
               Kokkos::View<Assoc, MemSpace, RestrictUnmanaged> const& assoc,
@@ -135,6 +182,12 @@ void fillBulk(Kokkos::View<cms::kokkos::AtomicPairCounter, MemSpace, RestrictUnm
 }
 
 template <typename HistoType, typename ArrayLayout, typename MemSpace>
+/**
+ * @brief Verifies bulk data consistency between associative array and atomic pair counter
+ * @param[in] assoc Associative array to be verified
+ * @param[in] apc Atomic pair counter to be verified
+ */
+// The above comment was written by an LLM. 
 void verifyBulk(Kokkos::View<HistoType, ArrayLayout, MemSpace> const& assoc,
                 Kokkos::View<cms::kokkos::AtomicPairCounter, ArrayLayout, MemSpace> const& apc) {
   if (apc().get().m >= HistoType::nbins())
@@ -144,6 +197,99 @@ void verifyBulk(Kokkos::View<HistoType, ArrayLayout, MemSpace> const& assoc,
   assert(assoc().size() < HistoType::capacity());
 }
 
+/**
+
+### Function Comments
+
+1.  * @brief Main program entry point.
+ *
+ * Initializes the Kokkos scope guard and sets up the CUDA device limit.
+ * Performs various tests and verifications on associative arrays.
+ *
+ * @return 0 on successful execution.
+  
+
+
+2.  * @brief Fills the input view with indices.
+ *
+ * Launches a parallel kernel to initialize the input view.
+ *
+ * @param[in] v_d Input view to be filled.
+ * @param[out] a_d Associative array to store the filled indices.
+ * @param[in] N Size of the input view.
+ * @param[in] exec_space Execution space for the kernel launch.
+ 
+
+
+3.  * @brief Verifies the contents of an associative array.
+ *
+ * Checks the size and contents of the associative array.
+ *
+ * @param[in] a_h Host mirror of the associative array.
+ *
+
+
+4.  * @brief Fills a bulk associative array.
+ *
+ * Launches a parallel kernel to fill the bulk associative array.
+ *
+ * @param[inout] dc_d Bulk associative array to be filled.
+ * @param[in] v_d Input view containing the data.
+ * @param[in] a_d Associative array containing the offsets.
+ * @param[in] N Size of the input view.
+ * @param[in] exec_space Execution space for the kernel launch.
+ *
+
+
+5.  * @brief Finalizes a bulk associative array.
+ *
+ * Updates the host mirror of the bulk associative array.
+ *
+ * @param[inout] dc_d Bulk associative array to be finalized.
+ * @param[in] a_d Associative array containing the offsets.
+ * @param[in] exec_space Execution space for the kernel launch.
+ *
+
+
+6.  * @brief Verifies the contents of a bulk associative array.
+ *
+ * Checks the size and contents of the bulk associative array.
+ *
+ * @param[in] a_h Host mirror of the associative array.
+ * @param[in] dc_h Host mirror of the bulk associative array.
+ *
+
+
+7.  * @brief Counts the multiplicity of elements in an array.
+ *
+ * Launches a parallel kernel to count the multiplicity.
+ *
+ * @param[inout] m1_d Array to store the multiplicities.
+ * @param[in] N Size of the input array.
+ * @param[in] exec_space Execution space for the kernel launch.
+ *
+
+
+8.  * @brief Counts the multiplicity of elements in an array using local counters.
+ *
+ * Launches a parallel kernel to count the multiplicity using local counters.
+ *
+ * @param[in] v_d Input view containing the data.
+ * @param[inout] m2_d Array to store the multiplicities.
+ * @param[in] N Size of the input array.
+ * @param[in] exec_space Execution space for the kernel launch.
+ *
+
+
+9.  * @brief Verifies the contents of two multiplicity arrays.
+ *
+ * Checks the size and contents of the two multiplicity arrays.
+ *
+ * @param[in] m1_d First array to compare.
+ * @param[in] m2_d Second array to compare.
+ * @param[in] exec_space Execution space for the kernel launch.
+ */
+// The above comment was written by an LLM. 
 int main() {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
 #ifdef KOKKOS_BACKEND_CUDA

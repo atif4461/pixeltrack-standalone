@@ -6,6 +6,19 @@
 
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
+/**
+ * @brief Launches kernels for broken line fitting on GPU.
+ *
+ * This function launches the necessary kernels for performing broken line fits
+ * on the GPU. It takes in the HitsView object, the number of hits in the fit, the maximum
+ * number of tuples, and the queue as parameters.
+ *
+ * @param hv The HitsView object containing the hit data.
+ * @param hitsInFit The number of hits in the fit.
+ * @param maxNumberOfTuples The maximum number of tuples.
+ * @param queue The queue for launching the kernels.
+ */
+// The above comment was written by an LLM. 
   void HelixFitOnGPU::launchBrokenLineKernels(HitsView const* hv,
                                               uint32_t hitsInFit,
                                               uint32_t maxNumberOfTuples,

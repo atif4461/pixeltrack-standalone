@@ -11,6 +11,10 @@
 #define STR(x) STR_EXPAND(x)
 
 namespace edmplugin {
+/**
+ * Constructor initializes the plugin manager by reading plugins from file
+ */
+// The above comment was written by an LLM. 
   PluginManager::PluginManager() {
     std::ifstream pluginMap(STR(LIB_DIR) "/plugins.txt");
     std::string plugin, library;
@@ -20,6 +24,12 @@ namespace edmplugin {
     }
   }
 
+/**
+ * @brief Loads a shared library plugin from file system
+ * @param pluginName Name of the plugin to load
+ * @return Reference to the loaded SharedLibrary instance
+ */
+// The above comment was written by an LLM. 
   SharedLibrary const& PluginManager::load(std::string const& pluginName) {
     std::lock_guard<std::recursive_mutex> guard(mutex_);
 

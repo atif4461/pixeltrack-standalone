@@ -33,11 +33,23 @@ namespace pixelgpudetails {
   // number of words for all the FEDs
   constexpr uint32_t MAX_FED_WORDS = pixelgpudetails::MAX_FED * pixelgpudetails::MAX_WORD;
 
+/**
+ * Default constructor initializing internal data structures 
+ */
+// The above comment was written by an LLM. 
   SiPixelRawToClusterGPUKernel::WordFedAppender::WordFedAppender() {
     word_ = std::make_unique<unsigned int[]>(MAX_FED_WORDS);
     fedId_ = std::make_unique<unsigned char[]>(MAX_FED_WORDS);
   }
 
+/**
+ * Initializes the WordFedAppender with the specified parameters
+ * @param[in] fedId identifier of the FED
+ * @param[in] wordCounterGPU current word counter on the GPU
+ * @param[in] src source data array
+ * @param[in] length number of elements in the source array
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToClusterGPUKernel::WordFedAppender::initializeWordFed(int fedId,
                                                                         unsigned int wordCounterGPU,
                                                                         const uint32_t *src,
@@ -58,6 +70,14 @@ namespace pixelgpudetails {
 
   __device__ bool isBarrel(uint32_t rawId) { return (1 == ((rawId >> 25) & 0x7)); }
 
+/**
+ * Returns raw detector identifier from given parameters
+ * @param cablingMap pointer to SiPixelFedCablingMapGPU object
+ * @param fed front end channel number
+ * @param link link number
+ * @param roc readout chip identifier
+ * @return DetIdGPU object containing raw id, roc in det and module id */
+// The above comment was written by an LLM. 
   __device__ pixelgpudetails::DetIdGPU getRawId(const SiPixelFedCablingMapGPU *cablingMap,
                                                 uint8_t fed,
                                                 uint32_t link,
@@ -139,6 +159,14 @@ namespace pixelgpudetails {
     return global;
   }
 
+/**
+ * @brief Returns error type based on the provided status and fedId
+ * @param[in] fedId Front end id
+ * @param[in] status Status code indicating type of error
+ * @param[in] debug Flag to enable debugging output
+ * @return Error type as unsigned 8 bit integer
+ */
+// The above comment was written by an LLM. 
   __device__ uint8_t conversionError(uint8_t fedId, uint8_t status, bool debug = false) {
     uint8_t errorType = 0;
 
@@ -177,6 +205,13 @@ namespace pixelgpudetails {
     return errorType;
   }
 
+/**
+
+/// Checks if a given row and column in ROC representation are within valid range 
+/// @param rocRow row index in ROC 
+/// @param rocCol column index in ROC 
+/// @return true if row and column are valid false otherwise*/
+// The above comment was written by an LLM. 
   __device__ bool rocRowColIsValid(uint32_t rocRow, uint32_t rocCol) {
     uint32_t numRowsInRoc = 80;
     uint32_t numColsInRoc = 52;
@@ -187,6 +222,16 @@ namespace pixelgpudetails {
 
   __device__ bool dcolIsValid(uint32_t dcol, uint32_t pxid) { return ((dcol < 26) & (2 <= pxid) & (pxid < 162)); }
 
+/**
+ * @brief Checks the ROC error type from the given error word
+ * @param errorWord The input error word
+ * @param fedId The FED ID
+ * @param link The link number
+ * @param cablingMap The pointer to the SiPixelFedCablingMapGPU object
+ * @param debug Flag to enable debugging printouts
+ * @return Error type if an error is found, otherwise 0
+ */
+// The above comment was written by an LLM. 
   __device__ uint8_t checkROC(
       uint32_t errorWord, uint8_t fedId, uint32_t link, const SiPixelFedCablingMapGPU *cablingMap, bool debug = false) {
     uint8_t errorType = (errorWord >> pixelgpudetails::ROC_shift) & pixelgpudetails::ERROR_mask;
@@ -263,6 +308,20 @@ namespace pixelgpudetails {
     return errorFound ? errorType : 0;
   }
 
+/**
+ * @brief Retrieves raw ID based on error word, error type and FED ID.
+ *
+ * This function takes into account different error types and extracts 
+ * necessary information from the error word to determine the raw ID.
+ *
+ * @param[in] fedId         Front End Controller ID
+ * @param[in] errWord       Error word containing information about the error
+ * @param[in] errorType     Type of error that occurred
+ * @param[in] cablingMap    Mapping between detector IDs and hardware links
+ * @param[in] debug         Flag indicating whether to run in debug mode
+ * @return Raw ID associated with the error
+ */
+// The above comment was written by an LLM. 
   __device__ uint32_t getErrRawID(uint8_t fedId,
                                   uint32_t errWord,
                                   uint32_t errorType,

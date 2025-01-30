@@ -15,6 +15,12 @@
 #include "PosixClockGettime.h"
 
 namespace {
+/**
+ * Prints help message including usage and available options
+  
+ * Brief description of command line options
+ */
+// The above comment was written by an LLM. 
   void print_help(std::string const& name) {
     std::cout
         << "Usage: " << name

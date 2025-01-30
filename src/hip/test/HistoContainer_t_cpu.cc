@@ -10,6 +10,15 @@
 using namespace cms::hip;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Function to test histogram functionality
+ *
+ * This function tests various aspects of histogram creation, 
+ * binning, and iteration. It checks the correctness of 
+ * different histogram operations such as counting, 
+ * finalizing, filling, and iterating over bins.
+ */
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -137,6 +146,10 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int16_t>();
   go<uint8_t, 128, 8, 4>();

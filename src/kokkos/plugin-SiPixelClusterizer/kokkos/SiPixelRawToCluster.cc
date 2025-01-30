@@ -52,6 +52,12 @@ namespace KOKKOS_NAMESPACE {
     const bool useQuality_;
   };
 
+/**
+ * Constructor initializing the SiPixelRawToCluster object with ProductRegistry 
+ * and setting up tokens for consuming FEDRawDataCollection and producing 
+ * SiPixelDigisKokkos SiPixelClustersKokkos and optionally SiPixelDigiErrorsKokkos
+ */
+// The above comment was written by an LLM. 
   SiPixelRawToCluster::SiPixelRawToCluster(edm::ProductRegistry& reg)
       : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
         digiPutToken_(reg.produces<cms::kokkos::Product<SiPixelDigisKokkos<KokkosDeviceMemSpace>>>()),
@@ -68,6 +74,15 @@ namespace KOKKOS_NAMESPACE {
         std::make_unique<pixelgpudetails::SiPixelRawToClusterGPUKernel::WordFedAppender>(execSpace);
   }
 
+/**
+ * @brief Acquires data from the event and setup, performs quality checks, 
+ *         and initiates asynchronous cluster creation on the GPU.
+ *
+ * @param iEvent The input event containing raw data.
+ * @param iSetup The event setup providing necessary configurations.
+ * @param waitingTaskHolder Holder for the waiting task with arena.
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToCluster::acquire(edm::Event const& iEvent,
                                     const edm::EventSetup& iSetup,
                                     edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -162,6 +177,10 @@ namespace KOKKOS_NAMESPACE {
                                ctx.execSpace());
   }
 
+/**
+ * Produces pixel clusters from raw pixel data in an event
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToCluster::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     cms::kokkos::ScopedContextProduce<KokkosExecSpace> ctx{ctxState_};
 

@@ -15,6 +15,14 @@ namespace {
 }
 
 namespace cms::hip {
+/**
+ * Allocates device memory of specified size in bytes on a given device and returns pointer to it.
+ * @param dev device identifier
+ * @param nbytes number of bytes to be allocated
+ * @param stream hipStream object associated with allocation
+ * @return void pointer to allocated device memory
+ */
+// The above comment was written by an LLM. 
   void *allocate_device(int dev, size_t nbytes, hipStream_t stream) {
     void *ptr = nullptr;
     if constexpr (allocator::policy == allocator::Policy::Caching) {
@@ -35,6 +43,13 @@ namespace cms::hip {
     return ptr;
   }
 
+/**
+ * Frees device memory allocated for a specific device and optionally uses a specified stream
+ * @param device The device from which to free the memory
+ * @param ptr Pointer to the memory block to be freed
+ * @param stream Stream in which to perform the asynchronous free operation
+ */
+// The above comment was written by an LLM. 
   void free_device(int device, void *ptr, hipStream_t stream) {
     if constexpr (allocator::policy == allocator::Policy::Caching) {
       cudaCheck(allocator::getCachingDeviceAllocator().DeviceFree(device, ptr));

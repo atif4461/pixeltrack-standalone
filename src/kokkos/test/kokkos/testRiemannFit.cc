@@ -52,6 +52,17 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 using namespace KOKKOS_NAMESPACE;
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills the hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and the corresponding columns of the hits
+ * covariance matrix with hardcoded values depending on the number of columns in the
+ * hits matrix.
+ *
+ * @param[out] hits The hits matrix to be filled.
+ * @param[out] hits_ge The hits covariance matrix whose columns are partially filled.
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -94,6 +105,73 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests fitting functions with generated hits
+ *
+ * This function generates hits and their covariance matrix, performs fast fit, 
+ * circle fit and line fit, and prints out the fitted parameters and chi-squared values.
+  
+
+ * @brief Prepares broken line data from hits and initial guess of track parameters
+ *
+ * @param[in] hits input hit coordinates
+ * @param[in] init_guess initial guess of track parameters
+ * @param[in] B magnetic field strength
+ * @param[out] data prepared broken line data
+ 
+ 
+ * @brief Performs fast fit to find initial estimate of track parameters
+ *
+ * @param[in] hits input hit coordinates
+ * @param[out] results estimated track parameters
+ 
+ 
+ * @brief Fits a circle to the hits using an iterative method
+ *
+ * @param[in] hits input hit coordinates
+ * @param[in] hits_ge hit covariance matrix
+ * @param[in] init_guess initial guess of track parameters
+ * @param[in] B magnetic field strength
+ * @param[in] data prepared broken line data
+ * @param[out] results fitted circle parameters
+ 
+ 
+ * @brief Fits a line to the hits using an iterative method
+ *
+ * @param[in] hits input hit coordinates
+ * @param[in] hits_ge hit covariance matrix
+ * @param[in] init_guess initial guess of track parameters
+ * @param[in] B magnetic field strength
+ * @param[in] data prepared broken line data
+ * @param[out] results fitted line parameters
+ 
+ 
+ * @brief Loads 2D covariance matrix into a matrix
+ *
+ * @param[in] hits_ge input hit covariance matrix
+ * @param[out] hits_cov loaded 2D covariance matrix
+ 
+ 
+ * @brief Converts fitted parameters between different representations
+ *
+ * @param[in,out] circle_fit_results fitted circle parameters
+ * @param[in] B magnetic field strength
+ * @param[in] isForward direction of conversion
+ 
+ 
+ * @brief Calculates chi-squared value and updates covariance matrix
+ *
+ * @param[in] circle_fit_results fitted circle parameters
+ * @param[in] B magnetic field strength
+ * @param[in] isForward direction of calculation
+ 
+ 
+ * @brief Fills hits and their covariance matrices
+ *
+ * @param[out] hits filled hit coordinates
+ * @param[out] hits_ge filled hit covariance matrix
+ */
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -151,6 +229,13 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * @brief Main program entry point
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   testFit<4>();

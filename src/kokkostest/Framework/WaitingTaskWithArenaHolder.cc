@@ -26,6 +26,10 @@ namespace edm {
     }));
   }
 
+/**
+ * Constructor that initializes WaitingTaskWithArenaHolder object with given task
+ */
+// The above comment was written by an LLM. 
   WaitingTaskWithArenaHolder::WaitingTaskWithArenaHolder(WaitingTaskHolder&& iTask)
       : m_task(iTask.release_no_decrement()),
         m_group(iTask.group()),
@@ -36,12 +40,20 @@ namespace edm {
     }));
   }
 
+/**
+ * Destructor that releases resources when waiting task is completed 
+ */
+// The above comment was written by an LLM. 
   WaitingTaskWithArenaHolder::~WaitingTaskWithArenaHolder() {
     if (m_task) {
       doneWaiting(std::exception_ptr{});
     }
   }
 
+/**
+ * Copy constructor for WaitingTaskWithArenaHolder objects 
+ */
+// The above comment was written by an LLM. 
   WaitingTaskWithArenaHolder::WaitingTaskWithArenaHolder(WaitingTaskWithArenaHolder const& iHolder)
       : m_task(iHolder.m_task), m_group(iHolder.m_group), m_handle(iHolder.m_handle), m_arena(iHolder.m_arena) {
     if (m_task != nullptr) {
@@ -49,6 +61,12 @@ namespace edm {
     }
   }
 
+/**
+ * Move constructor for WaitingTaskWithArenaHolder objects 
+ * transfers ownership of task handle and arena from another instance
+ * leaving the other instance in a valid but empty state
+ */
+// The above comment was written by an LLM. 
   WaitingTaskWithArenaHolder::WaitingTaskWithArenaHolder(WaitingTaskWithArenaHolder&& iOther)
       : m_task(iOther.m_task),
         m_group(iOther.m_group),
@@ -57,6 +75,12 @@ namespace edm {
     iOther.m_task = nullptr;
   }
 
+/**
+ * Assignment operator for deep copying of WaitingTaskWithArenaHolder objects
+ * @param iRHS constant reference to WaitingTaskWithArenaHolder object to be copied
+ * @return reference to this WaitingTaskWithArenaHolder object after assignment
+ */
+// The above comment was written by an LLM. 
   WaitingTaskWithArenaHolder& WaitingTaskWithArenaHolder::operator=(const WaitingTaskWithArenaHolder& iRHS) {
     WaitingTaskWithArenaHolder tmp(iRHS);
     std::swap(m_task, tmp.m_task);
@@ -66,6 +90,10 @@ namespace edm {
     return *this;
   }
 
+/**
+ * Assignmentoperator for moving contents from another instance 
+ */
+// The above comment was written by an LLM. 
   WaitingTaskWithArenaHolder& WaitingTaskWithArenaHolder::operator=(WaitingTaskWithArenaHolder&& iRHS) {
     WaitingTaskWithArenaHolder tmp(std::move(iRHS));
     std::swap(m_task, tmp.m_task);

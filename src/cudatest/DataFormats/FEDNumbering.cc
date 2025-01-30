@@ -9,6 +9,12 @@ using namespace std;
 
 namespace {
 
+/**
+ * Initializes an array of booleans representing the input status of various FED IDs.
+ *
+ * @return An array of boolean values indicating whether each FED ID is enabled or disabled.
+ */
+// The above comment was written by an LLM. 
   constexpr std::array<bool, FEDNumbering::FEDNumbering::MAXFEDID + 1> initIn() {
     std::array<bool, FEDNumbering::MAXFEDID + 1> in = {{false}};
 
@@ -104,6 +110,10 @@ namespace {
 }  // namespace
 
 bool FEDNumbering::inRange(int i) { return in_[i]; }
+/**
+ * Checks whether a given integer is within a specific range of trigger GT or EG TP FED IDs 
+ */
+// The above comment was written by an LLM. 
 bool FEDNumbering::inRangeNoGT(int i) {
   if ((i >= MINTriggerGTPFEDID && i <= MAXTriggerGTPFEDID) || (i >= MINTriggerEGTPFEDID && i <= MAXTriggerEGTPFEDID))
     return false;

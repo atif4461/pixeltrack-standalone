@@ -18,6 +18,96 @@
 
 using namespace gpuClustering;
 
+/**
+
+### Function Comments
+
+#### `main` Function
+```cpp * @brief Main entry point of the program.
+ *
+ * This function initializes the environment, sets up the device, 
+ * generates clusters, launches kernels for counting modules, finding clusters, 
+ * and applying charge cuts. It also verifies the results.
+ *
+ * @param argc Number of command line arguments.
+ * @param argv Array of command line argument strings.
+ * @return Exit status of the program.
+ 
+```
+
+#### `generateClusters` Lambda Function
+```cpp * @brief Generates clusters of hits.
+ *
+ * This function creates artificial clusters with varying characteristics 
+ * such as big noise, isolated hits, and different patterns.
+ *
+ * @param kn Input parameter that influences the type of generated clusters.
+ 
+```
+
+#### `countModules` Kernel Function
+```cpp * @brief Counts the number of modules.
+ *
+ * This kernel function counts the number of modules based on the input data.
+ *
+ * @param d_id Device memory array containing hit IDs.
+ * @param d_moduleStart Device memory array storing module start indices.
+ * @param d_clus Device memory array for cluster storage.
+ * @param n Total number of hits.
+ * @param item SYCL item object providing access to global and local work sizes.
+ 
+```
+
+#### `findClusCPU` Kernel Function
+```cpp * @brief Finds clusters on the CPU.
+ *
+ * This kernel function identifies clusters from the input data on the CPU.
+ *
+ * @param d_id Device memory array containing hit IDs.
+ * @param d_x Device memory array containing x-coordinates of hits.
+ * @param d_y Device memory array containing y-coordinates of hits.
+ * @param d_moduleStart Device memory array storing module start indices.
+ * @param d_clusInModule Device memory array for cluster counts per module.
+ * @param d_moduleId Device memory array for module IDs.
+ * @param d_clus Device memory array for cluster storage.
+ * @param n Total number of hits.
+ * @param item SYCL item object providing access to global and local work sizes.
+ 
+```
+
+#### `findClusGPU` Kernel Function
+```cpp * @brief Finds clusters on the GPU.
+ *
+ * This kernel function identifies clusters from the input data on the GPU.
+ *
+ * @param d_id Device memory array containing hit IDs.
+ * @param d_x Device memory array containing x-coordinates of hits.
+ * @param d_y Device memory array containing y-coordinates of hits.
+ * @param d_moduleStart Device memory array storing module start indices.
+ * @param d_clusInModule Device memory array for cluster counts per module.
+ * @param d_moduleId Device memory array for module IDs.
+ * @param d_clus Device memory array for cluster storage.
+ * @param n Total number of hits.
+ * @param item SYCL item object providing access to global and local work sizes.
+ 
+```
+
+#### `clusterChargeCut` Kernel Function
+```cpp * @brief Applies a charge cut to the clusters.
+ *
+ * This kernel function applies a charge cut criterion to filter clusters.
+ *
+ * @param d_id Device memory array containing hit IDs.
+ * @param d_adc Device memory array containing ADC values of hits.
+ * @param d_moduleStart Device memory array storing module start indices.
+ * @param d_clusInModule Device memory array for cluster counts per module.
+ * @param d_moduleId Device memory array for module IDs.
+ * @param d_clus Device memory array for cluster storage.
+ * @param n Total number of hits.
+ * @param item SYCL item object providing access to global and local work sizes.
+ 
+```*/
+// The above comment was written by an LLM. 
 int main(int argc, char **argv) {
   std::string devices(argv[1]);
   setenv("ONEAPI_DEVICE_SELECTOR", devices.c_str(), true);

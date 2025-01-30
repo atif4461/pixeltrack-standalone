@@ -17,6 +17,11 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces data for the event setup by reading binary files containing FED IDs and cabling map information,
+ * then stores this data in the event setup for later use.
+ */
+// The above comment was written by an LLM. 
 void SiPixelFedCablingMapGPUWrapperESProducer::produce(edm::EventSetup& eventSetup) {
   {
     std::ifstream in(data_ / "fedIds.bin", std::ios::binary);

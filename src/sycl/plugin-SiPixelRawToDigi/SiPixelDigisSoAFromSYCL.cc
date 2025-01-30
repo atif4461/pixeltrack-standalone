@@ -34,6 +34,15 @@ SiPixelDigisSoAFromSYCL::SiPixelDigisSoAFromSYCL(edm::ProductRegistry& reg)
     : digiGetToken_(reg.consumes<cms::sycltools::Product<SiPixelDigisSYCL>>()),
       digiPutToken_(reg.produces<SiPixelDigisSoA>()) {}
 
+/**
+ * Acquires pixel digis from the event and setup using a SYCL stream 
+ * in parallel with the computation stream.
+ *
+ * @param[in] iEvent the input event
+ * @param[in] iSetup the event setup
+ * @param[in,out] waitingTaskHolder the waiting task holder
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisSoAFromSYCL::acquire(const edm::Event& iEvent,
                                       const edm::EventSetup& iSetup,
                                       edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -50,6 +59,10 @@ void SiPixelDigisSoAFromSYCL::acquire(const edm::Event& iEvent,
   clus_ = gpuDigis.clusToHostAsync(stream);
 }
 
+/**
+ * Produces pixel digis in structure of arrays format 
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisSoAFromSYCL::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   // The following line copies the data from the pinned host memory to
   // regular host memory. In principle that feels unnecessary (why not

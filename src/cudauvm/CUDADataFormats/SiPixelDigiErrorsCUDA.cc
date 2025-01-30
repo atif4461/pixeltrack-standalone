@@ -7,6 +7,13 @@
 
 #include <cassert>
 
+/**
+ * Constructor initializing SiPixelDigiErrorsCUDA object with specified parameters
+ * @param maxFedWords Maximum number of FED words
+ * @param errors      PixelFormatterErrors object
+ * @param stream     CUDA stream
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsCUDA::SiPixelDigiErrorsCUDA(size_t maxFedWords, PixelFormatterErrors errors, cudaStream_t stream)
     : formatterErrors_h(std::move(errors)) {
 #ifdef CUDAUVM_DISABLE_MANAGED_CLUSTERING
@@ -43,6 +50,11 @@ void SiPixelDigiErrorsCUDA::copyErrorToHostAsync(cudaStream_t stream) {
   cms::cuda::copyAsync(error_h, error_d, stream);
 }
 
+/**
+ * Returns host data error asynchronously via CUDA stream
+ * @return HostDataError object containing pixel errors and data pointer
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsCUDA::HostDataError SiPixelDigiErrorsCUDA::dataErrorToHostAsync(cudaStream_t stream) const {
   // On one hand size() could be sufficient. On the other hand, if
   // someone copies the SimpleVector<>, (s)he might expect the data
@@ -58,6 +70,10 @@ SiPixelDigiErrorsCUDA::HostDataError SiPixelDigiErrorsCUDA::dataErrorToHostAsync
   return HostDataError(err, std::move(data));
 }
 #else
+/**
+ * Prefetches error data asynchronously on a specified CUDA device and stream.
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigiErrorsCUDA::prefetchAsync(int device, cudaStream_t stream) const {
 #ifndef CUDAUVM_DISABLE_PREFETCH
   cudaCheck(cudaMemPrefetchAsync(error_d.get(), sizeof(cms::cuda::SimpleVector<PixelErrorCompact>), device, stream));

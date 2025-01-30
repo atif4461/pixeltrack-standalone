@@ -31,11 +31,23 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     cms::alpakatools::host_buffer<pixelTrack::TrackSoA> soa_;
   };
 
+/**
+ * Constructor initializing the object with product registry
+ * @param reg edm ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
   PixelTrackSoAFromAlpaka::PixelTrackSoAFromAlpaka(edm::ProductRegistry& reg)
       : tokenDevice_(reg.consumes<cms::alpakatools::Product<Queue, PixelTrackAlpaka>>()),
         tokenHost_(reg.produces<PixelTrackHost>()),
         soa_{cms::alpakatools::make_host_buffer<pixelTrack::TrackSoA, Platform>()} {}
 
+/**
+ * Acquires event data from Alpaka and stores it in a host buffer
+ * @param[in] event reference to the current event
+ * @param[in] setup reference to the event setup
+ * @param[in,out] waitingTaskHolder holder for the waiting task with arena
+ */
+// The above comment was written by an LLM. 
   void PixelTrackSoAFromAlpaka::acquire(edm::Event const& iEvent,
                                         edm::EventSetup const& iSetup,
                                         edm::WaitingTaskWithArenaHolder waitingTaskHolder) {

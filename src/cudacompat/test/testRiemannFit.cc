@@ -45,6 +45,13 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills hits and hits covariance matrices with predefined values based on the size of the input matrix.
+ *
+ * @param[out] hits Matrix to be filled with hit values.
+ * @param[out] hits_ge Matrix to be filled with hit covariance values.
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +94,55 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests fitting functions with generated hits
+ *
+ * This function tests various fitting algorithms including Fast Fit, Circle Fit, and Line Fit
+ * It generates random hits, performs fits, and prints out the fitted parameters and their covariance matrices
+ 
+ 
+  * @brief Prepares broken line data for fitting
+ *
+ * This function prepares the necessary data structures for the broken line fit algorithm
+ *
+ * @param hits Input hit data
+ * @param fast_fit_results Results from the fast fit algorithm
+ * @param B Magnetic field strength
+ * @param[out] data Prepared broken line data
+ 
+ 
+  * @brief Performs a fast fit on the input hits
+ *
+ * This function uses either the BL_Fast_fit or Rfit::Fast_fit implementation depending on the USE_BL macro
+ *
+ * @param hits Input hit data
+ * @param[out] fast_fit_results Fitted parameters from the fast fit algorithm
+ 
+ 
+  * @brief Performs a circle fit on the input hits
+ *
+ * This function uses either the BL_Circle_fit or Rfit::Circle_fit implementation depending on the USE_BL macro
+ *
+ * @param hits Input hit data
+ * @param hits_ge Covariance matrix of the input hits
+ * @param fast_fit_results Results from the fast fit algorithm
+ * @param B Magnetic field strength
+ * @param data Prepared broken line data
+ * @param[out] circle_fit_results Fitted parameters and covariance matrix from the circle fit algorithm
+ 
+ 
+  * @brief Performs a line fit on the input hits
+ *
+ * This function uses either the BL_Line_fit or Rfit::Line_fit implementation depending on the USE_BL macro
+ *
+ * @param hits Input hit data
+ * @param hits_ge Covariance matrix of the input hits
+ * @param fast_fit_results Results from the fast fit algorithm
+ * @param B Magnetic field strength
+ * @param data Prepared broken line data
+ * @param[out] line_fit_results Fitted parameters and covariance matrix from the line fit algorithm
+ */
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -144,6 +200,10 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * Main program entry point 
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

@@ -9,6 +9,17 @@
 #undef KOKKOS_MACROS_HPP
 
 namespace edm {
+/**
+ * @brief Constructor for event processor object
+ * @param maxEvents maximum number of events to process
+ * @param runForMinutes duration in minutes to run the event processing
+ * @param numberOfStreams number of streams for event processing
+ * @param path vector of strings representing paths
+ * @param esproducers vector of strings representing es producers
+ * @param datadir file system path for data directory
+ * @param validation boolean flag for validation
+ */
+// The above comment was written by an LLM. 
   EventProcessor::EventProcessor(int maxEvents,
                                  int runForMinutes,
                                  int numberOfStreams,
@@ -29,6 +40,11 @@ namespace edm {
     }
   }
 
+/**
+ * Runs the event processing to completion starting the source and executing 
+ * all scheduled tasks either sequentially or concurrently depending on 
+ * the build configuration */
+// The above comment was written by an LLM. 
   void EventProcessor::runToCompletion() {
     source_.startProcessing();
 #ifdef KOKKOS_ENABLE_THREADS
@@ -50,6 +66,10 @@ namespace edm {
 #endif
   }
 
+/**
+ * Ends the job processing for the primary event stream
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::endJob() {
     // Only on the first stream...
     schedules_[0].endJob();

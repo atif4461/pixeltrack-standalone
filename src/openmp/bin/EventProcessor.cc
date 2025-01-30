@@ -5,6 +5,17 @@
 #include "EventProcessor.h"
 
 namespace edm {
+/**
+ * @brief Constructor for EventProcessor class
+ * @param maxEvents Maximum number of events to process
+ * @param runForMinutes Number of minutes to run the processor
+ * @param numberOfStreams Number of streams to handle
+ * @param path Vector of strings representing paths
+ * @param esproducers Vector of strings representing event setup producers
+ * @param datadir File system path to data directory
+ * @param validation Flag indicating whether validation is enabled
+ */
+// The above comment was written by an LLM. 
   EventProcessor::EventProcessor(int maxEvents,
                                  int runForMinutes,
                                  int numberOfStreams,
@@ -25,6 +36,10 @@ namespace edm {
     }
   }
 
+/**
+ * Runs event processing to completion, starting all scheduled tasks 
+ * and waiting for their finish, handling potential exceptions */
+// The above comment was written by an LLM. 
   void EventProcessor::runToCompletion() {
     source_.startProcessing();
     // The task that waits for all other work
@@ -40,6 +55,10 @@ namespace edm {
     }
   }
 
+/**
+ * Ends the job processing for the first stream 
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::endJob() {
     // Only on the first stream...
     schedules_[0].endJob();

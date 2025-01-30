@@ -30,6 +30,10 @@ PixelTrackSoAFromSYCL::PixelTrackSoAFromSYCL(edm::ProductRegistry& reg)
     : tokenSYCL_(reg.consumes<cms::sycltools::Product<PixelTrackHeterogeneous>>()),
       tokenSOA_(reg.produces<PixelTrackHeterogeneous>()) {}
 
+/**
+ * Acquires event data from the SYCL input and transfers it to host memory asynchronously
+ */
+// The above comment was written by an LLM. 
 void PixelTrackSoAFromSYCL::acquire(edm::Event const& iEvent,
                                     edm::EventSetup const& iSetup,
                                     edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -40,6 +44,13 @@ void PixelTrackSoAFromSYCL::acquire(edm::Event const& iEvent,
   m_soa = inputData.toHostAsync(ctx.stream());
 }
 
+/**
+ * Produces an event with a heterogeneous collection of pixel tracks from a structure of arrays object.
+ *
+ * @param iEvent reference to the event being processed
+ * @param iSetup constant reference to the event setup
+ */
+// The above comment was written by an LLM. 
 void PixelTrackSoAFromSYCL::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
   /*
   auto const & tsoa = *m_soa;

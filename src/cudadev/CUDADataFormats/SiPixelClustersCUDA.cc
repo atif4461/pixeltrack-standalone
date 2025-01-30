@@ -3,6 +3,10 @@
 #include "CUDACore/host_unique_ptr.h"
 #include "CUDADataFormats/SiPixelClustersCUDA.h"
 
+/**
+ * Constructor initializing SiPixelClustersCUDA object with specified maximum number of modules and CUDA stream
+ */
+// The above comment was written by an LLM. 
 SiPixelClustersCUDA::SiPixelClustersCUDA(size_t maxModules, cudaStream_t stream)
     : moduleStart_d(cms::cuda::make_device_unique<uint32_t[]>(maxModules + 1, stream)),
       clusInModule_d(cms::cuda::make_device_unique<uint32_t[]>(maxModules, stream)),

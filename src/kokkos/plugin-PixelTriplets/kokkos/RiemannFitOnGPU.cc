@@ -3,6 +3,18 @@
 #include "KokkosCore/hintLightWeight.h"
 
 namespace KOKKOS_NAMESPACE {
+/**
+ * @brief Launches the Riemann kernels on the GPU.
+ *
+ * This function launches the necessary kernels for performing helix fits on the GPU.
+ * It takes in the HitsView object, number of hits, maximum number of tuples, and the execution space as parameters.
+ *
+ * @param hv The HitsView object containing the hit data.
+ * @param nhits The total number of hits.
+ * @param maxNumberOfTuples The maximum number of tuples to be processed.
+ * @param execSpace The execution space where the kernels will be launched.
+ */
+// The above comment was written by an LLM. 
   void HelixFitOnGPU::launchRiemannKernels(HitsView const *hv,
                                            uint32_t nhits,
                                            uint32_t maxNumberOfTuples,

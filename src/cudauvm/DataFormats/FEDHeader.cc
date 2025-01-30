@@ -22,6 +22,17 @@ uint8_t FEDHeader::version() const { return FED_VERSION_EXTRACT(theHeader->sourc
 
 bool FEDHeader::moreHeaders() const { return (FED_MORE_HEADERS_EXTRACT(theHeader->sourceid) != 0); }
 
+/**
+ * Sets the values of the FED header structure with the provided parameters.
+ * @param header     pointer to the unsigned char array representing the header
+ * @param triggerType type of trigger
+ * @param lvl1ID      level one ID
+ * @param bxID       bunch crossing ID
+ * @param sourceID   source identifier
+ * @param version    version number
+ * @param moreHeaders flag indicating presence of additional headers
+ */
+// The above comment was written by an LLM. 
 void FEDHeader::set(unsigned char* header,
                     uint8_t triggerType,
                     uint32_t lvl1ID,

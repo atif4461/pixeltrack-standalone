@@ -18,6 +18,10 @@ namespace {
     return x * x;
   }
 
+/**
+ * @return QualityCuts object containing parameters for track quality assessment
+ */
+// The above comment was written by an LLM. 
   cAHitNtupletGenerator::QualityCuts makeQualityCuts() {
     auto coeff = std::vector<double>{0.68177776, 0.74609577, -0.08035491, 0.00315399};  // chi2Coeff
     return cAHitNtupletGenerator::QualityCuts{// polynomial coefficients for the pT-dependent chi2 cut
@@ -42,6 +46,11 @@ namespace {
 }  // namespace
 
 using namespace std;
+/**
+ * Constructor for CAHitNtupletGeneratorOnGPU class 
+ * initializes member variables with default parameters 
+ * and allocates memory for counters based on GPU usage */
+// The above comment was written by an LLM. 
 CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg)
     : m_params(true,              // onGPU
                3,                 // minHitsPerNtuplet,
@@ -91,6 +100,10 @@ CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg
   }
 }
 
+/**
+ * Destructor for the class, frees resources allocated on GPU or CPU depending 
+ * on the configuration parameters and prints statistics counters if enabled */
+// The above comment was written by an LLM. 
 CAHitNtupletGeneratorOnGPU::~CAHitNtupletGeneratorOnGPU() {
   if (m_params.onGPU_) {
     if (m_params.doStats_) {
@@ -106,6 +119,14 @@ CAHitNtupletGeneratorOnGPU::~CAHitNtupletGeneratorOnGPU() {
   }
 }
 
+/**
+ * @brief Generates tuples of tracking rec hits asynchronously on GPU
+ * @param hits_d TrackingRecHit2DCUDA object containing hit data
+ * @param bfield Magnetic field strength
+ * @param stream CUDA stream for asynchronous execution
+ * @return PixelTrackHeterogeneous object containing generated tracks
+ */
+// The above comment was written by an LLM. 
 PixelTrackHeterogeneous CAHitNtupletGeneratorOnGPU::makeTuplesAsync(TrackingRecHit2DCUDA const& hits_d,
                                                                     float bfield,
                                                                     cudaStream_t stream) const {
@@ -134,6 +155,13 @@ PixelTrackHeterogeneous CAHitNtupletGeneratorOnGPU::makeTuplesAsync(TrackingRecH
   return tracks;
 }
 
+/**
+ * @brief Generates tuples of tracking rec hits on GPU
+ * @param hits_d TrackingRecHit2DCPU object containing hit data
+ * @param bfield Magnetic field strength
+ * @return PixelTrackHeterogeneous object containing generated tracks
+ */
+// The above comment was written by an LLM. 
 PixelTrackHeterogeneous CAHitNtupletGeneratorOnGPU::makeTuples(TrackingRecHit2DCPU const& hits_d, float bfield) const {
   PixelTrackHeterogeneous tracks(std::make_unique<pixelTrack::TrackSoA>());
 

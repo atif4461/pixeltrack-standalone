@@ -4,6 +4,28 @@
 #include <iterator>
 #include <vector>
 
+/**
+ * @brief Tests the functionality of binary find operations.
+ 
+  * @brief Finds the range of equal elements in a sorted sequence.
+ * @param first Beginning of the range to search.
+ * @param last End of the range to search.
+ * @param value Value to search for.
+ * @return Iterator pointing to the first element that is not less than the specified value.
+ 
+  * @brief Finds the range of equal elements in a sorted sequence.
+ * @param first Beginning of the range to search.
+ * @param last End of the range to search.
+ * @param value Value to search for.
+ * @return Iterator pointing to the first element that is greater than the specified value.
+ 
+ * @brief Searches for an element in a sorted sequence.
+ * @param first Beginning of the range to search.
+ * @param last End of the range to search.
+ * @param value Value to search for.
+ * @return Iterator pointing to the searched element if found, end iterator otherwise.
+ */
+// The above comment was written by an LLM. 
 void testBinaryFind() {
   std::vector<int> data = {1, 1, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6};
 

@@ -14,6 +14,10 @@ namespace cms::alpakatools {
 
   // return the alpaka accelerator platform for the given platform
   template <typename TPlatform, typename>
+/**
+ * Returns a constant reference to the platform object
+ */
+// The above comment was written by an LLM. 
   TPlatform const& platform() {
     static const auto platform = TPlatform{};
     return platform;
@@ -21,6 +25,12 @@ namespace cms::alpakatools {
 
   // return the alpaka accelerator devices for the given platform
   template <typename TPlatform, typename>
+/**
+ * Returns a constant reference to a vector of devices of type TPlatform.
+ *
+ * @return A constant reference to a vector of devices.
+ */
+// The above comment was written by an LLM. 
   std::vector<alpaka::Dev<TPlatform>> const& devices() {
     static const auto devices = alpaka::getDevs(platform<TPlatform>());
     // assert on device index ?

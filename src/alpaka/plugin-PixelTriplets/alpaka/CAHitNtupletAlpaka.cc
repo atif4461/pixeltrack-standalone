@@ -25,11 +25,21 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     CAHitNtupletGeneratorOnGPU gpuAlgo_;
   };
 
+/**
+ * Constructor initializing the object with ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
   CAHitNtupletAlpaka::CAHitNtupletAlpaka(edm::ProductRegistry& reg)
       : tokenHitGPU_{reg.consumes<cms::alpakatools::Product<Queue, TrackingRecHit2DAlpaka>>()},
         tokenTrackGPU_{reg.produces<cms::alpakatools::Product<Queue, PixelTrackAlpaka>>()},
         gpuAlgo_(reg) {}
 
+/**
+ * Produces tuples of tracks from event data using GPU acceleration
+ * @param[in] event Reference to the current event being processed
+ * @param[in] setup Constant reference to the event setup configuration
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletAlpaka::produce(edm::Event& iEvent, const edm::EventSetup& es) {
     auto bf = 0.0114256972711507;  // 1/fieldInGeV
 

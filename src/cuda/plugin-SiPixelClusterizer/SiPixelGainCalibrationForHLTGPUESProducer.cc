@@ -17,6 +17,11 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces pixel gain calibration data for High Level Trigger GPU ES
+ * @param eventSetup reference to EventSetup object
+ */
+// The above comment was written by an LLM. 
 void SiPixelGainCalibrationForHLTGPUESProducer::produce(edm::EventSetup& eventSetup) {
   std::ifstream in(data_ / "gain.bin", std::ios::binary);
   in.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);

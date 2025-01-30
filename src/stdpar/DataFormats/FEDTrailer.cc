@@ -28,6 +28,16 @@ bool FEDTrailer::wrongFedId() const { return (FED_WRONG_FEDID_EXTRACT(theTrailer
 
 uint32_t FEDTrailer::conscheck() const { return theTrailer->conscheck; }
 
+/**
+ * Sets the values of the trailer structure with the given parameters.
+ * @param trailer pointer to the trailer data
+ * @param lenght length of the event
+ * @param crc checksum value
+ * @param evtStatus status of the event
+ * @param ttsBits time trigger and timestamp bits
+ * @param moreTrailers flag indicating presence of additional trailers
+ */
+// The above comment was written by an LLM. 
 void FEDTrailer::set(
     unsigned char* trailer, uint32_t lenght, uint16_t crc, uint8_t evtStatus, uint8_t ttsBits, bool moreTrailers) {
   // FIXME: should check that input ranges are OK!!!

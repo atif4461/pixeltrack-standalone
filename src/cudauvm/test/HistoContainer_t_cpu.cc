@@ -10,6 +10,37 @@
 using namespace cms::cuda;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Main entry point of the program.
+ *
+ * This function initializes random number generation, creates histogram containers,
+ * and performs various tests on them.
+ 
+void go()
+ * @brief Verifies that two elements in the same bin have non-decreasing order.
+ *
+ * This lambda function checks if two elements at indices t1 and t2 are in non-decreasing order.
+ * It prints an error message if the condition is not met.
+ *
+ * @param i Index of the current bin.
+ * @param j Index of the compared bin.
+ * @param k Index of the element being checked.
+ * @param t1 Index of the first element.
+ * @param t2 Index of the second element.
+ 
+auto verify = [&](uint32_t i, uint32_t j, uint32_t k, uint32_t t1, uint32_t t2)
+ * @brief Iterates over all elements in the specified bins and applies a test function.
+ *
+ * This function iterates over all elements in the bins within a certain distance from the bin of the given value.
+ * It applies the provided test function to each element.
+ *
+ * @param hist Histogram container to iterate over.
+ * @param val Value whose bin is used as a reference.
+ * @param width Distance from the reference bin to consider.
+ * @param test Test function to apply to each element.
+ 
+forEachInBins(h, v[j], w, ftest)*/
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -137,6 +168,12 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ *
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int16_t>();
   go<uint8_t, 128, 8, 4>();

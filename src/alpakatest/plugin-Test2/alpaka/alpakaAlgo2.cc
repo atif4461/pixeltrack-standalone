@@ -7,6 +7,15 @@ namespace {
 
   struct vectorAdd {
     template <typename T_Acc, typename T_Data>
+/**
+ * @brief Performs an element wise addition of two arrays.
+ * @param[in] acc 
+ * @param[in] a First array
+ * @param[in] b Second array
+ * @param[out] c Resulting array
+ * @param[in] numElements Number of elements in the arrays
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC void operator()(T_Acc const& acc,
                                   const T_Data* __restrict__ a,
                                   const T_Data* __restrict__ b,
@@ -20,6 +29,15 @@ namespace {
 
   struct vectorProd {
     template <typename T_Acc, typename T_Data>
+/**
+ * @brief Performs an operation on two input arrays with a specified number of elements.
+ * @param acc access object
+ * @param a first input array
+ * @param b second input array
+ * @param c output array
+ * @param numElements number of elements in the arrays
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC void operator()(T_Acc const& acc,
                                   const T_Data* __restrict__ a,
                                   const T_Data* __restrict__ b,
@@ -42,6 +60,15 @@ namespace {
 
   struct matrixMul {
     template <typename T_Acc, typename T_Data>
+/**
+ * @brief Performs matrix multiplication operation on input data
+ * @param acc accelerator object
+ * @param a pointer to first input data array
+ * @param b pointer to second input data array
+ * @param c pointer to output data array
+ * @param numElements number of elements in each dimension
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC void operator()(T_Acc const& acc,
                                   const T_Data* __restrict__ a,
                                   const T_Data* __restrict__ b,
@@ -68,6 +95,15 @@ namespace {
 
   struct matrixMulVector {
     template <typename T_Acc, typename T_Data>
+/**
+ * @brief Performs matrix vector multiplication operation
+ * @param[in] acc acceleration structure
+ * @param[in] a input data array
+ * @param[in] b input data array
+ * @param[out] c output data array
+ * @param[in] numElements number of elements in the arrays
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC void operator()(T_Acc const& acc,
                                   const T_Data* __restrict__ a,
                                   const T_Data* __restrict__ b,
@@ -94,6 +130,13 @@ namespace {
 
     struct verifyVectorAdd {
       template <typename T_Acc, typename T_Data>
+/**
+ * Checks the computed result against the expected value for each element in the grid.
+ * @param acc accelerator handle
+ * @param result array of computed values
+ * @param numElements number of elements in the result array
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const T_Acc& acc, const T_Data* result, unsigned int numElements) const {
         // Global element index in 1D grid.
         // NB: On GPU, i = threadIndexGlobal = firstElementIdxGlobal = endElementIdxGlobal.
@@ -108,6 +151,14 @@ namespace {
 
     struct verifyVectorProd {
       template <typename T_Acc, typename T_Data>
+/**
+ * Checks the computed result against the theoretical value with a specified tolerance.
+ *
+ * @param acc accelerator handle
+ * @param result pointer to the computed result data
+ * @param numElements number of elements in the result data
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const T_Acc& acc, const T_Data* result, unsigned int numElements) const {
         const auto& threadIdxGlobal(alpaka::getIdx<alpaka::Grid, alpaka::Threads>(acc));
         const uint32_t threadIdxGlobalX(threadIdxGlobal[0u]);
@@ -133,6 +184,16 @@ namespace {
 
     struct verifyMatrixMul {
       template <typename T_Acc, typename T_Data>
+/**
+ * @brief Verifies the correctness of matrix multiplication results.
+ *
+ * This function checks the computed result against theoretically calculated values.
+ *
+ * @param acc accelerator handle
+ * @param result pointer to the resulting data array
+ * @param numElements number of elements in one dimension of the square matrix
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const T_Acc& acc, const T_Data* result, unsigned int numElements) const {
         const auto& threadIdxGlobal(alpaka::getIdx<alpaka::Grid, alpaka::Threads>(acc));
         const uint32_t threadIdxGlobalX(threadIdxGlobal[0u]);
@@ -166,6 +227,17 @@ namespace {
 
     struct verifyMatrixMulVector {
       template <typename T_Acc, typename T_Data>
+/**
+ * @brief Checks the accuracy of matrix vector multiplication results.
+ * 
+ * This function compares actual results with theoretically calculated values 
+ * within a specified tolerance ratio and reports discrepancies.
+ * 
+ * @param[in] acc Accelerator object used for parallel execution.
+ * @param[out] result Array containing the actual results of matrix vector multiplication.
+ * @param[in] numElements Number of elements in the result array.
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const T_Acc& acc, const T_Data* result, unsigned int numElements) const {
         const uint32_t threadIdxGlobal(alpaka::getIdx<alpaka::Grid, alpaka::Threads>(acc)[0u]);
 
@@ -201,6 +273,17 @@ namespace {
 }  // namespace
 
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
+/**
+ * @brief Performs Alpaka algorithm 2 on the given queue.
+ *
+ * This function performs a series of operations including vector addition, 
+ * vector multiplication, matrix multiplication, and matrix-vector multiplication.
+ *
+ * @param queue The queue on which the operations are performed.
+ *
+ * @return A device buffer containing the result of the matrix-vector multiplication.
+ */
+// The above comment was written by an LLM. 
   cms::alpakatools::device_buffer<Device, float[]> alpakaAlgo2(Queue& queue) {
     // Host data
     auto h_a_buf = cms::alpakatools::make_host_buffer<float[]>(NUM_VALUES);

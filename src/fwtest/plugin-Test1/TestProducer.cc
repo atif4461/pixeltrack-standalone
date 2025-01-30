@@ -21,6 +21,12 @@ private:
 TestProducer::TestProducer(edm::ProductRegistry& reg)
     : rawGetToken_(reg.consumes<FEDRawDataCollection>()), putToken_(reg.produces<unsigned int>()) {}
 
+/**
+ * Produces data for an event and logs event information if verbosity is enabled.
+ * @param event The event being processed.
+ * @param eventSetup The setup for the current event.
+ */
+// The above comment was written by an LLM. 
 void TestProducer::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
   auto const value = event.get(rawGetToken_).FEDData(1200).size();
 #ifndef FWTEST_SILENT

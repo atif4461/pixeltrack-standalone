@@ -45,6 +45,16 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and the corresponding columns of the hits_ge matrix
+ * with hardcoded values depending on the number of columns in the hits matrix.
+ *
+ * @param[out] hits Matrix to be filled with hit values
+ * @param[out] hits_ge Matrix whose columns are partially filled with covariance values
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +97,60 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Test fitting functions with generated hits.
+ *
+ * This function tests the performance of different fitting algorithms 
+ * including Fast Fit, Circle Fit and Line Fit on generated hit data.
+ 
+ 
+ 
+  * @brief Prepare broken line data for fitting.
+ *
+* This function prepares the necessary data structures for 
+* performing a broken line fit on the input hits.
+*
+* @param[in] hits Input hits used for preparing the data.
+* @param[in] fast_fit_results Results from the fast fit algorithm.
+* @param[in] B Magnetic field strength.
+* @param[out] data Prepared broken line data.
+
+ 
+ * @brief Perform a fast fit on the input hits.
+ *
+* This function performs a fast fit on the input hits and returns 
+* the fitted parameters.
+*
+* @param[in] hits Input hits used for the fast fit.
+* @param[out] results Fitted parameters from the fast fit.
+
+ 
+ * @brief Perform a circle fit on the input hits.
+ *
+* This function performs a circle fit on the input hits and returns 
+* the fitted parameters and covariance matrix.
+*
+* @param[in] hits Input hits used for the circle fit.
+* @param[in] hits_ge Geometrical uncertainties associated with the hits.
+* @param[in] fast_fit_results Initial guess for the fit from the fast fit algorithm.
+* @param[in] B Magnetic field strength.
+* @param[in] data Prepared broken line data.
+* @param[out] circle_fit_results Fitted parameters and covariance matrix from the circle fit.
+
+ 
+ * @brief Perform a line fit on the input hits.
+ *
+* This function performs a line fit on the input hits and returns 
+* the fitted parameters and covariance matrix.
+*
+* @param[in] hits Input hits used for the line fit.
+* @param[in] hits_ge Geometrical uncertainties associated with the hits.
+* @param[in] fast_fit_results Initial guess for the fit from the fast fit algorithm.
+* @param[in] B Magnetic field strength.
+* @param[in] data Prepared broken line data.
+* @param[out] line_fit_results Fitted parameters and covariance matrix from the line fit.
+*/
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -144,6 +208,13 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * @brief Main program entry point
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

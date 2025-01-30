@@ -20,6 +20,10 @@ namespace {
     return x * x;
   }
 
+/**
+ * @return QualityCuts object containing parameters for track quality assessment
+ */
+// The above comment was written by an LLM. 
   cAHitNtupletGenerator::QualityCuts makeQualityCuts() {
     auto coeff = std::vector<double>{0.68177776, 0.74609577, -0.08035491, 0.00315399};  // chi2Coeff
     return cAHitNtupletGenerator::QualityCuts{// polynomial coefficients for the pT-dependent chi2 cut
@@ -45,6 +49,11 @@ namespace {
 
 using namespace std;
 namespace KOKKOS_NAMESPACE {
+/**
+ * Constructor for CAHitNtupletGeneratorOnGPU class 
+ * @param reg reference to edm ProductRegistry object
+ */
+// The above comment was written by an LLM. 
   CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg)
       : m_params(true,              // onGPU
                  3,                 // minHitsPerNtuplet,
@@ -93,12 +102,25 @@ namespace KOKKOS_NAMESPACE {
     execSpace.fence();
   }
 
+/**
+ * Destructor for the class 
+ * @brief Releases resources and prints statistics if enabled 
+ */
+// The above comment was written by an LLM. 
   CAHitNtupletGeneratorOnGPU::~CAHitNtupletGeneratorOnGPU() {
     if (m_params.doStats_) {
       CAHitNtupletGeneratorKernels::printCounters(m_counters);
     }
   }
 
+/**
+ * @brief Generates tuples of pixel tracks from 2D tracking rec hits on GPU
+ * @param hits_d 2D tracking rec hits on device memory space
+ * @param bfield magnetic field strength
+ * @param execSpace execution space for parallel operations
+ * @return shared pointer to track data structure
+ */
+// The above comment was written by an LLM. 
   cms::kokkos::shared_ptr<pixelTrack::TrackSoA, KokkosDeviceMemSpace> CAHitNtupletGeneratorOnGPU::makeTuples(
       TrackingRecHit2DKokkos<KokkosDeviceMemSpace> const& hits_d, float bfield, KokkosExecSpace const& execSpace) {
     auto tracks = cms::kokkos::make_shared<pixelTrack::TrackSoA, KokkosDeviceMemSpace>(execSpace);

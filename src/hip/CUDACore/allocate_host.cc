@@ -11,6 +11,13 @@ namespace {
 }
 
 namespace cms::hip {
+/**
+ * Allocates host memory of specified size associated with a given stream
+ * @param nbytes number of bytes to be allocated
+ * @param stream hipStream_t object associated with allocation
+ * @return pointer to allocated host memory
+ */
+// The above comment was written by an LLM. 
   void *allocate_host(size_t nbytes, hipStream_t stream) {
     void *ptr = nullptr;
     if constexpr (allocator::policy == allocator::Policy::Caching) {
@@ -25,6 +32,10 @@ namespace cms::hip {
     return ptr;
   }
 
+/**
+ * Frees host memory allocated by the current allocator policy
+ */
+// The above comment was written by an LLM. 
   void free_host(void *ptr) {
     if constexpr (allocator::policy == allocator::Policy::Caching) {
       cudaCheck(allocator::getCachingHostAllocator().HostFree(ptr));

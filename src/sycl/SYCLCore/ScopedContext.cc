@@ -41,6 +41,11 @@ namespace cms::sycltools {
       }
     }
 
+/**
+ * Enqueues a callback to be executed when the specified queue is idle
+ * @param stream the sycl queue to wait on
+ */
+// The above comment was written by an LLM. 
     void ScopedContextHolderHelper::enqueueCallback(sycl::queue stream) {
       auto a = std::async([&]() {
         stream.wait();
@@ -58,6 +63,9 @@ namespace cms::sycltools {
     }
   }
 
+/**
+ * Throws an exception when insertNextTask is called without proper ContextState construction */
+// The above comment was written by an LLM. 
   void ScopedContextAcquire::throwNoState() {
     throw std::runtime_error(
         "Calling ScopedContextAcquire::insertNextTask() requires ScopedContextAcquire to be constructed with "

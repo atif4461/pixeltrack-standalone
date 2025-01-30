@@ -11,6 +11,10 @@ namespace {
 }
 
 namespace cms::cuda {
+/**
+ * Allocates host memory of specified size with optional caching policy 
+ */
+// The above comment was written by an LLM. 
   void *allocate_host(size_t nbytes, cudaStream_t stream) {
     void *ptr = nullptr;
     if constexpr (allocator::policy == allocator::Policy::Caching) {
@@ -25,6 +29,16 @@ namespace cms::cuda {
     return ptr;
   }
 
+/**
+ * Allocates host memory of specified size in bytes on the given device 
+ * associated with the provided CUDA stream.
+ *
+ * @param device   The device on which to allocate the memory
+ * @param nbytes   The number of bytes to allocate
+ * @param stream   The CUDA stream associated with the allocation
+ * @return A pointer to the allocated memory
+ */
+// The above comment was written by an LLM. 
   void *allocate_host(int device, size_t nbytes, cudaStream_t stream) {
     void *ptr = nullptr;
     if constexpr (allocator::policy == allocator::Policy::Caching) {
@@ -40,6 +54,11 @@ namespace cms::cuda {
     return ptr;
   }
 
+/**
+ * Frees host memory allocated by the system
+ * @param ptr pointer to the memory block to be freed
+ */
+// The above comment was written by an LLM. 
   void free_host(void *ptr) {
     if constexpr (allocator::policy == allocator::Policy::Caching) {
       allocator::getCachingHostAllocator().free(ptr);

@@ -11,6 +11,10 @@ KOKKOS_INLINE_FUNCTION void process(const Kokkos::View<int*, ExecSpace, Restrict
   data(i) = 2 * i;
 }
 
+/**
+ * Initializes host data transfers it to device applies operation and transfers result back to host
+ */
+// The above comment was written by an LLM. 
 void test() {
   Kokkos::View<int*, KokkosExecSpace, Restrict> data_d("data_d", ELEMENTS);
   auto data_h = Kokkos::create_mirror_view(data_d);
@@ -29,6 +33,10 @@ void test() {
   }
 }
 
+/**
+ * Initializes the Kokkos scope guard with the specified backend value
+ */
+// The above comment was written by an LLM. 
 int main() {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   test();

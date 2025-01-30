@@ -34,6 +34,13 @@ namespace KOKKOS_NAMESPACE {
       : tokenKokkos_(reg.consumes<cms::kokkos::Product<TracksDeviceMemSpace>>()),
         tokenSOA_(reg.produces<TracksHostMemSpace>()) {}
 
+/**
+ * Acquires event data from the input source and initializes the TrackSoA object
+ * @param[in] iEvent the event data to acquire
+ * @param[in] iSetup the event setup information
+ * @param[in,out] waitingTaskHolder holder for waiting task with arena
+ */
+// The above comment was written by an LLM. 
   void PixelTrackSoAFromKokkos::acquire(edm::Event const& iEvent,
                                         edm::EventSetup const& iSetup,
                                         edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -45,6 +52,13 @@ namespace KOKKOS_NAMESPACE {
     cms::kokkos::deep_copy(ctx.execSpace(), m_soa, inputData);
   }
 
+/**
+ * Produces pixel track data from Kokkos and stores it in the event.
+ *
+ * @param iEvent Reference to the event where data will be stored.
+ * @param iSetup Constant reference to the event setup.
+ */
+// The above comment was written by an LLM. 
   void PixelTrackSoAFromKokkos::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
     /*
   auto const & tsoa = *m_soa;

@@ -9,6 +9,28 @@
 
 #include "CUDACore/portableAtomicOp.h"
 
+/**
+ * Main program entry point
+ 
+  * Initialize constants and variables
+ 
+  * Create random number generator and distribution
+ 
+  * Reserve memory for vector of integers
+ 
+  * Loop through iterations to generate random numbers and calculate minimum values
+ 
+  * Measure execution time of parallel minimum calculation
+ 
+  * Compare results from host and GPU calculations
+ 
+  * Reset result value to maximum integer limit
+ 
+  * Measure execution time of sequential minimum calculation
+ 
+  * Compare results from host and standard algorithm calculations
+ */
+// The above comment was written by an LLM. 
 int main() {
   constexpr auto N = 2000000;
   auto result{std::make_unique<int>(std::numeric_limits<int>::max())};

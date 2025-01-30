@@ -20,6 +20,12 @@ private:
 
 BeamSpotToCUDA::BeamSpotToCUDA(edm::ProductRegistry& reg) : bsPutToken_(reg.produces<BeamSpot>()) {}
 
+/**
+ * Produces beam spot data and stores it in the event
+ * @param iEvent reference to the current event being processed
+ * @param iSetup reference to the event setup containing configuration data
+ */
+// The above comment was written by an LLM. 
 void BeamSpotToCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const& bs = iSetup.get<BeamSpotPOD>();
 

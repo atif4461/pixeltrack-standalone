@@ -6,6 +6,10 @@
 #include "CUDACore/ScopedSetDevice.h"
 
 namespace cms::cuda {
+/**
+ * Destroys a CUDA event object and releases associated resources.
+ */
+// The above comment was written by an LLM. 
   void EventCache::Deleter::operator()(cudaEvent_t event) const {
     if (device_ != -1) {
       ScopedSetDevice deviceGuard{device_};
@@ -17,6 +21,12 @@ namespace cms::cuda {
   // getEventCache() only if we have CUDA devices present
   EventCache::EventCache() : cache_(deviceCount()) {}
 
+/**
+ * Retrieves an event from the cache, blocking until a completed event is available.
+ *
+ * @return A shared pointer to the retrieved event.
+ */
+// The above comment was written by an LLM. 
   SharedEventPtr EventCache::get() {
     const auto dev = currentDevice();
     auto event = makeOrGet(dev);
@@ -41,6 +51,12 @@ namespace cms::cuda {
     return event;
   }
 
+/**
+ * Retrieves or creates an event for the specified device if it does not already exist in the cache
+ * @param dev Device identifier
+ * @return Shared pointer to the retrieved or created event
+ */
+// The above comment was written by an LLM. 
   SharedEventPtr EventCache::makeOrGet(int dev) {
     return cache_[dev].makeOrGet([dev]() {
       cudaEvent_t event;
@@ -50,6 +66,10 @@ namespace cms::cuda {
     });
   }
 
+/**
+ * Resets the contents of the caches while keeping an object holder alive for each device 
+ */
+// The above comment was written by an LLM. 
   void EventCache::clear() {
     // Reset the contents of the caches, but leave an
     // edm::ReusableObjectHolder alive for each device. This is needed
@@ -60,6 +80,10 @@ namespace cms::cuda {
     cache_.resize(deviceCount());
   }
 
+/**
+ * Returns the event cache instance in a thread safe manner
+ */
+// The above comment was written by an LLM. 
   EventCache& getEventCache() {
     // the public interface is thread safe
     static EventCache cache;

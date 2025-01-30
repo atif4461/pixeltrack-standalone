@@ -30,6 +30,10 @@ BeamSpotToCUDA::BeamSpotToCUDA(edm::ProductRegistry& reg)
     : bsPutToken_{reg.produces<cms::hip::Product<BeamSpotCUDA>>()},
       bsHost{cms::hip::make_host_noncached_unique<BeamSpotPOD>(hipHostMallocWriteCombined)} {}
 
+/**
+ * Produces beam spot data and transfers it to CUDA device
+ */
+// The above comment was written by an LLM. 
 void BeamSpotToCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   *bsHost = iSetup.get<BeamSpotPOD>();
 

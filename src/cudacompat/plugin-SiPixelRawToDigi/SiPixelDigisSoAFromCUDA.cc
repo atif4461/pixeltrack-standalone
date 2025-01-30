@@ -34,6 +34,13 @@ SiPixelDigisSoAFromCUDA::SiPixelDigisSoAFromCUDA(edm::ProductRegistry& reg)
     : digiGetToken_(reg.consumes<cms::cuda::Product<SiPixelDigisCUDA>>()),
       digiPutToken_(reg.produces<SiPixelDigisSoA>()) {}
 
+/**
+ * Acquires pixel digis from CUDA memory and transfers them to host memory.
+ * @param iEvent the event object containing the data to be transferred
+ * @param iSetup the event setup object providing configuration information
+ * @param waitingTaskHolder holder for waiting task with arena
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisSoAFromCUDA::acquire(const edm::Event& iEvent,
                                       const edm::EventSetup& iSetup,
                                       edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -49,6 +56,12 @@ void SiPixelDigisSoAFromCUDA::acquire(const edm::Event& iEvent,
   clus_ = gpuDigis.clusToHostAsync(ctx.stream());
 }
 
+/**
+ * Produces pixel digis in StructureOfArray format for an event
+ * @param iEvent reference to the event being processed
+ * @param iSetup constant reference to the event setup
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisSoAFromCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   // The following line copies the data from the pinned host memory to
   // regular host memory. In principle that feels unnecessary (why not

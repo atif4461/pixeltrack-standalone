@@ -2,6 +2,10 @@
 #include "deviceCount.h"
 
 namespace cms::cuda {
+/**
+ * Returns the device assigned to the given StreamID based on static assignment logic
+ */
+// The above comment was written by an LLM. 
   int chooseDevice(edm::StreamID id) {
     // For startes we "statically" assign the device based on
     // edm::Stream number. This is suboptimal if the number of

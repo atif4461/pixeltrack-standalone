@@ -55,6 +55,11 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     const bool useQuality_;
   };
 
+/**
+ * Constructor initializing the object with product registry 
+ * and setting default values for member variables
+ */
+// The above comment was written by an LLM. 
   SiPixelRawToCluster::SiPixelRawToCluster(edm::ProductRegistry& reg)
       : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
         digiPutToken_(reg.produces<cms::alpakatools::Product<Queue, SiPixelDigisAlpaka>>()),
@@ -69,6 +74,15 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     wordFedAppender_ = std::make_unique<pixelgpudetails::SiPixelRawToClusterGPUKernel::WordFedAppender>();
   }
 
+/**
+ * Acquires raw pixel data from an event, performs quality checks, 
+ * extracts necessary information, and prepares it for clustering.
+ *
+ * @param iEvent The input event containing raw pixel data.
+ * @param iSetup The setup object providing access to various configurations.
+ * @param waitingTaskHolder Holder for tasks waiting on asynchronous operations.
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToCluster::acquire(const edm::Event& iEvent,
                                     const edm::EventSetup& iSetup,
                                     edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -163,6 +177,10 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
                                ctx.stream());
   }
 
+/**
+ * Produces pixel clusters from raw data in an event
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToCluster::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     cms::alpakatools::ScopedContextProduce ctx{ctxState_};
 

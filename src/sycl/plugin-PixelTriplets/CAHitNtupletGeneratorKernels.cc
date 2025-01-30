@@ -24,6 +24,13 @@ void CAHitNtupletGeneratorKernels::fillHitDetIndices(HitsView const *hv, TkSoA *
 #endif
 }
 
+/**
+ * @brief Launches kernels for track reconstruction
+ * @param hh HitsOnCPU object containing hit data
+ * @param tracks_d Pointer to track data on the GPU
+ * @param stream SYCL queue for executing kernels
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernels::launchKernels(HitsOnCPU const &hh, TkSoA *tracks_d, sycl::queue stream) {
   // these are pointer on GPU!
   auto *tuples_d = &tracks_d->hitIndices;
@@ -282,6 +289,17 @@ void CAHitNtupletGeneratorKernels::launchKernels(HitsOnCPU const &hh, TkSoA *tra
   // device_isOuterHitOfCell_.reset();
 }
 
+/**
+ * @brief Builds doublets from hits on CPU.
+ *
+ * This function takes a list of hits on the CPU and generates doublets.
+ * It first checks the number of hits and initializes the necessary data structures.
+ * Then it launches two kernels: one to initialize the doublets and another to get the doublets from histograms.
+ *
+ * @param hh The list of hits on the CPU.
+ * @param stream The SYCL queue to execute the kernels on.
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernels::buildDoublets(HitsOnCPU const &hh, sycl::queue stream) {
   uint nhits = hh.nHits();
 #ifdef NTUPLE_DEBUG
@@ -393,6 +411,14 @@ void CAHitNtupletGeneratorKernels::buildDoublets(HitsOnCPU const &hh, sycl::queu
 #endif
 }
 
+/**
+ * @brief Classifies tuples into tracks based on kinematics and applies various cleaning and statistics operations.
+ *
+ * @param[in] hh HitsOnCPU object containing hits data
+ * @param[out] tracks_d Pointer to track data structure on the GPU
+ * @param[in] stream SYCL queue object for executing kernels on the GPU
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernels::classifyTuples(HitsOnCPU const &hh, TkSoA *tracks_d, sycl::queue stream) {
   // these are pointer on GPU!
   auto const *tuples_d = &tracks_d->hitIndices;
@@ -601,6 +627,12 @@ void CAHitNtupletGeneratorKernels::classifyTuples(HitsOnCPU const &hh, TkSoA *tr
 #endif
 }
 
+/**
+ * Prints the current state of counters to the console.
+ * @param[in] counters The counters object containing data to be printed
+ * @param[in] stream The SYCL queue where the operation will be executed
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernels::printCounters(Counters const *counters, sycl::queue stream) {
   stream.submit([&](sycl::handler &cgh) {
     auto counters_kernel = counters;

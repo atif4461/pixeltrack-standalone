@@ -5,6 +5,10 @@
 
 #include <cassert>
 
+/**
+ * Constructor initializing member variables with provided parameters and setting up device memory
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsSYCL::SiPixelDigiErrorsSYCL(size_t maxFedWords, PixelFormatterErrors errors, sycl::queue stream)
     : formatterErrors_h(std::move(errors)) {
   error_d = cms::sycltools::make_device_unique<cms::sycltools::SimpleVector<PixelErrorCompact>>(stream);
@@ -24,6 +28,12 @@ void SiPixelDigiErrorsSYCL::copyErrorToHostAsync(sycl::queue stream) {
   stream.memcpy(error_h.get(), error_d.get(), sizeof(PixelErrorCompact));
 }
 
+/**
+ * @brief Transfers pixel error data from device to host asynchronously
+ * @param stream SYCL queue used for asynchronous data transfer
+ * @return HostDataError object containing transferred pixel error data
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsSYCL::HostDataError SiPixelDigiErrorsSYCL::dataErrorToHostAsync(sycl::queue stream) const {
   // On one hand size() could be sufficient. On the other hand, if
   // someone copies the SimpleVector<>, (s)he might expect the data

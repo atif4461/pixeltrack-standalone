@@ -49,6 +49,11 @@ private:
   const bool useQuality_;
 };
 
+/**
+ * Constructor initializing the SiPixelRawToClusterCUDA object with ProductRegistry
+ * @param reg edm ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
 SiPixelRawToClusterCUDA::SiPixelRawToClusterCUDA(edm::ProductRegistry& reg)
     : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
       digiPutToken_(reg.produces<cms::hip::Product<SiPixelDigisCUDA>>()),
@@ -63,6 +68,14 @@ SiPixelRawToClusterCUDA::SiPixelRawToClusterCUDA(edm::ProductRegistry& reg)
   wordFedAppender_ = std::make_unique<pixelgpudetails::SiPixelRawToClusterGPUKernel::WordFedAppender>();
 }
 
+/**
+ * Acquires raw pixel data from an event and converts it into clusters using CUDA.
+ *
+ * @param iEvent The event containing the raw pixel data.
+ * @param iSetup The event setup providing access to the necessary configurations.
+ * @param waitingTaskHolder A holder for tasks waiting for completion.
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawToClusterCUDA::acquire(const edm::Event& iEvent,
                                       const edm::EventSetup& iSetup,
                                       edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -161,6 +174,12 @@ void SiPixelRawToClusterCUDA::acquire(const edm::Event& iEvent,
                              ctx.stream());
 }
 
+/**
+ * Produces pixel clusters from raw data in an event
+ * @param iEvent the event being processed
+ * @param iSetup the event setup object
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawToClusterCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   cms::hip::ScopedContextProduce ctx{ctxState_};
 

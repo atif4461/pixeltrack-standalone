@@ -2,6 +2,13 @@
 #include "deviceCount.h"
 
 namespace cms::hip {
+/**
+ * Returns the device assigned to a given StreamID
+ *
+ * @param id The EDM stream identifier
+ * @return The device number assigned to the stream
+ */
+// The above comment was written by an LLM. 
   int chooseDevice(edm::StreamID id) {
     // For startes we "statically" assign the device based on
     // edm::Stream number. This is suboptimal if the number of

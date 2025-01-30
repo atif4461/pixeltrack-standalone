@@ -5,6 +5,11 @@
 #include "CUDACore/ScopedSetDevice.h"
 
 namespace cms::cuda {
+/**
+ * Destroys a CUDA stream object
+ * @param stream the CUDA stream to be destroyed
+ */
+// The above comment was written by an LLM. 
   void StreamCache::Deleter::operator()(cudaStream_t stream) const {
     if (device_ != -1) {
       ScopedSetDevice deviceGuard{device_};
@@ -16,6 +21,10 @@ namespace cms::cuda {
   // getStreamCache() only if we have CUDA devices present
   StreamCache::StreamCache() : cache_(deviceCount()) {}
 
+/**
+ * Retrieves a shared pointer to a CUDA stream object from the cache,
+ * creating one if it does not exist, with nonblocking behavior enabled.*/
+// The above comment was written by an LLM. 
   SharedStreamPtr StreamCache::get() {
     const auto dev = currentDevice();
     return cache_[dev].makeOrGet([dev]() {
@@ -25,6 +34,10 @@ namespace cms::cuda {
     });
   }
 
+/**
+ * Resets the contents of the caches while keeping a holder alive for each device
+ */
+// The above comment was written by an LLM. 
   void StreamCache::clear() {
     // Reset the contents of the caches, but leave an
     // edm::ReusableObjectHolder alive for each device. This is needed
@@ -35,6 +48,10 @@ namespace cms::cuda {
     cache_.resize(deviceCount());
   }
 
+/**
+ * Returns the stream cache instance providing thread safe access 
+ */
+// The above comment was written by an LLM. 
   StreamCache& getStreamCache() {
     // the public interface is thread safe
     static StreamCache cache;

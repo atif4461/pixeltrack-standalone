@@ -33,11 +33,23 @@ namespace pixelgpudetails {
   // number of words for all the FEDs
   constexpr uint32_t MAX_FED_WORDS = pixelgpudetails::MAX_FED * pixelgpudetails::MAX_WORD;
 
+/**
+ * Default constructor initializing internal data structures 
+ */
+// The above comment was written by an LLM. 
   SiPixelRawToClusterGPUKernel::WordFedAppender::WordFedAppender() {
     word_ = std::make_unique<unsigned int[]>(MAX_FED_WORDS);
     fedId_ = std::make_unique<unsigned char[]>(MAX_FED_WORDS);
   }
 
+/**
+ * Initializes the WordFedAppender with the specified parameters
+ * @param[in] fedId identifier of the FED
+ * @param[in] wordCounterGPU current GPU word counter
+ * @param[in] src source data buffer
+ * @param[in] length number of words to process
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToClusterGPUKernel::WordFedAppender::initializeWordFed(int fedId,
                                                                         unsigned int wordCounterGPU,
                                                                         const uint32_t *src,
@@ -56,6 +68,15 @@ namespace pixelgpudetails {
 
   bool isBarrel(uint32_t rawId) { return (1 == ((rawId >> 25) & 0x7)); }
 
+/**
+ * Returns raw detector identifier from specified FED, link and ROC
+ * @param cablingMap pointer to SiPixelFedCablingMapGPU object
+ * @param fed front end controller identifier
+ * @param link link number in FED
+ * @param roc readout chip identifier
+ * @return DetIdGPU object containing raw identifier and module details
+ */
+// The above comment was written by an LLM. 
   pixelgpudetails::DetIdGPU getRawId(const SiPixelFedCablingMapGPU *cablingMap,
                                      uint8_t fed,
                                      uint32_t link,
@@ -137,6 +158,14 @@ namespace pixelgpudetails {
     return global;
   }
 
+/**
+ * @brief Returns error type based on the status of the FED
+ * @param[in] fedId Federal ID
+ * @param[in] status Status of the operation
+ * @param[in] debug Flag to enable debugging messages
+ * @return Error type as an unsigned 8 bit integer
+ */
+// The above comment was written by an LLM. 
   uint8_t conversionError(uint8_t fedId, uint8_t status, bool debug = false) {
     uint8_t errorType = 0;
 
@@ -175,6 +204,10 @@ namespace pixelgpudetails {
     return errorType;
   }
 
+/**
+
+/// Checks if row and column indices are within valid range in ROC representation*/
+// The above comment was written by an LLM. 
   bool rocRowColIsValid(uint32_t rocRow, uint32_t rocCol) {
     uint32_t numRowsInRoc = 80;
     uint32_t numColsInRoc = 52;
@@ -185,6 +218,16 @@ namespace pixelgpudetails {
 
   bool dcolIsValid(uint32_t dcol, uint32_t pxid) { return ((dcol < 26) & (2 <= pxid) & (pxid < 162)); }
 
+/**
+ * @brief Checks the ROC status based on the provided error word and returns an error type.
+ * @param errorWord The input error word to be checked.
+ * @param fedId The FED ID associated with the error word.
+ * @param link The link number associated with the error word.
+ * @param cablingMap The SiPixelFedCablingMapGPU object containing the mapping details.
+ * @param debug Optional flag to enable debugging print statements.
+ * @return The error type if an error is found, otherwise 0.
+ */
+// The above comment was written by an LLM. 
   uint8_t checkROC(
       uint32_t errorWord, uint8_t fedId, uint32_t link, const SiPixelFedCablingMapGPU *cablingMap, bool debug = false) {
     uint8_t errorType = (errorWord >> pixelgpudetails::ROC_shift) & pixelgpudetails::ERROR_mask;
@@ -261,6 +304,16 @@ namespace pixelgpudetails {
     return errorFound ? errorType : 0;
   }
 
+/**
+ * @brief Returns raw ID of detector element corresponding to error word
+ * @param[in] fedId FED ID number
+ * @param[in] errWord Error word containing error details
+ * @param[in] errorType Type of error that occurred
+ * @param[in] cablingMap Mapping between FED IDs and detector elements
+ * @param[in] debug Flag indicating whether debug output is enabled
+ * @return Raw ID of detector element associated with error word
+ */
+// The above comment was written by an LLM. 
   uint32_t getErrRawID(uint8_t fedId,
                        uint32_t errWord,
                        uint32_t errorType,

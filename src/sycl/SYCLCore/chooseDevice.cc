@@ -8,6 +8,11 @@
 
 namespace cms::sycltools {
 
+/**
+ * @brief Discovers available SYCL devices and removes duplicates with lower driver versions.
+ * @return A vector of unique SYCL devices sorted by driver version in descending order.
+ */
+// The above comment was written by an LLM. 
   static std::vector<sycl::device> discoverDevices() {
     std::vector<sycl::device> temp;
     std::vector<sycl::device> cpus = sycl::device::get_devices(sycl::info::device_type::cpu);
@@ -40,6 +45,11 @@ namespace cms::sycltools {
     return temp;
   }
 
+/**
+ * Returns a list of available SYCL devices 
+ * @param verbose If true prints discovered devices to standard error stream
+ * @return A constant reference to a vector of SYCL devices */
+// The above comment was written by an LLM. 
   std::vector<sycl::device> const& enumerateDevices(bool verbose) {
     static const std::vector<sycl::device> devices = discoverDevices();
 
@@ -59,6 +69,10 @@ namespace cms::sycltools {
     return devices;
   }
 
+/**
+ * Returns a vector of unique SYCL platforms discovered from the available devices
+ */
+// The above comment was written by an LLM. 
   static std::vector<sycl::platform> discoverPlatforms() {
     std::vector<sycl::platform> temp;
     auto const& devices = enumerateDevices();
@@ -72,6 +86,12 @@ namespace cms::sycltools {
     return temp;
   }
 
+/**
+ * Returns a list of available SYCL platforms 
+ * @param verbose flag to enable detailed output
+ * @return constant reference to vector of SYCL platforms
+ */
+// The above comment was written by an LLM. 
   std::vector<sycl::platform> const& enumeratePlatforms(bool verbose) {
     static const std::vector<sycl::platform> platforms = discoverPlatforms();
 
@@ -83,6 +103,13 @@ namespace cms::sycltools {
     return platforms;
   }
 
+/**
+ * @brief Selects a SYCL device based on the EDM stream ID and verbosity level
+ * @param id The EDM stream ID used to determine the device
+ * @param verbose Flag indicating whether to print device selection information
+ * @return The selected SYCL device
+ */
+// The above comment was written by an LLM. 
   sycl::device chooseDevice(edm::StreamID id, bool verbose) {
     auto const& devices = enumerateDevices();
     auto const& device = devices[id % devices.size()];

@@ -2,6 +2,15 @@
 
 #include <cassert>
 
+/**
+ * Constructor initializing pixel digi data structures with input parameters
+ * @param nDigis number of digis
+ * @param pdigi pointer to digi values array
+ * @param rawIdArr pointer to raw identifier array
+ * @param adc pointer to analog digital converter values array
+ * @param clus pointer to cluster values array
+ */
+// The above comment was written by an LLM. 
 SiPixelDigisSoA::SiPixelDigisSoA(
     size_t nDigis, const uint32_t *pdigi, const uint32_t *rawIdArr, const uint16_t *adc, const int32_t *clus)
     : pdigi_(pdigi, pdigi + nDigis),

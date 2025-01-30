@@ -23,6 +23,12 @@ private:
   const float m_ptMin;
 };
 
+/**
+ * Constructor for PixelVertexProducerCUDA class
+ * Initializes member variables with default algorithm parameters
+ * Registers consumption of CPU tracks and production of Z vertices
+ */
+// The above comment was written by an LLM. 
 PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
     : m_gpuAlgo(true,   // oneKernel
                 true,   // useDensity
@@ -39,6 +45,13 @@ PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
   tokenCPUVertex_ = reg.produces<ZVertexHeterogeneous>();
 }
 
+/**
+ * Produces CPU vertices from input tracks using GPU algorithm with minimum pt cut.
+ *
+ * @param iEvent Event object containing input data
+ * @param iSetup Event setup object
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const* tracks = iEvent.get(tokenCPUTrack_).get();
   assert(tracks);

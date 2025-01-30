@@ -43,6 +43,11 @@ private:
   const bool useQuality_;
 };
 
+/**
+ * Constructor initializing the object with product registry 
+ * and setting default values for member variables
+ */
+// The above comment was written by an LLM. 
 SiPixelRawToClusterCUDA::SiPixelRawToClusterCUDA(edm::ProductRegistry& reg)
     : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
       digiPutToken_(reg.produces<SiPixelDigisSoA>()),
@@ -57,6 +62,16 @@ SiPixelRawToClusterCUDA::SiPixelRawToClusterCUDA(edm::ProductRegistry& reg)
   wordFedAppender_ = std::make_unique<pixelgpudetails::SiPixelRawToClusterGPUKernel::WordFedAppender>();
 }
 
+/**
+ * @brief Produces pixel clusters from raw data in an event
+ * 
+ * This function takes an event and its setup as input, extracts the necessary data,
+ * performs various checks and corrections, and produces pixel clusters.
+ * 
+ * @param iEvent The event containing the raw data
+ * @param iSetup The setup containing the configuration and calibration data
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawToClusterCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const& hgpuMap = iSetup.get<SiPixelFedCablingMapGPUWrapper>();
   if (hgpuMap.hasQuality() != useQuality_) {

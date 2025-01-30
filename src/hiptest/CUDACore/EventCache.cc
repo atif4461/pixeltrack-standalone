@@ -6,6 +6,10 @@
 #include "CUDACore/ScopedSetDevice.h"
 
 namespace cms::hip {
+/**
+ * Destroys a hip event object and releases associated resources.
+ */
+// The above comment was written by an LLM. 
   void EventCache::Deleter::operator()(hipEvent_t event) const {
     if (device_ != -1) {
       ScopedSetDevice deviceGuard{device_};
@@ -17,6 +21,12 @@ namespace cms::hip {
   // getEventCache() only if we have CUDA devices present
   EventCache::EventCache() : cache_(deviceCount()) {}
 
+/**
+ * Retrieves an event from the cache, waiting until a completed event is available.
+ *
+ * @return A shared pointer to the retrieved event.
+ */
+// The above comment was written by an LLM. 
   SharedEventPtr EventCache::get() {
     const auto dev = currentDevice();
     auto event = makeOrGet(dev);
@@ -41,6 +51,12 @@ namespace cms::hip {
     return event;
   }
 
+/**
+ * @brief Creates or retrieves an event from the cache for a specified device.
+ * @param dev Device identifier
+ * @return Shared pointer to the created or retrieved event
+ */
+// The above comment was written by an LLM. 
   SharedEventPtr EventCache::makeOrGet(int dev) {
     return cache_[dev].makeOrGet([dev]() {
       hipEvent_t event;
@@ -50,6 +66,9 @@ namespace cms::hip {
     });
   }
 
+/**
+ * Resets the contents of the caches while keeping a reusable object holder alive for each device.*/
+// The above comment was written by an LLM. 
   void EventCache::clear() {
     // Reset the contents of the caches, but leave an
     // edm::ReusableObjectHolder alive for each device. This is needed
@@ -60,6 +79,10 @@ namespace cms::hip {
     cache_.resize(deviceCount());
   }
 
+/**
+ * Returns the event cache instance in a thread safe manner
+ */
+// The above comment was written by an LLM. 
   EventCache& getEventCache() {
     // the public interface is thread safe
     static EventCache cache;

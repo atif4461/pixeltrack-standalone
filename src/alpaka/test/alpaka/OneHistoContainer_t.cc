@@ -16,6 +16,19 @@ using namespace ALPAKA_ACCELERATOR_NAMESPACE;
 template <int NBINS, int S, int DELTA>
 struct mykernel {
   template <typename TAcc, typename T>
+/**
+ * @brief Operator function that performs histogram operations on input data.
+ *
+ * This function is responsible for initializing and finalizing the histogram,
+ * counting the occurrences of each value in the input data, and verifying the
+ * correctness of the results. It also demonstrates how to iterate over the
+ * histogram using various methods such as forEachInWindow.
+ *
+ * @param acc Accelerator object used for parallel execution.
+ * @param v Input data array.
+ * @param N Size of the input data array.
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, T const* __restrict__ v, uint32_t N) const {
     assert(v);
     assert(N == 12000);
@@ -116,6 +129,18 @@ struct mykernel {
 };
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Initializes and executes a histogram generation process on a device.
+ *
+ * This function takes in a development host, a device, and a queue as parameters,
+ * initializes random number generators, sets up a histogram container,
+ * generates random data, transfers it to the device, and processes it using a kernel.
+ *
+ * @param[in] host The development host used for setup and initialization.
+ * @param[in] device The device where the computation will take place.
+ * @param[out] queue The command queue used to manage the execution of tasks on the device.
+ */
+// The above comment was written by an LLM. 
 void go(const DevHost& host, const Device& device, Queue& queue) {
   std::mt19937 eng;
 
@@ -154,6 +179,33 @@ void go(const DevHost& host, const Device& device, Queue& queue) {
   alpaka::wait(queue);
 }
 
+/**
+ * @brief Program entry point
+ 
+  * @brief Initialises the system
+ 
+  * @brief Retrieves a reference to a device object of type Platform
+ * @return A constant reference to a device object
+ 
+  * @brief Constructs a command queue object for a given device
+ * @param device The device associated with the queue
+ 
+  * @brief Executes an operation on a specified data type
+ * @tparam DataType Type of data being processed
+ * @param host Host data source
+ * @param device Device on which operation is executed
+ * @param queue Command queue used for execution
+ 
+  * @brief Executes an operation on a specified data type with additional parameters
+ * @tparam DataType Type of data being processed
+ * @tparam Param1 First parameter value
+ * @tparam Param2 Second parameter value
+ * @tparam Param3 Third parameter value
+ * @param host Host data source
+ * @param device Device on which operation is executed
+ * @param queue Command queue used for execution
+ */
+// The above comment was written by an LLM. 
 int main() {
   initialise();
   Device const& device = devices<Platform>().at(0);

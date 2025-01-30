@@ -23,6 +23,14 @@ using Multiplicity = cms::sycltools::OneToManyAssoc<uint16_t, 8, MaxTk>;
 using TK = std::array<uint16_t, 4>;
 using cms::sycltools::AtomicPairCounter;
 
+/**
+ * Counts multiplicity in parallel across a group of work items
+ * @param[in] tk input data
+ * @param[out] assoc output associative structure
+ * @param[in] n number of elements to process
+ * @param[in] item SYCL work item descriptor
+ */
+// The above comment was written by an LLM. 
 void countMultiLocal(TK const* __restrict__ tk, Multiplicity* __restrict__ assoc, int32_t n, sycl::nd_item<1> item) {
   int first = item.get_local_range().get(0) * item.get_group(0) + item.get_local_id(0);
   for (int i = first; i < n; i += item.get_group_range(0) * item.get_local_range().get(0)) {
@@ -38,18 +46,41 @@ void countMultiLocal(TK const* __restrict__ tk, Multiplicity* __restrict__ assoc
   }
 }
 
+/**
+ * Counts multiplicity in parallel using SYCL
+ * @param[in] array of tokens
+ * @param[out] associated multiplicities
+ * @param total number of elements
+ * @param SYCL item used for parallelization
+ */
+// The above comment was written by an LLM. 
 void countMulti(TK const* __restrict__ tk, Multiplicity* __restrict__ assoc, int32_t n, sycl::nd_item<1> item) {
   int first = item.get_local_range().get(0) * item.get_group(0) + item.get_local_id(0);
   for (int i = first; i < n; i += item.get_group_range(0) * item.get_local_range().get(0))
     assoc->countDirect(2 + i % 4);
 }
 
+/**
+ * Verifies the equality of two multiplicity objects within a parallel execution environment.
+ * @param m1 The first multiplicity object to compare.
+ * @param m2 The second multiplicity object to compare.
+ * @param item The SYCL item object representing the current execution instance.
+ */
+// The above comment was written by an LLM. 
 void verifyMulti(Multiplicity* __restrict__ m1, Multiplicity* __restrict__ m2, sycl::nd_item<1> item) {
   auto first = item.get_local_range().get(0) * item.get_group(0) + item.get_local_id(0);
   for (auto i = first; i < Multiplicity::totbins(); i += item.get_group_range(0) * item.get_local_range().get(0))
     assert(m1->off[i] == m2->off[i]);
 }
 
+/**
+ * Counts elements in a tensor kernel block
+ * @param[in] input data array
+ * @param[out] associative structure for counting
+ * @param size of input data
+ * @param SYCL execution item
+ */
+// The above comment was written by an LLM. 
 void count(TK const* __restrict__ tk, Assoc* __restrict__ assoc, int32_t n, sycl::nd_item<1> item) {
   int first = item.get_local_range().get(0) * item.get_group(0) + item.get_local_id(0);
   for (int i = first; i < 4 * n; i += item.get_group_range(0) * item.get_local_range().get(0)) {
@@ -63,6 +94,13 @@ void count(TK const* __restrict__ tk, Assoc* __restrict__ assoc, int32_t n, sycl
   }
 }
 
+/**
+ * Fills associative structure with data from input array in parallel manner
+ * @param[in] inputArray constant array of type T
+ * @param[out] associationData pointer to associative data structure
+ * @param[in] dataSize number of elements in input array
+ * @param[in] executionItem SYCL item representing execution parameters */
+// The above comment was written by an LLM. 
 void fill(TK const* __restrict__ tk, Assoc* __restrict__ assoc, int32_t n, sycl::nd_item<1> item) {
   int first = item.get_local_range().get(0) * item.get_group(0) + item.get_local_id(0);
   for (int i = first; i < 4 * n; i += item.get_group_range(0) * item.get_local_range().get(0)) {
@@ -79,6 +117,15 @@ void fill(TK const* __restrict__ tk, Assoc* __restrict__ assoc, int32_t n, sycl:
 void verify(Assoc* __restrict__ assoc) { assert(assoc->size() < Assoc::capacity()); }
 
 template <typename Assoc>
+/**
+ * Fills bulk data structure with atomic pair counters 
+ * @param apc pointer to atomic pair counter object
+ * @param tk input data array
+ * @param assoc association object for bulk filling
+ * @param n number of elements in input data array
+ * @param item SYCL item object for parallel execution
+ */
+// The above comment was written by an LLM. 
 void fillBulk(
     AtomicPairCounter* apc, TK const* __restrict__ tk, Assoc* __restrict__ assoc, int32_t n, sycl::nd_item<1> item) {
   int first = item.get_local_range().get(0) * item.get_group(0) + item.get_local_id(0);
@@ -89,12 +136,71 @@ void fillBulk(
 }
 
 template <typename Assoc>
+/**
+ * Verifies bulk data consistency by checking overflow condition and association size constraint
+ */
+// The above comment was written by an LLM. 
 void verifyBulk(Assoc const* __restrict__ assoc, AtomicPairCounter const* apc) {
   if (apc->get().m >= Assoc::nbins())
     printf("Overflow %d %d\n", apc->get().m, Assoc::nbins());
   assert(assoc->size() < Assoc::capacity());
 }
 
+/**
+
+### Function Comments
+
+1. `/brief Main program entry point`
+2. `/param argc Number of command line arguments`
+3. `/param argv Array of command line argument strings`
+4. `/return Program exit status`
+
+Note: The above comments apply to the `main` function.
+
+For other functions in the code snippet:
+
+5. `/brief Count elements in the array`
+6. `/param v_d_get Device pointer to the input array`
+7. `/param a_d_get Device pointer to the output association`
+8. `/param N Size of the input array`
+9. `/param item Work item for parallel execution`
+
+10. `/brief Verify the contents of the association`
+11. `/param a_d_get Device pointer to the association`
+
+12. `/brief Fill the bulk data structure`
+13. `/param dc_d Device pointer to the bulk data`
+14. `/param v_d_get Device pointer to the input array`
+15. `/param a_d_get Device pointer to the association`
+16. `/param N Size of the input array`
+17. `/param item Work item for parallel execution`
+
+18. `/brief Finalize the bulk data structure`
+19. `/param dc_d Device pointer to the bulk data`
+20. `/param a_d_get Device pointer to the association`
+21. `/param item Work item for parallel execution`
+
+22. `/brief Verify the bulk data structure`
+23. `/param a_d_get Device pointer to the association`
+24. `/param dc_d Device pointer to the bulk data`
+
+25. `/brief Count multiplicity`
+26. `/param v_d_get Device pointer to the input array`
+27. `/param m1_d_get Device pointer to the multiplicity array`
+28. `/param N Size of the input array`
+29. `/param item Work item for parallel execution`
+
+30. `/brief Count multiplicity with local counters`
+31. `/param v_d_get Device pointer to the input array`
+32. `/param m2_d_get Device pointer to the multiplicity array`
+33. `/param N Size of the input array`
+34. `/param item Work item for parallel execution`
+
+35. `/brief Verify multiplicity counts`
+36. `/param m1_d_get Device pointer to the first multiplicity array`
+37. `/param m2_d_get Device pointer to the second multiplicity array`
+38. `/param item Work item for parallel execution`*/
+// The above comment was written by an LLM. 
 int main(int argc, char** argv) {
   std::cout << "OneToManyAssoc " << sizeof(Assoc) << ' ' << Assoc::nbins() << ' ' << Assoc::capacity() << std::endl;
   std::cout << "OneToManyAssoc (small) " << sizeof(SmallAssoc) << ' ' << SmallAssoc::nbins() << ' '

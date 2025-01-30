@@ -6,6 +6,13 @@
 #include "CUDACore/copyAsync.h"
 #include "CUDACore/ScopedSetDevice.h"
 
+/**
+ * Constructor for SiPixelDigisCUDA class 
+ * initializes member variables with specified parameters
+ * @param maxFedWords maximum number of words 
+ * @param stream CUDA stream object 
+ */
+// The above comment was written by an LLM. 
 SiPixelDigisCUDA::SiPixelDigisCUDA(size_t maxFedWords, cudaStream_t stream) {
 #ifdef CUDAUVM_MANAGED_TEMPORARY
   xx_d = cms::cuda::make_managed_unique<uint16_t[]>(maxFedWords, stream);
@@ -54,6 +61,10 @@ SiPixelDigisCUDA::SiPixelDigisCUDA(size_t maxFedWords, cudaStream_t stream) {
 #endif  // CUDAUVM_DISABLE_MANAGED_CLUSTERING
 }
 
+/**
+ * Destructor to release resources allocated by the class 
+ */
+// The above comment was written by an LLM. 
 SiPixelDigisCUDA::~SiPixelDigisCUDA() {
 #ifndef CUDAUVM_DISABLE_MANAGED_CLUSTERING
 #ifndef CUDAUVM_DISABLE_ADVISE
@@ -67,24 +78,48 @@ SiPixelDigisCUDA::~SiPixelDigisCUDA() {
 }
 
 #ifdef CUDAUVM_DISABLE_MANAGED_CLUSTERING
+/**
+ * @brief Returns a host unique pointer to an array of uint16_t containing pixel digis data
+ * @param stream CUDA stream used for asynchronous operations
+ * @return Host unique pointer to an array of uint16_t
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<uint16_t[]> SiPixelDigisCUDA::adcToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<uint16_t[]>(nDigis(), stream);
   cms::cuda::copyAsync(ret, adc_d, nDigis(), stream);
   return ret;
 }
 
+/**
+ * @brief Copies cluster data from device memory to host memory asynchronously
+ * @param stream CUDA stream for asynchronous operation
+ * @return Unique pointer to array of integers representing cluster data on host
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<int32_t[]> SiPixelDigisCUDA::clusToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<int32_t[]>(nDigis(), stream);
   cms::cuda::copyAsync(ret, clus_d, nDigis(), stream);
   return ret;
 }
 
+/**
+ * Returns a host unique pointer to an array of uint32_t containing pixel digi data
+ * asynchronously transferred from device memory to host memory via the specified CUDA stream
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<uint32_t[]> SiPixelDigisCUDA::pdigiToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<uint32_t[]>(nDigis(), stream);
   cms::cuda::copyAsync(ret, pdigi_d, nDigis(), stream);
   return ret;
 }
 
+/**
+ * Returns a host unique pointer to an array of uint32_t containing digi IDs 
+ * transferred from device memory asynchronously.
+ *
+ * @return unique_ptr to uint32_t array
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<uint32_t[]> SiPixelDigisCUDA::rawIdArrToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<uint32_t[]>(nDigis(), stream);
   cms::cuda::copyAsync(ret, rawIdArr_d, nDigis(), stream);
@@ -99,18 +134,30 @@ void SiPixelDigisCUDA::adcPrefetchAsync(int device, cudaStream_t stream) const {
 #endif
 }
 
+/**
+ * Performs an asynchronous prefetch of cluster data on a specified GPU device
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisCUDA::clusPrefetchAsync(int device, cudaStream_t stream) const {
 #ifndef CUDAUVM_DISABLE_PREFETCH
   cudaCheck(cudaMemPrefetchAsync(clus_d.get(), nDigis(), device, stream));
 #endif
 }
 
+/**
+ * Prefetches pixel digi data asynchronously on specified device and stream
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisCUDA::pdigiPrefetchAsync(int device, cudaStream_t stream) const {
 #ifndef CUDAUVM_DISABLE_PREFETCH
   cudaCheck(cudaMemPrefetchAsync(pdigi_d.get(), nDigis(), device, stream));
 #endif
 }
 
+/**
+ * Prefetches raw ID array data asynchronously on specified device and stream
+ */
+// The above comment was written by an LLM. 
 void SiPixelDigisCUDA::rawIdArrPrefetchAsync(int device, cudaStream_t stream) const {
 #ifndef CUDAUVM_DISABLE_PREFETCH
   cudaCheck(cudaMemPrefetchAsync(rawIdArr_d.get(), nDigis(), device, stream));

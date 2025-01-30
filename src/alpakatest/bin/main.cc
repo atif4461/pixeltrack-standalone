@@ -23,6 +23,11 @@
 #include "PosixClockGettime.h"
 
 namespace {
+/**
+ * @brief Prints help message with available command line options
+ * @param name Name of the application
+ */
+// The above comment was written by an LLM. 
   void print_help(std::string const& name) {
     std::cout
         << name << ": "
@@ -81,6 +86,14 @@ bool getOptionalArgument(std::vector<std::string> const& args, std::vector<std::
   }
 }
 
+/**
+ * Retrieves an optional floating point argument from a vector of strings
+ * @param[in]     args   Vector of string arguments
+ * @param[in,out] i      Iterator pointing to the current argument
+ * @param[out]    value  Floating point value retrieved from the argument
+ * @return True if the argument is successfully parsed as a float, False otherwise
+ */
+// The above comment was written by an LLM. 
 bool getOptionalArgument(std::vector<std::string> const& args, std::vector<std::string>::iterator& i, float& value) {
   auto it = i;
   ++it;
@@ -96,6 +109,14 @@ bool getOptionalArgument(std::vector<std::string> const& args, std::vector<std::
   }
 }
 
+/**
+ * @brief Retrieves an optional argument from a list of arguments
+ * @param[in] args List of command line arguments
+ * @param[in,out] i Iterator pointing to the current argument
+ * @param[out] value Optional argument value
+ * @return True if an optional argument is found, False otherwise
+ */
+// The above comment was written by an LLM. 
 bool getOptionalArgument(std::vector<std::string> const& args,
                          std::vector<std::string>::iterator& i,
                          std::filesystem::path& value) {
@@ -109,6 +130,11 @@ bool getOptionalArgument(std::vector<std::string> const& args,
 }
 
 template <typename T>
+/**
+ * Retrieves an argument from a vector of strings at a specified iterator position 
+ * and stores it in a variable of type T fails if argument is missing at current position
+ */
+// The above comment was written by an LLM. 
 void getArgument(std::vector<std::string> const& args, std::vector<std::string>::iterator& i, T& value) {
   if (not getOptionalArgument(args, i, value)) {
     std::cerr << "error: " << *i << " expects an argument" << std::endl;
@@ -116,6 +142,38 @@ void getArgument(std::vector<std::string> const& args, std::vector<std::string>:
   }
 }
 
+/**
+
+### Function Comments
+ * @brief Main entry point of the program
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Exit status of the program
+  * @brief Prints help message for command line arguments
+ * @param arg0 First command line argument string
+  * @brief Gets an optional floating point argument from command line
+ * @param args Vector of command line argument strings
+ * @param i Iterator pointing to the current argument
+ * @param weight Reference to store the parsed value
+  * @brief Gets a required argument from command line
+ * @param args Vector of command line argument strings
+ * @param i Iterator pointing to the current argument
+ * @param value Reference to store the parsed value
+  * @brief Initializes the event processor
+ * @param warmupEvents Number of warm-up events
+ * @param maxEvents Maximum number of events to process
+ * @param runForMinutes Time limit for processing in minutes
+ * @param numberOfStreams Number of concurrent event streams
+ * @param alternatives Alternating event processing configurations
+ * @param esmodules List of event setup modules
+ * @param dataDir Path to data directory
+ * @param useEmpty Whether to use empty event configuration
+  * @brief Runs the event processor to completion
+  * @brief Ends the job and releases resources
+  * @brief Gets the current POSIX clock time
+ * @return Current POSIX clock time
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char** argv) {
   // Parse command line arguments
   std::vector<std::string> args(argv, argv + argc);

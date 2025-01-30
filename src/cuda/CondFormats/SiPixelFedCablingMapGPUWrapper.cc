@@ -14,6 +14,10 @@
 #include "CUDACore/host_unique_ptr.h"
 #include "CondFormats/SiPixelFedCablingMapGPUWrapper.h"
 
+/**
+ * Constructor initializing the object with a SiPixelFedCablingMapGPU and module to unpinning data
+ */
+// The above comment was written by an LLM. 
 SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCablingMapGPU const& cablingMap,
                                                                std::vector<unsigned char> modToUnp)
     : modToUnpDefault(modToUnp.size()), hasQuality_(true) {
@@ -25,6 +29,13 @@ SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCabling
 
 SiPixelFedCablingMapGPUWrapper::~SiPixelFedCablingMapGPUWrapper() { cudaCheck(cudaFreeHost(cablingMapHost)); }
 
+/**
+ * Retrieves the GPU product asynchronously for the current device.
+ *
+ * @param[in] cudaStream CUDA stream used for asynchronous operations
+ * @return Constant pointer to the GPU cabling map object
+ */
+// The above comment was written by an LLM. 
 const SiPixelFedCablingMapGPU* SiPixelFedCablingMapGPUWrapper::getGPUProductAsync(cudaStream_t cudaStream) const {
   const auto& data = gpuData_.dataForCurrentDeviceAsync(cudaStream, [this](GPUData& data, cudaStream_t stream) {
     // allocate
@@ -37,6 +48,12 @@ const SiPixelFedCablingMapGPU* SiPixelFedCablingMapGPUWrapper::getGPUProductAsyn
   return data.cablingMapDevice;
 }
 
+/**
+ * @brief Returns pointer to module to unpack all mapping data on GPU asynchronously
+ * @param[in] cudaStream CUDA stream for asynchronous operation
+ * @return Pointer to module to unpack all mapping data
+ */
+// The above comment was written by an LLM. 
 const unsigned char* SiPixelFedCablingMapGPUWrapper::getModToUnpAllAsync(cudaStream_t cudaStream) const {
   const auto& data =
       modToUnp_.dataForCurrentDeviceAsync(cudaStream, [this](ModulesToUnpack& data, cudaStream_t stream) {

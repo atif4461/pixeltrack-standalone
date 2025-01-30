@@ -1,5 +1,10 @@
 #include "CUDADataFormats/SiPixelClustersSoA.h"
 
+/**
+ * Constructor initializing data structures with specified maximum cluster capacity
+ * @param maxClusters Maximum number of clusters supported
+ */
+// The above comment was written by an LLM. 
 SiPixelClustersSoA::SiPixelClustersSoA(size_t maxClusters) {
   moduleStart_d = std::make_unique<uint32_t[]>(maxClusters + 1);
   clusInModule_d = std::make_unique<uint32_t[]>(maxClusters);

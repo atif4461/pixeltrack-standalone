@@ -50,6 +50,11 @@ private:
   std::optional<bool> isCpu_;
 };
 
+/**
+ * Constructor initializing the object with product registry 
+ * and setting up token for consuming and producing data products
+ */
+// The above comment was written by an LLM. 
 SiPixelRawToClusterSYCL::SiPixelRawToClusterSYCL(edm::ProductRegistry& reg)
     : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
       digiPutToken_(reg.produces<cms::sycltools::Product<SiPixelDigisSYCL>>()),
@@ -64,6 +69,14 @@ SiPixelRawToClusterSYCL::SiPixelRawToClusterSYCL(edm::ProductRegistry& reg)
   wordFedAppender_ = std::make_unique<pixelgpudetails::SiPixelRawToClusterGPUKernel::WordFedAppender>();
 }
 
+/**
+ * Acquires data from an event and performs necessary setup for cluster creation.
+ *
+ * @param iEvent The input event containing raw data.
+ * @param iSetup The event setup providing access to various configurations.
+ * @param waitingTaskHolder A holder for waiting tasks with arena.
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawToClusterSYCL::acquire(const edm::Event& iEvent,
                                       const edm::EventSetup& iSetup,
                                       edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -166,6 +179,13 @@ void SiPixelRawToClusterSYCL::acquire(const edm::Event& iEvent,
                              *isCpu_);
 }
 
+/**
+ * Produces pixel clusters from raw pixels in an event.
+ *
+ * @param iEvent the event containing the raw pixels
+ * @param iSetup the event setup
+ */
+// The above comment was written by an LLM. 
 void SiPixelRawToClusterSYCL::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   cms::sycltools::ScopedContextProduce ctx{ctxState_};
   auto tmp = gpuAlgo_.getResults();

@@ -3,6 +3,11 @@
 
 #include "plugin-Validation/SimpleAtomicHisto.h"
 
+/**
+ * @brief The main entry point of the program
+ * @return An integer indicating the program execution status
+ */
+// The above comment was written by an LLM. 
 int main() {
   SimpleAtomicHisto h(10, 0, 1);
   std::stringstream ss;

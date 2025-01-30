@@ -30,6 +30,12 @@ private:
   std::optional<bool> isCpu_;
 };
 
+/**
+ * Constructor for PixelVertexProducerSYCL class 
+ * initializing member variables with default parameters 
+ * and registering consumption and production of products
+ */
+// The above comment was written by an LLM. 
 PixelVertexProducerSYCL::PixelVertexProducerSYCL(edm::ProductRegistry& reg)
     : m_gpuAlgo(true,   // oneKernel
                 true,   // useDensity
@@ -46,6 +52,12 @@ PixelVertexProducerSYCL::PixelVertexProducerSYCL(edm::ProductRegistry& reg)
   tokenGPUVertex_ = reg.produces<cms::sycltools::Product<ZVertexHeterogeneous>>();
 }
 
+/**
+ * Produces pixel vertices for an event using the GPU algorithm
+ * @param iEvent the event to produce vertices for
+ * @param iSetup the event setup
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerSYCL::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const& ptracks = iEvent.get(tokenGPUTrack_);
 

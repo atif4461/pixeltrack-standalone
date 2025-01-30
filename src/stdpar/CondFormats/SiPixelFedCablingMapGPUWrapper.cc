@@ -6,6 +6,10 @@
 #include "CondFormats/SiPixelFedCablingMapGPU.h"
 #include "CondFormats/SiPixelFedCablingMapGPUWrapper.h"
 
+/**
+ * Constructor initializing SiPixelFedCablingMapGPUWrapper object with cabling map and module to unpin data
+ */
+// The above comment was written by an LLM. 
 SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCablingMapGPU const& cablingMap,
                                                                std::vector<unsigned char> const& modToUnp)
     : hasQuality_(true),

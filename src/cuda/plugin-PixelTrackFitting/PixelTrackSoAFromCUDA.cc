@@ -30,6 +30,13 @@ PixelTrackSoAFromCUDA::PixelTrackSoAFromCUDA(edm::ProductRegistry& reg)
     : tokenCUDA_(reg.consumes<cms::cuda::Product<PixelTrackHeterogeneous>>()),
       tokenSOA_(reg.produces<PixelTrackHeterogeneous>()) {}
 
+/**
+ * Acquires data from an event and stores it in host memory
+ * @param iEvent the input event containing the data to acquire
+ * @param iSetup the event setup associated with the input event
+ * @param waitingTaskHolder holder for waiting task with arena
+ */
+// The above comment was written by an LLM. 
 void PixelTrackSoAFromCUDA::acquire(edm::Event const& iEvent,
                                     edm::EventSetup const& iSetup,
                                     edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -40,6 +47,12 @@ void PixelTrackSoAFromCUDA::acquire(edm::Event const& iEvent,
   m_soa = inputData.toHostAsync(ctx.stream());
 }
 
+/**
+ * Produces an event with pixel track data from CUDA
+ * @param iEvent Event object to store produced data
+ * @param iSetup Event setup configuration
+ */
+// The above comment was written by an LLM. 
 void PixelTrackSoAFromCUDA::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
   /*
   auto const & tsoa = *m_soa;

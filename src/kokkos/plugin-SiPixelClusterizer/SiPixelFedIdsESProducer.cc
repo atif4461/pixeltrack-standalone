@@ -17,6 +17,10 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces SiPixelFedIds object from binary file containing FED IDs
+ */
+// The above comment was written by an LLM. 
 void SiPixelFedIdsESProducer::produce(edm::EventSetup& eventSetup) {
   std::ifstream in(data_ / "fedIds.bin", std::ios::binary);
   in.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);

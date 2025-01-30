@@ -22,6 +22,17 @@
 #include "plugin-PixelVertexFinding/gpuSplitVertices.h"
 
 #ifdef ONE_KERNEL
+/**
+ * @brief Finds vertices in a set of data using a kernel function
+ * @param[in] pdata pointer to ZVertices data structure
+ * @param[in,out] pws pointer to WorkSpace data structure
+ * @param[in] minT minimum number of neighbors required to seed
+ * @param[in] eps maximum absolute distance to cluster
+ * @param[in] errmax maximum error allowed to seed
+ * @param[in] chi2max maximum normalized distance to cluster
+ * @param[in] item SYCL item object for parallel execution
+ */
+// The above comment was written by an LLM. 
 void vertexFinderOneKernel(gpuVertexFinder::ZVertices* pdata,
                            gpuVertexFinder::WorkSpace* pws,
                            int minT,       // min number of neighbours to be "seed"
@@ -54,6 +65,11 @@ struct ClusterGenerator {
   explicit ClusterGenerator(float nvert, float ntrack)
       : rgen(-13., 13), errgen(0.005, 0.025), clusGen(nvert), trackGen(ntrack), gauss(0., 1.), ptGen(1.) {}
 
+/**
+ * @brief Event processing function
+ * @param ev event object being processed
+ */
+// The above comment was written by an LLM. 
   void operator()(Event& ev) {
     int nclus = clusGen(reng);
     ev.zvert.resize(nclus);
@@ -102,12 +118,30 @@ struct ClusterGenerator {
 #define LOC_ONGPU(M) ((char*)(onGPU_d.get()) + offsetof(gpuVertexFinder::ZVertices, M))
 #define LOC_WS(M) ((char*)(ws_d.get()) + offsetof(gpuVertexFinder::WorkSpace, M))
 
+/**
+ * Prints vertex finder results including number of tracks and vertices.
+ *
+ * @param[in] pdata Pointer to ZVertices data structure
+ * @param[in] pws Pointer to WorkSpace data structure
+ */
+// The above comment was written by an LLM. 
 void print(gpuVertexFinder::ZVertices const* pdata, gpuVertexFinder::WorkSpace const* pws) {
   auto const& __restrict__ data = *pdata;
   auto const& __restrict__ ws = *pws;
   printf("nt,nv %d %d,%d\n", ws.ntrks, data.nvFinal, ws.nvIntermediate);
 }
 
+/**
+
+### Function Comments
+
+1. `main` * @brief Main program entry point.
+ *
+ * @param argc Number of command line arguments.
+ * @param argv Array of command line argument strings.
+ * @return Program exit status.
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char** argv) {
   std::string devices(argv[1]);
   setenv("ONEAPI_DEVICE_SELECTOR", devices.c_str(), true);

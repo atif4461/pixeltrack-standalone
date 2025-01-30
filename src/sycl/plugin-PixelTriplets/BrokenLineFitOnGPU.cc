@@ -1,6 +1,20 @@
 #include "BrokenLineFitOnGPU.h"
 #include "SYCLCore/device_unique_ptr.h"
 
+/**
+ * @brief Launches kernels for broken line fitting on GPU.
+ *
+ * This function launches a series of kernels to perform broken line fitting
+ * on the GPU. It takes in several parameters including the hit view, number of
+ * hits in the fit, maximum number of tuples, and the SYCL queue to launch the
+ * kernels on.
+ *
+ * @param hv The hit view containing the data to be fitted.
+ * @param hitsInFit The number of hits included in the fit.
+ * @param maxNumberOfTuples The maximum number of tuples to process.
+ * @param stream The SYCL queue to launch the kernels on.
+ */
+// The above comment was written by an LLM. 
 void HelixFitOnGPU::launchBrokenLineKernels(HitsView const *hv,
                                             uint32_t hitsInFit,
                                             uint32_t maxNumberOfTuples,

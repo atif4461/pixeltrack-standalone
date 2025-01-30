@@ -38,6 +38,14 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
         : word_{cms::alpakatools::make_host_buffer<unsigned int[], Platform>(MAX_FED_WORDS)},
           fedId_{cms::alpakatools::make_host_buffer<unsigned char[], Platform>(MAX_FED_WORDS)} {}
 
+/**
+ * Initializes the WordFedAppender with the specified parameters.
+ * @param[in] fedId        The identifier of the FED to be processed
+ * @param[in] wordCounterGPU The current word counter on the GPU
+ * @param[in] src          The source data array to be copied
+ * @param[in] length       The number of elements in the source array
+ */
+// The above comment was written by an LLM. 
     void SiPixelRawToClusterGPUKernel::WordFedAppender::initializeWordFed(int fedId,
                                                                           unsigned int wordCounterGPU,
                                                                           const uint32_t *src,
@@ -62,6 +70,15 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
     ALPAKA_FN_ACC bool isBarrel(uint32_t rawId) { return (1 == ((rawId >> 25) & 0x7)); }
 
+/**
+ * Returns raw detector identifier for specified FED, link and ROC
+ * @param cablingMap pointer to SiPixelFedCablingMapGPU object
+ * @param fed front end controller identifier
+ * @param link link number
+ * @param roc readout chip identifier
+ * @return DetIdGPU object containing raw identifier, ROC in detector and module ID
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC ::pixelgpudetails::DetIdGPU getRawId(const SiPixelFedCablingMapGPU *cablingMap,
                                                        uint8_t fed,
                                                        uint32_t link,
@@ -144,6 +161,14 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
       return global;
     }
 
+/**
+ * @brief Returns the type of conversion error that occurred
+ * @param[in] fedId The ID of the front end device
+ * @param[in] status The status code indicating the type of error
+ * @param[in] debug Flag to enable debugging output
+ * @return The type of conversion error as an unsigned 8-bit integer
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC uint8_t conversionError(uint8_t fedId, uint8_t status, bool debug = false) {
       uint8_t errorType = 0;
 
@@ -182,6 +207,13 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
       return errorType;
     }
 
+/**
+
+/// Checks if the given row and column in ROC representation are within valid range
+/// @param rocRow row in ROC representation
+/// @param rocCol column in ROC representation
+/// @return true if row and column are valid false otherwise*/
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC bool rocRowColIsValid(uint32_t rocRow, uint32_t rocCol) {
       uint32_t numRowsInRoc = 80;
       uint32_t numColsInRoc = 52;
@@ -192,6 +224,16 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
     ALPAKA_FN_ACC bool dcolIsValid(uint32_t dcol, uint32_t pxid) { return ((dcol < 26) & (2 <= pxid) & (pxid < 162)); }
 
+/**
+ * @brief Checks the ROC error type from the given error word
+ * @param[in] errorWord The input error word to be checked
+ * @param[in] fedId Front end id
+ * @param[in] link Link number
+ * @param[in] cablingMap Pointer to the SiPixelFedCablingMapGPU object
+ * @param[in] debug Flag to enable or disable debug messages
+ * @return Error type if an error is found, otherwise 0
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC uint8_t checkROC(uint32_t errorWord,
                                    uint8_t fedId,
                                    uint32_t link,
@@ -272,6 +314,16 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
       return errorFound ? errorType : 0;
     }
 
+/**
+ * @brief Retrieves raw ID from error word based on error type
+ * @param[in] fedId FED ID
+ * @param[in] errWord Error word
+ * @param[in] errorType Type of error
+ * @param[in] cablingMap Cabling map object
+ * @param[in] debug Debug flag
+ * @return Raw ID
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC uint32_t getErrRawID(uint8_t fedId,
                                        uint32_t errWord,
                                        uint32_t errorType,
@@ -352,6 +404,29 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     // Kernel to perform Raw to Digi conversion
     struct RawToDigi_kernel {
       template <typename TAcc>
+/**
+ * @brief Operator function to process pixel data from the GPU.
+ *
+ * This function processes the pixel data stored in the word array and fills the output arrays with the corresponding x and y coordinates, ADC values, and other relevant information.
+ *
+ * @param acc Accelerator object
+ * @param cablingMap Pointer to the SiPixelFedCablingMapGPU object
+ * @param modToUnp Pointer to the modulation to unpartitioning mapping array
+ * @param wordCounter Number of words in the input data
+ * @param word Pointer to the input word array
+ * @param fedIds Pointer to the FED IDs array
+ * @param xx Pointer to the output x coordinate array
+ * @param yy Pointer to the output y coordinate array
+ * @param adc Pointer to the output ADC value array
+ * @param pdigi Pointer to the output digitized pixel array
+ * @param rawIdArr Pointer to the output raw ID array
+ * @param moduleId Pointer to the output module ID array
+ * @param err Pointer to the error vector
+ * @param useQualityInfo Flag indicating whether to use quality information
+ * @param includeErrors Flag indicating whether to include errors in the processing
+ * @param debug Debug flag
+ */
+// The above comment was written by an LLM. 
       ALPAKA_FN_ACC void operator()(const TAcc &acc,
                                     const SiPixelFedCablingMapGPU *cablingMap,
                                     const unsigned char *modToUnp,
@@ -483,6 +558,16 @@ namespace pixelgpudetails {
 
   struct fillHitsModuleStart {
     template <typename TAcc>
+/**
+ * @brief Performs an operation on the input data.
+ *
+ * This function takes in a set of cluster starts and updates the corresponding module starts.
+ *
+ * @param acc The accelerator object.
+ * @param cluStart The array of cluster start values.
+ * @param moduleStart The array of module start values to be updated.
+ */
+// The above comment was written by an LLM. 
     ALPAKA_FN_ACC void operator()(const TAcc &acc,
                                   uint32_t const *__restrict__ cluStart,
                                   uint32_t *__restrict__ moduleStart) const {

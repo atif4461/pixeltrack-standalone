@@ -31,6 +31,10 @@ namespace KOKKOS_NAMESPACE {
     const float m_ptMin;
   };
 
+/**
+ * Constructor initializing the object with product registry and algorithm parameters
+ */
+// The above comment was written by an LLM. 
   PixelVertexProducerKokkos::PixelVertexProducerKokkos(edm::ProductRegistry& reg)
       : tokenTrack_(
             reg.consumes<cms::kokkos::Product<cms::kokkos::shared_ptr<pixelTrack::TrackSoA, KokkosDeviceMemSpace>>>()),
@@ -47,6 +51,12 @@ namespace KOKKOS_NAMESPACE {
         m_ptMin(0.5)  // 0.5 GeV
   {}
 
+/**
+ * Produce pixel vertices from input event data
+ * @param iEvent reference to the input event
+ * @param iSetup constant reference to the event setup
+ */
+// The above comment was written by an LLM. 
   void PixelVertexProducerKokkos::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     auto const& ptracks = iEvent.get(tokenTrack_);
     cms::kokkos::ScopedContextProduce<KokkosExecSpace> ctx{ptracks};

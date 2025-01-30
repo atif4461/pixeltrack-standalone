@@ -40,6 +40,14 @@ namespace pixelgpudetails {
   SiPixelRawToClusterGPUKernel::WordFedAppender::WordFedAppender()
       : word_(new unsigned int[MAX_FED_WORDS]), fedId_(new unsigned char[MAX_FED_WORDS]) {}
 
+/**
+ * Initializes the WordFedAppender with the specified parameters
+ * @param[in] fedId        Federal ID to be used in initialization
+ * @param[in] wordCounterGPU Counter value for GPU words
+ * @param[in] src          Source data array
+ * @param[in] length       Length of source data array
+ */
+// The above comment was written by an LLM. 
   void SiPixelRawToClusterGPUKernel::WordFedAppender::initializeWordFed(int fedId,
                                                                         unsigned int wordCounterGPU,
                                                                         const uint32_t *src,
@@ -58,6 +66,15 @@ namespace pixelgpudetails {
 
   bool isBarrel(uint32_t rawId) { return (1 == ((rawId >> 25) & 0x7)); }
 
+/**
+ * @brief Retrieves raw detector identifier from cabling map
+ * @param cablingMap Pointer to SiPixelFedCablingMapGPU object
+ * @param fed Front end controller id
+ * @param link Link number in fed
+ * @param roc Readout chip identifier
+ * @return Detector identifier of type DetIdGPU
+ */
+// The above comment was written by an LLM. 
   pixelgpudetails::DetIdGPU getRawId(const SiPixelFedCablingMapGPU *cablingMap,
                                      uint8_t fed,
                                      uint32_t link,
@@ -138,6 +155,14 @@ namespace pixelgpudetails {
     return global;
   }
 
+/**
+ * @brief Returns an error type based on the provided status and optional debug output
+ * @param[in] fedId The ID of the Federal device
+ * @param[in] status The status code indicating the type of error
+ * @param[in] debug Optional flag to enable debug printouts
+ * @return Error type as an unsigned 8-bit integer
+ */
+// The above comment was written by an LLM. 
   uint8_t conversionError(uint8_t fedId, uint8_t status, bool debug = false) {
     uint8_t errorType = 0;
 
@@ -174,6 +199,10 @@ namespace pixelgpudetails {
     return errorType;
   }
 
+/**
+
+/// Checks if row and column indices are within valid range in ROC representation*/
+// The above comment was written by an LLM. 
   bool rocRowColIsValid(uint32_t rocRow, uint32_t rocCol) {
     uint32_t numRowsInRoc = 80;
     uint32_t numColsInRoc = 52;
@@ -184,6 +213,16 @@ namespace pixelgpudetails {
 
   bool dcolIsValid(uint32_t dcol, uint32_t pxid) { return ((dcol < 26) & (2 <= pxid) & (pxid < 162)); }
 
+/**
+ * @brief Checks the type of error in the ROC
+ * @param errorWord The word containing the error information
+ * @param fedId The FED ID associated with the error
+ * @param link The link number where the error occurred
+ * @param cablingMap The mapping of the GPU cabling
+ * @param debug Flag to enable debugging printouts
+ * @return An indication of whether an error was found
+ */
+// The above comment was written by an LLM. 
   uint8_t checkROC(
       uint32_t errorWord, uint8_t fedId, uint32_t link, const SiPixelFedCablingMapGPU *cablingMap, bool debug = false) {
     uint8_t errorType = (errorWord >> pixelgpudetails::ROC_shift) & pixelgpudetails::ERROR_mask;
@@ -262,6 +301,18 @@ namespace pixelgpudetails {
     return 0;
   }
 
+/**
+ * @brief Retrieves the raw ID of an error based on the FED ID, error word, error type, and cabling map.
+ *
+ * @param[in] fedId The FED ID associated with the error.
+ * @param[in] errWord The error word containing detailed error information.
+ * @param[in] errorType The type of error that occurred.
+ * @param[in] cablingMap A mapping of detector IDs to their corresponding links and ROCs.
+ * @param[in] debug Optional flag to enable debugging output.
+ *
+ * @return The raw ID of the error, or 0xFFFFFFFF if it cannot be determined.
+ */
+// The above comment was written by an LLM. 
   uint32_t getErrRawID(uint8_t fedId,
                        uint32_t errWord,
                        uint32_t errorType,

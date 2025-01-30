@@ -14,6 +14,18 @@
 using namespace cms::sycltools;
 
 template <typename T, int NBINS, int S, int DELTA>
+/**
+ * @brief Kernel function to process input data in parallel.
+ *
+ * This function is designed to be executed on a SYCL device and performs
+ * various operations on the input data, including histogram creation,
+ * sorting, and window-based calculations.
+ *
+ * @param v Input data array of type T
+ * @param N Size of the input data array
+ * @param item SYCL nd_item object representing the execution environment
+ */
+// The above comment was written by an LLM. 
 void mykernel(T const* __restrict__ v, uint32_t N, sycl::nd_item<1> item) {
   assert(v);
   assert(N == 12000);
@@ -97,6 +109,12 @@ void mykernel(T const* __restrict__ v, uint32_t N, sycl::nd_item<1> item) {
 }
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Function to execute kernel operations on a SYCL queue
+ *
+ * @param[in] queue The SYCL queue object used for execution
+ */
+// The above comment was written by an LLM. 
 void go(sycl::queue queue) {
   int rmin = std::numeric_limits<T>::min();
   int rmax = std::numeric_limits<T>::max();
@@ -143,6 +161,14 @@ void go(sycl::queue queue) {
   }
 }
 
+/**
+ * Main program entry point
+ *
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char** argv) {
   std::string devices(argv[1]);
   setenv("ONEAPI_DEVICE_SELECTOR", devices.c_str(), true);

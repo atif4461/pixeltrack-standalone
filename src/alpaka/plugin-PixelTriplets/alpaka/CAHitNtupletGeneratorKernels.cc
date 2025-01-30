@@ -12,6 +12,13 @@
 
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
+/**
+ * Fills hit detector indices for tracks in parallel across multiple blocks
+ * @param[in] hits container view
+ * @param[out] track data structure with SoA layout
+ * @param[in,out] execution queue
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::fillHitDetIndices(HitsView const *hv, TkSoA *tracks_d, Queue &queue) {
     // NB: MPORTANT: This could be tuned to benefit from innermost loop.
     const auto blockSize = 128;
@@ -26,6 +33,18 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 #endif
   }
 
+/**
+ * @brief Launches kernels for hit ntuplet generation.
+ *
+ * This function takes in a set of CPU hits, tracks on the device, and a command queue.
+ * It launches several kernels to perform tasks such as initializing tuples, 
+ * connecting hits, finding ntuplets, removing duplicates, and counting multiplicities.
+ *
+ * @param hh The input hits on the CPU.
+ * @param tracks_d The output tracks on the device.
+ * @param queue The command queue for launching kernels.
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::launchKernels(HitsOnCPU const &hh, TkSoA *tracks_d, Queue &queue) {
     // these are pointer on GPU!
     auto *tuples_d = &tracks_d->hitIndices;
@@ -197,6 +216,13 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     // device_isOuterHitOfCell_.reset();
   }
 
+/**
+ * Builds doublets from hits on CPU.
+ *
+ * @param[in] hh                container of hits on CPU
+ * @param[out] queue            queue for kernel execution
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::buildDoublets(HitsOnCPU const &hh, Queue &queue) {
     auto nhits = hh.nHits();
 
@@ -269,6 +295,14 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 #endif
   }
 
+/**
+ * Classify tuples based on kinematic properties and perform track processing.
+ *
+ * @param[in] hh                Container of hits on CPU
+ * @param[out] tracks_d         Tracks stored in device memory
+ * @param[inout] queue          Execution queue for kernels
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::classifyTuples(HitsOnCPU const &hh, TkSoA *tracks_d, Queue &queue) {
     // these are pointer on GPU!
     auto const *tuples_d = &tracks_d->hitIndices;
@@ -364,6 +398,12 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
 #endif
   }
 
+/**
+ * Prints the current state of counters.
+ *
+ * @param queue The queue to enqueue the task on
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::printCounters(Queue &queue) {
     const auto workDiv1D = cms::alpakatools::make_workdiv<Acc1D>(1u, 1u);
     alpaka::enqueue(queue, alpaka::createTaskKernel<Acc1D>(workDiv1D, kernel_printCounters(), counters_.data()));

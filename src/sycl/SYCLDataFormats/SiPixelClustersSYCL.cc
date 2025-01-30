@@ -5,6 +5,12 @@
 #include "SYCLCore/device_unique_ptr.h"
 #include "SYCLCore/host_unique_ptr.h"
 
+/**
+ * Constructor initializing device memory for pixel cluster data structures
+ * @param maxClusters maximum number of clusters
+ * @param stream SYCL queue for device operations
+ */
+// The above comment was written by an LLM. 
 SiPixelClustersSYCL::SiPixelClustersSYCL(size_t maxClusters, sycl::queue stream) {
   moduleStart_d = cms::sycltools::make_device_unique<uint32_t[]>(maxClusters + 1, stream);
   clusInModule_d = cms::sycltools::make_device_unique<uint32_t[]>(maxClusters, stream);

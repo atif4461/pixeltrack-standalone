@@ -20,6 +20,10 @@ namespace KOKKOS_NAMESPACE {
     std::string data_;
   };
 
+/**
+ * Produces the SiPixelFedCablingMapES data product from binary input file
+ */
+// The above comment was written by an LLM. 
   void SiPixelFedCablingMapESProducer::produce(edm::EventSetup& eventSetup) {
     std::ifstream in((data_ + "/cablingMap.bin").c_str(), std::ios::binary);
     in.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);

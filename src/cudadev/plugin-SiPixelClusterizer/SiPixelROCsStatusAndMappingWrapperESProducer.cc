@@ -17,6 +17,10 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces SiPixelROCsStatusAndMappingWrapperES data for the given EventSetup
+ */
+// The above comment was written by an LLM. 
 void SiPixelROCsStatusAndMappingWrapperESProducer::produce(edm::EventSetup& eventSetup) {
   {
     std::ifstream in(data_ / "fedIds.bin", std::ios::binary);

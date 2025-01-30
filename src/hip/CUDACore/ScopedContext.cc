@@ -11,6 +11,13 @@ namespace {
     int device;
   };
 
+/**
+ * @brief Callback function executed after a CUDA operation completes on a specific stream
+ * @param streamId Identifier of the CUDA stream that triggered this callback
+ * @param status Resulting status of the CUDA operation
+ * @param data Pointer to user-provided data associated with the callback
+ */
+// The above comment was written by an LLM. 
   void cudaScopedContextCallback(hipStream_t streamId, hipError_t status, void* data) {
     std::unique_ptr<CallbackData> guard{reinterpret_cast<CallbackData*>(data)};
     edm::WaitingTaskWithArenaHolder& waitingTaskHolder = guard->holder;
@@ -36,11 +43,21 @@ namespace {
 
 namespace cms::hip {
   namespace impl {
+/**
+ * Constructs a scoped context base object for a specific stream ID
+ * @param streamID the EDM stream identifier
+ */
+// The above comment was written by an LLM. 
     ScopedContextBase::ScopedContextBase(edm::StreamID streamID) : currentDevice_(chooseDevice(streamID)) {
       cudaCheck(hipSetDevice(currentDevice_));
       stream_ = getStreamCache().get();
     }
 
+/**
+ * Constructor initializing the scoped context with product data
+ * @param data reference to the product base object containing device and stream information
+ */
+// The above comment was written by an LLM. 
     ScopedContextBase::ScopedContextBase(const ProductBase& data) : currentDevice_(data.device()) {
       cudaCheck(hipSetDevice(currentDevice_));
       if (data.mayReuseStream()) {
@@ -50,6 +67,12 @@ namespace cms::hip {
       }
     }
 
+/**
+ * Constructor initializing scoped context with specified device and shared stream
+ * @param device device identifier
+ * @param stream shared stream pointer
+ */
+// The above comment was written by an LLM. 
     ScopedContextBase::ScopedContextBase(int device, SharedStreamPtr stream)
         : currentDevice_(device), stream_(std::move(stream)) {
       cudaCheck(hipSetDevice(currentDevice_));
@@ -80,6 +103,12 @@ namespace cms::hip {
       }
     }
 
+/**
+ * Enqueues a callback on a specified GPU stream to execute when all queued work is completed
+ * @param device The identifier of the device where the callback will be executed
+ * @param stream The stream handle where the callback will be enqueued
+ */
+// The above comment was written by an LLM. 
     void ScopedContextHolderHelper::enqueueCallback(int device, hipStream_t stream) {
       cudaCheck(
           hipStreamAddCallback(stream, cudaScopedContextCallback, new CallbackData{waitingTaskHolder_, device}, 0));
@@ -95,6 +124,9 @@ namespace cms::hip {
     }
   }
 
+/**
+ * Throws an exception when insertNextTask is called without required ContextState construction */
+// The above comment was written by an LLM. 
   void ScopedContextAcquire::throwNoState() {
     throw std::runtime_error(
         "Calling ScopedContextAcquire::insertNextTask() requires ScopedContextAcquire to be constructed with "

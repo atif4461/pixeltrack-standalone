@@ -9,6 +9,16 @@
 #include "SYCLCore/printf.h"
 
 template <typename T>
+/**
+ * @brief Tests the prefix scan functionality within a work group.
+ *
+ * This function initializes local memory buffers, sets initial values,
+ * performs a block prefix scan operation, and verifies the results.
+ *
+ * @param item SYCL nd_item object representing the current work item.
+ * @param size The total number of elements in the array.
+ */
+// The above comment was written by an LLM. 
 void testPrefixScan(sycl::nd_item<1> item, uint32_t size) {
   auto wsbuff = sycl::ext::oneapi::group_local_memory_for_overwrite<T[32]>(item.get_group());
   T *ws = (T *)wsbuff.get();
@@ -59,6 +69,17 @@ void testPrefixScan(sycl::nd_item<1> item, uint32_t size) {
 }
 
 template <typename T>
+/**
+ * @brief Tests the functionality of the warp prefix scan operation.
+ *
+ * This function tests the correctness of the warp prefix scan operation
+ * by initializing an array with ones, performing the operation, and 
+ * verifying that the result is correct.
+ *
+ * @param[in] item SYCL nd_item object representing the current work item.
+ * @param[in] size The size of the input data.
+ */
+// The above comment was written by an LLM. 
 void testWarpPrefixScan(sycl::nd_item<1> item, uint32_t size) {
   assert(size <= 32);
 
@@ -108,6 +129,15 @@ void testWarpPrefixScan(sycl::nd_item<1> item, uint32_t size) {
   }
 }
 
+/**
+ * Initializes an array of size n with a specified value.
+ *
+ * @param[in] item      SYCL nd_item object representing the parallel execution instance
+ * @param[out] v        Array to be initialized
+ * @param[in] val       Value used for initialization
+ * @param[in] n         Size of the array
+ */
+// The above comment was written by an LLM. 
 void init(sycl::nd_item<1> item, uint32_t *v, uint32_t val, uint32_t n) {
   auto i = item.get_group(0) * item.get_local_range().get(0) + item.get_local_id(0);
   if (i < n)
@@ -116,6 +146,14 @@ void init(sycl::nd_item<1> item, uint32_t *v, uint32_t val, uint32_t n) {
     printf("init\n");
 }
 
+/**
+ * @brief Verifies the values of an array against their expected indices plus one.
+ *
+ * @param[in] item SYCL nd-item object representing the execution environment.
+ * @param[in] v Pointer to the array of uint32_t values to be verified.
+ * @param[in] n Number of elements in the array.
+ */
+// The above comment was written by an LLM. 
 void verify(sycl::nd_item<1> item, uint32_t const *v, uint32_t n) {
   auto i = item.get_group(0) * item.get_local_range().get(0) + item.get_local_id(0);
   if (i < n) {
@@ -129,6 +167,56 @@ void verify(sycl::nd_item<1> item, uint32_t const *v, uint32_t n) {
     printf("verify\n");
 }
 
+/**
+ * @brief Main program entry point
+ *
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ 
+ 
+ 
+  * @brief Initialize device accessible pointer and launch kernel to initialize data
+ *
+ * @param item SYCL nd_item object
+ * @param d_in Device accessible input pointer
+ * @param value Initialization value
+ * @param numItems Number of items to initialize
+ 
+ 
+  * @brief Launch kernel to perform prefix scan operation
+ *
+ * @tparam type Data type of the elements being scanned
+ * @param item SYCL nd_item object
+ * @param j Parameter for the prefix scan operation
+ 
+ 
+  * @brief Perform verification of the results after prefix scan operation
+ *
+ * @param item SYCL nd_item object
+ * @param d_out Device accessible output pointer
+ * @param numItems Number of items to verify
+ 
+ 
+  * @brief Perform initialization of the input data
+ *
+ * @param item SYCL nd_item object
+ * @param d_in Device accessible input pointer
+ * @param value Initialization value
+ * @param numItems Number of items to initialize
+ 
+ 
+  * @brief Perform multi-block prefix scan operation
+ *
+ * @tparam type Data type of the elements being scanned
+ * @param d_in Device accessible input pointer
+ * @param d_out Device accessible output pointer
+ * @param numItems Number of items to scan
+ * @param d_pc Device accessible pointer for block counter
+ * @param item SYCL nd_item object
+ * @param psum_acc Local accessor for partial sum
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char **argv) try {
   std::string devices(argv[1]);
   setenv("SYCL_DEVICE_FILTER", devices.c_str(), true);

@@ -7,6 +7,15 @@
 
 using AtomicPairCounter = cms::sycltools::AtomicPairCounter;
 
+/**
+ * Updates the counter and index arrays based on the current item in a parallel iteration.
+ * @param dc pointer to an AtomicPairCounter object
+ * @param ind array of indices to be updated
+ * @param cont array of containers to be updated
+ * @param n total number of elements
+ * @param item current item in the parallel iteration
+ */
+// The above comment was written by an LLM. 
 void update(AtomicPairCounter *dc, uint32_t *ind, uint32_t *cont, uint32_t n, sycl::nd_item<1> item) {
   auto i = item.get_group(0) * item.get_local_range(0) + item.get_local_id(0);
   if (i >= n)
@@ -21,11 +30,29 @@ void update(AtomicPairCounter *dc, uint32_t *ind, uint32_t *cont, uint32_t n, sy
     cont[j] = i;
 };
 
+/**
+ * @brief Finalizes the atomic pair counter data structure
+ * @param dc AtomicPairCounter object
+ * @param ind array of indices
+ * @param cont unused container pointer
+ * @param n number of elements
+ */
+// The above comment was written by an LLM. 
 void finalize(AtomicPairCounter const *dc, uint32_t *ind, uint32_t *cont, uint32_t n) {
   //assert(dc->get().m == n);
   ind[n] = dc->get().n;
 }
 
+/**
+ * Verifies the correctness of the input data structures.
+ *
+ * @param[in] dc        The AtomicPairCounter object to be verified.
+ * @param[in] ind       The index array to be verified.
+ * @param[in] cont      The content array to be verified.
+ * @param[in] n         The size of the arrays.
+ * @param[in] item      The SYCL item object representing the current work item.
+ */
+// The above comment was written by an LLM. 
 void verify(AtomicPairCounter const *dc, uint32_t const *ind, uint32_t const *cont, uint32_t n, sycl::nd_item<1> item) {
   auto i = item.get_group(0) * item.get_local_range(0) + item.get_local_id(0);
   if (i >= n)
@@ -42,6 +69,14 @@ void verify(AtomicPairCounter const *dc, uint32_t const *ind, uint32_t const *co
 }
 
 #include <iostream>
+/**
+ * Main program entry point
+ *
+ * @param argc Number of command line arguments
+ * @param argv Array of command line argument strings
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char **argv) {
   std::string devices(argv[1]);
   setenv("ONEAPI_DEVICE_SELECTOR", devices.c_str(), true);

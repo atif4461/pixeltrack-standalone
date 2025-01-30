@@ -16,6 +16,10 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces beam spot data from binary file and stores it in the event setup.
+ */
+// The above comment was written by an LLM. 
 void BeamSpotESProducer::produce(edm::EventSetup& eventSetup) {
   auto bs = std::make_unique<BeamSpotPOD>();
 

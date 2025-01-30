@@ -42,6 +42,10 @@ private:
   edm::EDGetTokenT<ZVertexHeterogeneous> vertexToken_;
 };
 
+/**
+ * Constructor initializing validator with necessary tokens from product registry
+ */
+// The above comment was written by an LLM. 
 CountValidator::CountValidator(edm::ProductRegistry& reg)
     : digiClusterCountToken_(reg.consumes<DigiClusterCount>()),
       trackCountToken_(reg.consumes<TrackCount>()),
@@ -51,6 +55,14 @@ CountValidator::CountValidator(edm::ProductRegistry& reg)
       trackToken_(reg.consumes<PixelTrackHeterogeneous>()),
       vertexToken_(reg.consumes<ZVertexHeterogeneous>()) {}
 
+/**
+ * Produces validation results for an event by comparing actual counts 
+ * of modules digits clusters tracks and vertices with their expected values.
+ *
+ * @param iEvent The input event containing data to be validated
+ * @param iSetup Event setup object providing access to event data
+ */
+// The above comment was written by an LLM. 
 void CountValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   constexpr float trackTolerance = 0.012f;  // in 200 runs of 1k events all events are withing this tolerance
   constexpr int vertexTolerance = 1;
@@ -125,6 +137,10 @@ void CountValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
   }
 }
 
+/**
+ * Ends the job by validating the total number of events and calculating average differences.
+ */
+// The above comment was written by an LLM. 
 void CountValidator::endJob() {
   if (allEvents == goodEvents) {
     std::cout << "CountValidator: all " << allEvents << " events passed validation\n";

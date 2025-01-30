@@ -101,6 +101,10 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
       {"vertex_ndof", SimpleAtomicHisto(170, 0, 170)},
       {"vertex_pt2", SimpleAtomicHisto(100, 0, 4000)}};
 
+/**
+ * Constructor initializing data members with tokens from product registry
+ */
+// The above comment was written by an LLM. 
   HistoValidator::HistoValidator(edm::ProductRegistry& reg)
       : digiToken_{reg.consumes<cms::alpakatools::Product<Queue, SiPixelDigisAlpaka>>()},
         clusterToken_{reg.consumes<cms::alpakatools::Product<Queue, SiPixelClustersAlpaka>>()},
@@ -108,6 +112,13 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
         trackToken_{reg.consumes<PixelTrackHost>()},
         vertexToken_{reg.consumes<ZVertexHost>()} {}
 
+/**
+ * Acquires event data from the given Event and EventSetup objects.
+ * @param iEvent the Event object containing the data to be acquired
+ * @param iSetup the EventSetup object containing setup information
+ * @param waitingTaskHolder holder for waiting task with arena
+ */
+// The above comment was written by an LLM. 
   void HistoValidator::acquire(const edm::Event& iEvent,
                                const edm::EventSetup& iSetup,
                                edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -142,6 +153,12 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     h_sizey = hits.ysizeToHostAsync(ctx.stream());
   }
 
+/**
+ * @brief Produces histograms for event data
+ * @param iEvent the event object
+ * @param iSetup the event setup object
+ */
+// The above comment was written by an LLM. 
   void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     histos["module_n"].fill(nModules_);
     histos["digi_n"].fill(nDigis_);
@@ -215,6 +232,11 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     }
   }
 
+/**
+ * Ends the job by writing histogram data to a file 
+ * depending on the Alpaka backend being used 
+ */
+// The above comment was written by an LLM. 
   void HistoValidator::endJob() {
 #if defined ALPAKA_ACC_CPU_B_SEQ_T_SEQ_SYNC_BACKEND
     std::ofstream out("histograms_alpaka_serial.txt");

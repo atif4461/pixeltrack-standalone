@@ -14,6 +14,15 @@
 #include "gpuPixelRecHits.h"
 
 namespace {
+/**
+ * Sets the start of the layer in the hits data structure.
+ *
+ * @param[in] hitsModuleStart pointer to module start indices
+ * @param[in] cpeParams constant reference to params on GPU
+ * @param[out] hitsLayerStart pointer to layer start indices
+ * @param[in] item SYCL item for parallel execution
+ */
+// The above comment was written by an LLM. 
   void setHitsLayerStart(uint32_t const* __restrict__ hitsModuleStart,
                          pixelCPEforGPU::ParamsOnGPU const* cpeParams,
                          uint32_t* hitsLayerStart,
@@ -33,6 +42,16 @@ namespace {
 
 namespace pixelgpudetails {
 
+/**
+ * @brief Creates 2D rec hits asynchronously from digis and clusters
+ * @param digis_d input digis
+ * @param clusters_d input clusters
+ * @param bs_d beam spot
+ * @param cpeParams parameters for pixel CPE
+ * @param stream SYCL queue
+ * @return TrackingRecHit2DSYCL object containing generated hits
+ */
+// The above comment was written by an LLM. 
   TrackingRecHit2DSYCL PixelRecHitGPUKernel::makeHitsAsync(SiPixelDigisSYCL const& digis_d,
                                                            SiPixelClustersSYCL const& clusters_d,
                                                            BeamSpotSYCL const& bs_d,

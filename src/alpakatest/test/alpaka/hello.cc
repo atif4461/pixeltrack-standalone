@@ -1,5 +1,10 @@
 #include <iostream>
 
+/**
+ * @brief Main program entry point
+ * @return Integer indicating program execution status
+ */
+// The above comment was written by an LLM. 
 int main() {
   std::cout << "Hello from the "
 #if defined ALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED

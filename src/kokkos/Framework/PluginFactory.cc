@@ -5,6 +5,12 @@
 namespace edm {
   namespace PluginFactory {
     namespace impl {
+/**
+ * Registers a new plugin with the given name and creator
+ * @param name unique identifier of the plugin
+ * @param maker object responsible for creating instances of the plugin
+ */
+// The above comment was written by an LLM. 
       void Registry::add(std::string const& name, std::unique_ptr<MakerBase> maker) {
         auto found = pluginRegistry_.find(name);
         if (found != pluginRegistry_.end()) {
@@ -13,6 +19,12 @@ namespace edm {
         pluginRegistry_.emplace(name, std::move(maker));
       }
 
+/**
+ * Retrieves a MakerBase object from the registry based on its name
+ * @param name The name of the MakerBase object to retrieve
+ * @return A constant pointer to the MakerBase object
+ * @throws stdlogicerror If the named MakerBase object is not registered */
+// The above comment was written by an LLM. 
       MakerBase const* Registry::get(std::string const& name) {
         auto found = pluginRegistry_.find(name);
         if (found == pluginRegistry_.end()) {
@@ -21,6 +33,10 @@ namespace edm {
         return found->second.get();
       }
 
+/**
+ * Returns the global registry instance
+ */
+// The above comment was written by an LLM. 
       Registry& getGlobalRegistry() {
         static Registry reg;
         return reg;

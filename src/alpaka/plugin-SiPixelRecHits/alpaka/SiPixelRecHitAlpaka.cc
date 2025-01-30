@@ -35,12 +35,23 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     pixelgpudetails::PixelRecHitGPUKernel gpuAlgo_;
   };
 
+/**
+ * Constructor initializing the object with product registry 
+ */
+// The above comment was written by an LLM. 
   SiPixelRecHitAlpaka::SiPixelRecHitAlpaka(edm::ProductRegistry& reg)
       : tBeamSpot(reg.consumes<cms::alpakatools::Product<Queue, BeamSpotAlpaka>>()),
         token_(reg.consumes<cms::alpakatools::Product<Queue, SiPixelClustersAlpaka>>()),
         tokenDigi_(reg.consumes<cms::alpakatools::Product<Queue, SiPixelDigisAlpaka>>()),
         tokenHit_(reg.produces<cms::alpakatools::Product<Queue, TrackingRecHit2DAlpaka>>()) {}
 
+/**
+ * Produces pixel reconstruction hits in an event.
+ *
+ * @param iEvent the event to produce hits for
+ * @param es the event setup containing configuration data
+ */
+// The above comment was written by an LLM. 
   void SiPixelRecHitAlpaka::produce(edm::Event& iEvent, const edm::EventSetup& es) {
     auto const& fcpe = es.get<PixelCPEFast>();
 

@@ -5,6 +5,10 @@
 #include "CUDACore/ScopedSetDevice.h"
 
 #ifndef CUDAUVM_DISABLE_MANAGED_BEAMSPOT
+/**
+ * Advises and prefetches memory for efficient data access on a specific device
+ */
+// The above comment was written by an LLM. 
 void BeamSpotCUDA::memAdviseAndPrefetch(int device, cudaStream_t stream) {
   device_ = device;
 #ifndef CUDAUVM_DISABLE_ADVISE

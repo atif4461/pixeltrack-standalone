@@ -9,6 +9,14 @@
 using namespace cms::cuda;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Function to test histogram functionality
+ *
+ * This function tests various aspects of the histogram class,
+ * including binning, counting, finalizing, and filling.
+ * It also verifies the correctness of the histogram data.
+ */
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -136,6 +144,12 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ *
+ * @return Program execution status
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int16_t>();
   go<uint8_t, 128, 8, 4>();

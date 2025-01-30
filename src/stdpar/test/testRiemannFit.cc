@@ -45,6 +45,16 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and hits covariance matrix with
+ * hardcoded values depending on the number of columns in the input matrix.
+ *
+ * @param[out] hits The hits matrix to be filled.
+ * @param[out] hits_ge The hits covariance matrix to be filled.
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +97,76 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests the fitting functions with generated hits
+ 
+void testFit()
+ * @brief Fills the hits matrix and covariance matrix
+ * @param[out] hits The hits matrix
+ * @param[out] hits_ge The covariance matrix of hits
+ 
+void fillHitsAndHitsCov(Rfit::Matrix3xNd<N> &hits, Rfit::Matrix6xNf<N> &hits_ge)
+ * @brief Performs a fast fit on the given hits
+ * @param[in] hits The hits matrix
+ * @param[out] results The fitted parameters
+ 
+void Fast_fit(const Rfit::Matrix3xNd<N> &hits, Vector4d &results)
+ * @brief Prepares broken line data from hits and initial fit results
+ * @param[in] hits The hits matrix
+ * @param[in] initResults The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[out] data The prepared broken line data
+ 
+void prepareBrokenLineData(const Rfit::Matrix3xNd<N> &hits, const Vector4d &initResults, double B, PreparedBrokenLineData<N> &data)
+ * @brief Performs a line fit on the given hits and initial fit results
+ * @param[in] hitsGe The covariance matrix of hits
+ * @param[in] initResults The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[in] data The prepared broken line data
+ * @param[out] results The fitted line parameters
+ 
+void BL_Line_fit(const Rfit::Matrix6xNf<N> &hitsGe, const Vector4d &initResults, double B, const PreparedBrokenLineData<N> &data, line_fit &results)
+ * @brief Performs a circle fit on the given hits and initial fit results
+ * @param[in] hits The hits matrix
+ * @param[in] hitsGe The covariance matrix of hits
+ * @param[in] initResults The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[in] data The prepared broken line data
+ * @param[out] results The fitted circle parameters
+ 
+void BL_Circle_fit(const Rfit::Matrix3xNd<N> &hits, const Rfit::Matrix6xNf<N> &hitsGe, const Vector4d &initResults, double B, const PreparedBrokenLineData<N> &data, karimaki_circle_fit &results)
+ * @brief Loads the 2D covariance matrix from the given hits and covariance matrix
+ * @param[in] hitsGe The covariance matrix of hits
+ * @param[out] hitsCov The loaded 2D covariance matrix
+ 
+void loadCovariance2D(const Rfit::Matrix6xNf<N> &hitsGe, Rfit::Matrix2Nd<N> &hitsCov)
+ * @brief Performs a circle fit on the given hits and initial fit results
+ * @param[in] hits The hits matrix
+ * @param[in] hitsCov The covariance matrix of hits
+ * @param[in] initResults The initial fit results
+ * @param[in] rad The radii of the hits
+ * @param[in] B The curvature parameter
+ * @param[in] useUncertainties Whether to use uncertainties in the fit
+ * @return The fitted circle parameters
+ 
+Rfit::circle_fit Circle_fit(const Rfit::Matrix2Nd<N> &hits, const Rfit::Matrix2Nd<N> &hitsCov, const Vector4d &initResults, const Rfit::VectorNd<N> &rad, double B, bool useUncertainties)
+ * @brief Performs a line fit on the given hits and initial fit results
+ * @param[in] hits The hits matrix
+ * @param[in] hitsGe The covariance matrix of hits
+ * @param[in] circleResults The fitted circle parameters
+ * @param[in] initResults The initial fit results
+ * @param[in] B The curvature parameter
+ * @param[in] useUncertainties Whether to use uncertainties in the fit
+ * @return The fitted line parameters
+ 
+Rfit::line_fit Line_fit(const Rfit::Matrix3xNd<N> &hits, const Rfit::Matrix6xNf<N> &hitsGe, const Rfit::circle_fit &circleResults, const Vector4d &initResults, double B, bool useUncertainties)
+ * @brief Converts the fitted circle parameters to par-uv-r-tau format
+ * @param[inout] results The fitted circle parameters
+ * @param[in] B The curvature parameter
+ * @param[in] useUncertainties Whether to use uncertainties in the conversion
+ 
+void par_uvrtopak(Rfit::circle_fit &results, double B, bool useUncertainties)*/
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -147,6 +227,10 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * Main program entry point 
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

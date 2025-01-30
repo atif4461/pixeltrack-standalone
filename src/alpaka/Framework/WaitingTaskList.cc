@@ -68,6 +68,14 @@ void WaitingTaskList::reset() {
   m_waiting = true;
 }
 
+/**
+ * Creates a new wait node in the waiting task list.
+ *
+ * @param[in] iGroup   the task group associated with the node
+ * @param[in] iTask   the task associated with the node
+ * @return a pointer to the newly created wait node
+ */
+// The above comment was written by an LLM. 
 WaitingTaskList::WaitNode* WaitingTaskList::createNode(tbb::task_group* iGroup, WaitingTask* iTask) {
   unsigned int index = m_lastAssignedCacheIndex++;
 
@@ -88,6 +96,12 @@ WaitingTaskList::WaitNode* WaitingTaskList::createNode(tbb::task_group* iGroup, 
   return returnValue;
 }
 
+/**
+ * Adds a waiting task holder to the list if waiting is active
+ * otherwise notifies the task that an exception has occurred
+ * @param iTask the task holder to add to the list
+ */
+// The above comment was written by an LLM. 
 void WaitingTaskList::add(WaitingTaskHolder iTask) {
   if (!m_waiting) {
     if (m_exceptionPtr) {
@@ -121,6 +135,13 @@ void WaitingTaskList::add(WaitingTaskHolder iTask) {
   }
 }
 
+/**
+ * Adds a task to the waiting task list.
+ *
+ * @param[in] group The task group associated with the task.
+ * @param[in] task The task to be added to the list.
+ */
+// The above comment was written by an LLM. 
 void WaitingTaskList::add(tbb::task_group* iGroup, WaitingTask* iTask) {
   iTask->increment_ref_count();
   if (!m_waiting) {
@@ -159,6 +180,12 @@ void WaitingTaskList::add(tbb::task_group* iGroup, WaitingTask* iTask) {
   }
 }
 
+/**
+ * Marks all tasks in the waiting list as failed due to an exception.
+ *
+ * @param iExcept The exception that caused the failure.
+ */
+// The above comment was written by an LLM. 
 void WaitingTaskList::presetTaskAsFailed(std::exception_ptr iExcept) {
   if (iExcept and m_waiting) {
     WaitNode* node = m_head.load();
@@ -173,6 +200,10 @@ void WaitingTaskList::presetTaskAsFailed(std::exception_ptr iExcept) {
   }
 }
 
+/**
+ * Announces all tasks in the waiting list and executes them accordingly.
+ */
+// The above comment was written by an LLM. 
 void WaitingTaskList::announce() {
   //Need a temporary storage since one of these tasks could
   // cause the next event to start processing which would refill
@@ -208,6 +239,10 @@ void WaitingTaskList::announce() {
   }
 }
 
+/**
+ * Handles completion of waiting task by storing exception pointer and updating waiting status
+ */
+// The above comment was written by an LLM. 
 void WaitingTaskList::doneWaiting(std::exception_ptr iPtr) {
   m_exceptionPtr = iPtr;
   m_waiting = false;

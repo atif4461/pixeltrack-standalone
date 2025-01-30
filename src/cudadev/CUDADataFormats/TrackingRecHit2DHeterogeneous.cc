@@ -5,6 +5,11 @@
 #include "CUDADataFormats/TrackingRecHit2DHeterogeneous.h"
 
 template <>
+/**
+ * Returns a host unique pointer to an array of floats representing local coordinates
+ * @return float array containing local coordinates
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<float[]> TrackingRecHit2DCUDA::localCoordToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<float[]>(4 * nHits(), stream);
   cms::cuda::copyAsync(ret, m_store32, 4 * nHits(), stream);
@@ -12,6 +17,12 @@ cms::cuda::host::unique_ptr<float[]> TrackingRecHit2DCUDA::localCoordToHostAsync
 }
 
 template <>
+/**
+ * @brief Asynchronously transfers module start hits from device to host
+ * @param stream CUDA stream used for asynchronous transfer
+ * @return Unique pointer to array of module start hits on host
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<uint32_t[]> TrackingRecHit2DCUDA::hitsModuleStartToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<uint32_t[]>(gpuClustering::maxNumModules + 1, stream);
   cudaCheck(cudaMemcpyAsync(
@@ -20,6 +31,12 @@ cms::cuda::host::unique_ptr<uint32_t[]> TrackingRecHit2DCUDA::hitsModuleStartToH
 }
 
 template <>
+/**
+ * @brief Copies global coordinates from device memory to host memory asynchronously
+ * @param stream CUDA stream for asynchronous operation
+ * @return Unique pointer to array of floats containing copied coordinates
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<float[]> TrackingRecHit2DCUDA::globalCoordToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<float[]>(4 * nHits(), stream);
   cudaCheck(cudaMemcpyAsync(
@@ -28,6 +45,12 @@ cms::cuda::host::unique_ptr<float[]> TrackingRecHit2DCUDA::globalCoordToHostAsyn
 }
 
 template <>
+/**
+ * @brief Copies charges from device memory to host memory asynchronously
+ * @param stream CUDA stream to perform operation on
+ * @return Unique pointer to array of int32_t containing charge data on host
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<int32_t[]> TrackingRecHit2DCUDA::chargeToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<int32_t[]>(nHits(), stream);
   cudaCheck(
@@ -36,6 +59,12 @@ cms::cuda::host::unique_ptr<int32_t[]> TrackingRecHit2DCUDA::chargeToHostAsync(c
 }
 
 template <>
+/**
+ * @brief Copies size data from device to host asynchronously
+ * @param stream CUDA stream for asynchronous operation
+ * @return Unique pointer to host array containing size data
+ */
+// The above comment was written by an LLM. 
 cms::cuda::host::unique_ptr<int16_t[]> TrackingRecHit2DCUDA::sizeToHostAsync(cudaStream_t stream) const {
   auto ret = cms::cuda::make_host_unique<int16_t[]>(2 * nHits(), stream);
   cudaCheck(cudaMemcpyAsync(

@@ -1,5 +1,14 @@
 #include "RiemannFitOnGPU.h"
 
+/**
+ * @brief Launches Riemann kernels for helix fit on GPU
+ * 
+ * @param hv              Hits view object
+ * @param nhits           Number of hits
+ * @param maxNumberOfTuples Maximum number of tuples
+ * @param stream          SYCL queue object
+ */
+// The above comment was written by an LLM. 
 void HelixFitOnGPU::launchRiemannKernels(HitsView const *hv,
                                          uint32_t nhits,
                                          uint32_t maxNumberOfTuples,

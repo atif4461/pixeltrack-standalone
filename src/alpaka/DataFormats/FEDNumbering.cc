@@ -12,6 +12,12 @@ using namespace std;
 
 namespace {
 
+/**
+ * @brief Initializes an array of booleans indicating whether each FED ID is included.
+ *
+ * @return A constexpr array of booleans where each index represents a FED ID.
+ */
+// The above comment was written by an LLM. 
   constexpr std::array<bool, FEDNumbering::FEDNumbering::MAXFEDID + 1> initIn() {
     std::array<bool, FEDNumbering::MAXFEDID + 1> in = {{false}};
 
@@ -107,6 +113,12 @@ namespace {
 }  // namespace
 
 bool FEDNumbering::inRange(int i) { return in_[i]; }
+/**
+ * Checks if the given index is outside the GT trigger range
+ * @param i The index to check
+ * @return True if the index is within the allowed range, False otherwise
+ */
+// The above comment was written by an LLM. 
 bool FEDNumbering::inRangeNoGT(int i) {
   if ((i >= MINTriggerGTPFEDID && i <= MAXTriggerGTPFEDID) || (i >= MINTriggerEGTPFEDID && i <= MAXTriggerEGTPFEDID))
     return false;

@@ -28,6 +28,10 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
       : bsPutToken_{reg.produces<cms::alpakatools::Product<Queue, BeamSpotAlpaka>>()},
         bsHost_{cms::alpakatools::make_host_buffer<BeamSpotPOD, Platform>()} {}
 
+/**
+ * Produces beam spot data in Alpaka format from EventSetup and stores it in event
+ */
+// The above comment was written by an LLM. 
   void BeamSpotToAlpaka::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     *bsHost_ = iSetup.get<BeamSpotPOD>();
 

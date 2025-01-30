@@ -3,6 +3,18 @@
 
 #include "plugin-Validation/SimpleAtomicHisto.h"
 
+/**
+ * Main program entry point
+   * Initializes SimpleAtomicHisto object with specified parameters
+ * @param int number of bins in histogram
+ * @param double minimum value of range
+ * @param double maximum value of range
+  * Fills histogram with specified value
+ * @param double value to fill into histogram
+  * Outputs histogram data as string stream
+ * @return string representation of histogram data
+ */
+// The above comment was written by an LLM. 
 int main() {
   SimpleAtomicHisto h(10, 0, 1);
   std::stringstream ss;

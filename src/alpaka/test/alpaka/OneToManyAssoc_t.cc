@@ -26,6 +26,14 @@ using TK = std::array<uint16_t, 4>;
 
 struct countMultiLocal {
   template <typename TAcc>
+/**
+ * @brief Performs operation on grid elements with strided access pattern
+ * @param acc accelerator handle
+ * @param tk kernel data
+ * @param assoc multiplicity association
+ * @param n number of elements in grid
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                 TK const* __restrict__ tk,
                                 Multiplicity* __restrict__ assoc,
@@ -49,6 +57,14 @@ struct countMultiLocal {
 
 struct countMulti {
   template <typename TAcc>
+/**
+ * @brief Performs an operation on a grid with strided access pattern
+ * @param acc Accessor object for the grid
+ * @param tk Pointer to kernel data
+ * @param assoc Object for handling multiplicity associations
+ * @param n Number of elements in the grid
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                 TK const* __restrict__ tk,
                                 Multiplicity* __restrict__ assoc,
@@ -59,6 +75,14 @@ struct countMulti {
 
 struct verifyMulti {
   template <typename TAcc>
+/**
+ * Checks if two multiplicity objects have the same offset values for all bins in the grid.
+ *
+ * @param acc Accessor object for parallel execution
+ * @param m1 First multiplicity object to compare
+ * @param m2 Second multiplicity object to compare
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, Multiplicity* __restrict__ m1, Multiplicity* __restrict__ m2) const {
     for_each_element_in_grid_strided(
         acc, Multiplicity::totbins(), [&](uint32_t i) { assert(m1->off[i] == m2->off[i]); });
@@ -67,6 +91,14 @@ struct verifyMulti {
 
 struct count {
   template <typename TAcc>
+/**
+ * @brief Iterates over grid elements with stride and updates association counts
+ * @param acc access object for iteration
+ * @param tk input data array
+ * @param assoc association object for updating counts
+ * @param n number of iterations
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                 TK const* __restrict__ tk,
                                 Assoc* __restrict__ assoc,
@@ -87,6 +119,17 @@ struct count {
 
 struct fill {
   template <typename TAcc>
+/**
+ * Brief description of the function 
+ * Detailed description of the function that takes an accelerator 
+ * and kernel data and performs operation on association object
+ *
+ * @param[in] acc Accelerator object used for computation
+ * @param[in] tk Kernel data used in computation
+ * @param[out] assoc Association object being updated
+ * @param[in] n Size parameter for kernel data
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc,
                                 TK const* __restrict__ tk,
                                 Assoc* __restrict__ assoc,
@@ -114,6 +157,15 @@ struct verify {
 
 struct fillBulk {
   template <typename TAcc, typename Assoc>
+/**
+ * Performs operation on grid elements with striding
+ * @param acc accelerator object
+ * @param apc atomic pair counter pointer
+ * @param tk input data array
+ * @param assoc association object
+ * @param n number of elements in grid
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(
       const TAcc& acc, AtomicPairCounter* apc, TK const* __restrict__ tk, Assoc* __restrict__ assoc, uint32_t n) const {
     for_each_element_in_grid_strided(acc, n, [&](uint32_t k) {
@@ -125,6 +177,10 @@ struct fillBulk {
 
 struct verifyBulk {
   template <typename TAcc, typename Assoc>
+/**
+ * Checks for overflow condition in atomic pair counter and validates associative array size.
+ */
+// The above comment was written by an LLM. 
   ALPAKA_FN_ACC void operator()(const TAcc& acc, Assoc const* __restrict__ assoc, AtomicPairCounter const* apc) const {
     if (apc->get().m >= Assoc::nbins()) {
       printf("Overflow %d %d\n", apc->get().m, Assoc::nbins());
@@ -133,6 +189,78 @@ struct verifyBulk {
   }
 };
 
+/**
+
+### Function Comments
+ * @brief The main entry point of the program.
+ *
+ * Initializes the environment, sets up the device and queue, generates random data,
+ * performs various operations on the data, and verifies the results.
+ *
+ * @return An integer indicating the program's exit status.
+ 
+ 
+  * @brief Launches the zero kernel on the specified device data.
+ *
+ * Initializes the device data to zero.
+ *
+ * @param data The device data to be initialized.
+ * @param queue The command queue used to execute the kernel.
+ 
+ 
+  * @brief Fills the bulk data structure on the device.
+ *
+ * Copies data from one buffer to another on the device.
+ *
+ * @param workDiv The work division for the kernel launch.
+ * @param data The destination buffer.
+ * @param src The source buffer.
+ * @param N The number of elements in the buffers.
+ 
+ 
+  * @brief Finalizes the device data after all operations have been completed.
+ *
+ * Ensures that all operations on the device data have finished before proceeding.
+ *
+ * @param data The device data to be finalized.
+ * @param queue The command queue used to execute the kernel.
+ 
+ 
+  * @brief Verifies the contents of the device data.
+ *
+ * Checks the device data against expected values.
+ *
+ * @param data The device data to be verified.
+ 
+ 
+  * @brief Counts the multiplicity of elements in the data.
+ *
+ * Determines the frequency of occurrence of each element in the data.
+ *
+ * @param workDiv The work division for the kernel launch.
+ * @param data The input data.
+ * @param dest The destination buffer for the counts.
+ * @param N The number of elements in the data.
+ 
+ 
+  * @brief Counts the multiplicity of elements in the data using local counters.
+ *
+ * Determines the frequency of occurrence of each element in the data using block-local counters.
+ *
+ * @param workDiv The work division for the kernel launch.
+ * @param data The input data.
+ * @param dest The destination buffer for the counts.
+ * @param N The number of elements in the data.
+ 
+ 
+  * @brief Verifies the multiplicity counts.
+ *
+ * Compares the counts obtained using global and local counters.
+ *
+ * @param m1 The first set of counts.
+ * @param m2 The second set of counts.
+ */
+// The above comment was written by an LLM. 
 int main() {
   initialise();
   const Device device = devices<Platform>().at(0);

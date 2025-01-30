@@ -9,6 +9,13 @@ using namespace std;
 
 namespace {
 
+/**
+ * @brief Initializes an array of booleans representing the initialization status of various FED IDs.
+ *
+ * @return A constexpr array of booleans where each element corresponds to a specific FED ID,
+ *         with true indicating that the FED is included in the initialization process and false otherwise.
+ */
+// The above comment was written by an LLM. 
   constexpr std::array<bool, FEDNumbering::FEDNumbering::MAXFEDID + 1> initIn() {
     std::array<bool, FEDNumbering::MAXFEDID + 1> in = {{false}};
 
@@ -104,6 +111,12 @@ namespace {
 }  // namespace
 
 bool FEDNumbering::inRange(int i) { return in_[i]; }
+/**
+ * Checks if a given integer is within a specific range of trigger IDs
+ * @param i The input integer to check
+ * @return True if the integer is outside the specified ranges, False otherwise
+ */
+// The above comment was written by an LLM. 
 bool FEDNumbering::inRangeNoGT(int i) {
   if ((i >= MINTriggerGTPFEDID && i <= MAXTriggerGTPFEDID) || (i >= MINTriggerEGTPFEDID && i <= MAXTriggerEGTPFEDID))
     return false;

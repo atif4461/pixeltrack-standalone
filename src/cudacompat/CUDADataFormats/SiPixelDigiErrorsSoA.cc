@@ -3,6 +3,12 @@
 #include <cassert>
 #include <cstring>
 
+/**
+ * Constructor initializing the SiPixelDigiErrorsSoA object with maximum number of FED words and pixel formatter errors
+ * @param maxFedWords Maximum number of FED words
+ * @param errors Pixel formatter errors
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsSoA::SiPixelDigiErrorsSoA(size_t maxFedWords, PixelFormatterErrors errors)
     : formatterErrors_h(std::move(errors)) {
   error_d = std::make_unique<cms::cuda::SimpleVector<PixelErrorCompact>>();

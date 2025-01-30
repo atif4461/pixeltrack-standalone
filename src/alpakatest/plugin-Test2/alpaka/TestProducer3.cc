@@ -25,6 +25,12 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
   TestProducer3::TestProducer3(edm::ProductRegistry& reg)
       : getToken_(reg.consumes<cms::alpakatools::Product<Queue, cms::alpakatools::device_buffer<Device, float[]>>>()) {}
 
+/**
+ * @brief Produces data for an event in the TestProducer3 module
+ * @param event Reference to the current event being processed
+ * @param eventSetup Constant reference to the event setup configuration
+ */
+// The above comment was written by an LLM. 
   void TestProducer3::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
     const auto& result = event.get(getToken_);
 

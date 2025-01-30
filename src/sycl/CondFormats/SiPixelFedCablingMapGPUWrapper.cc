@@ -13,6 +13,12 @@
 #include "SYCLCore/host_unique_ptr.h"
 #include "CondFormats/SiPixelFedCablingMapGPUWrapper.h"
 
+/**
+ * Constructor for wrapping SiPixelFedCablingMapGPU with additional functionality
+ * @param cablingMap The input cabling map object
+ * @param modToUnp Vector of module to unpinning values
+ */
+// The above comment was written by an LLM. 
 SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCablingMapGPU const& cablingMap,
                                                                std::vector<unsigned char> modToUnp)
     : modToUnpDefault(modToUnp.size()), hasQuality_(true) {
@@ -23,6 +29,12 @@ SiPixelFedCablingMapGPUWrapper::SiPixelFedCablingMapGPUWrapper(SiPixelFedCabling
 
 SiPixelFedCablingMapGPUWrapper::~SiPixelFedCablingMapGPUWrapper() { delete cablingMapHost_; }
 
+/**
+ * @brief Retrieves the GPU product asynchronously from the queue stream
+ * @param stream The SYCL queue stream used for asynchronous operations
+ * @return A constant pointer to the SiPixelFedCablingMapGPU object on the GPU device
+ */
+// The above comment was written by an LLM. 
 const SiPixelFedCablingMapGPU* SiPixelFedCablingMapGPUWrapper::getGPUProductAsync(sycl::queue stream) const {
   const auto& data = gpuData_.dataForCurrentDeviceAsync(stream, [this](GPUData& data, sycl::queue& stream) {
     // allocate
@@ -37,6 +49,11 @@ const SiPixelFedCablingMapGPU* SiPixelFedCablingMapGPUWrapper::getGPUProductAsyn
   return data.cablingMapDevice.get();
 }
 
+/**
+ * @brief Retrieves module to unpack all async 
+ * @param stream SYCL queue object 
+ * @return constant pointer to unsigned char array */
+// The above comment was written by an LLM. 
 const unsigned char* SiPixelFedCablingMapGPUWrapper::getModToUnpAllAsync(sycl::queue stream) const {
   const auto& data = modToUnp_.dataForCurrentDeviceAsync(stream, [this](ModulesToUnpack& data, sycl::queue stream) {
     data.modToUnpDefault =

@@ -3,6 +3,12 @@
 #include "CondFormats/SiPixelGainCalibrationForHLTGPU.h"
 #include "CondFormats/SiPixelGainForHLTonGPU.h"
 
+/**
+ * Constructor initializing pixel gain calibration object with gain data from GPU
+ * @param gain reference to SiPixelGainForHLTonGPU object containing gain values
+ * @param gainData vector of character data representing gain information
+ */
+// The above comment was written by an LLM. 
 SiPixelGainCalibrationForHLTGPU::SiPixelGainCalibrationForHLTGPU(SiPixelGainForHLTonGPU const& gain,
                                                                  std::vector<char> gainData)
     : gainData_(std::move(gainData)) {
@@ -12,6 +18,14 @@ SiPixelGainCalibrationForHLTGPU::SiPixelGainCalibrationForHLTGPU(SiPixelGainForH
 
 SiPixelGainCalibrationForHLTGPU::~SiPixelGainCalibrationForHLTGPU() { delete gainForHLTonHost_; }
 
+/**
+ * @brief Retrieves the GPU product asynchronously.
+ *
+ * @param[in] queue The SYCL queue used for asynchronous operations.
+ *
+ * @return A pointer to the gain for HLT on GPU.
+ */
+// The above comment was written by an LLM. 
 const SiPixelGainForHLTonGPU* SiPixelGainCalibrationForHLTGPU::getGPUProductAsync(sycl::queue SYCLstream) const {
   const auto& data = gpuData_.dataForCurrentDeviceAsync(SYCLstream, [this](GPUData& data, sycl::queue stream) {
     data.gainForHLTonGPU = cms::sycltools::make_device_unique_uninitialized<SiPixelGainForHLTonGPU>(stream);

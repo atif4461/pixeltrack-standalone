@@ -4,6 +4,12 @@
 #include "CUDACore/SimpleVector.h"
 #include "CUDADataFormats/SiPixelDigiErrors.h"
 
+/**
+ * Constructor initializing SiPixelDigiErrors object with specified maximum number of FED words and pixel formatter errors
+ * @param maxFedWords Maximum number of FED words
+ * @param errors Pixel formatter errors
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrors::SiPixelDigiErrors(size_t maxFedWords, PixelFormatterErrors errors)
     : maxFedWords_{maxFedWords},
       formatterErrors_h{std::move(errors)},

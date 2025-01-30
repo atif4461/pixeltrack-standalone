@@ -81,6 +81,10 @@ std::map<std::string, SimpleAtomicHisto> HistoValidator::histos = {
     {"vertex_ndof", SimpleAtomicHisto(170, 0, 170)},
     {"vertex_pt2", SimpleAtomicHisto(100, 0, 4000)}};
 
+/**
+ * Constructor initializing the validator with necessary tokens from the product registry
+ */
+// The above comment was written by an LLM. 
 HistoValidator::HistoValidator(edm::ProductRegistry& reg)
     : digiToken_(reg.consumes<cms::cuda::Product<SiPixelDigisCUDA>>()),
       clusterToken_(reg.consumes<cms::cuda::Product<SiPixelClustersCUDA>>()),
@@ -88,6 +92,13 @@ HistoValidator::HistoValidator(edm::ProductRegistry& reg)
       trackToken_(reg.consumes<PixelTrackHeterogeneous>()),
       vertexToken_(reg.consumes<ZVertexHeterogeneous>()) {}
 
+/**
+ * Acquires event data from the given event and setup.
+ * @param[in] iEvent The event object containing the data to be acquired.
+ * @param[in] iSetup The event setup object providing additional configuration.
+ * @param[in,out] waitingTaskHolder Holder for waiting task with arena.
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::acquire(const edm::Event& iEvent,
                              const edm::EventSetup& iSetup,
                              edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -113,6 +124,12 @@ void HistoValidator::acquire(const edm::Event& iEvent,
   h_size = hits.sizeToHostAsync(ctx.stream());
 }
 
+/**
+ * @brief Produces histograms for event data validation
+ * @param iEvent The event object containing data to be validated
+ * @param iSetup The EventSetup object providing configuration data
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   histos["digi_n"].fill(nDigis);
   for (uint32_t i = 0; i < nDigis; ++i) {
@@ -182,6 +199,10 @@ void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
   }
 }
 
+/**
+ * Finalizes the job by writing histogram data to a file.
+ */
+// The above comment was written by an LLM. 
 void HistoValidator::endJob() {
   std::ofstream out("histograms_cuda.txt");
   for (auto const& elem : histos) {

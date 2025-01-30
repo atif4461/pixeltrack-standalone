@@ -11,6 +11,13 @@ void CAHitNtupletGeneratorKernelsCPU::fillHitDetIndices(HitsView const *hv, TkSo
 }
 
 template <>
+/**
+ * Builds doublets from hits on CPU.
+ *
+ * @param[in] hh             container of hits on CPU
+ * @param[in] stream         CUDA stream
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernelsCPU::buildDoublets(HitsOnCPU const &hh, cudaStream_t stream) {
   auto nhits = hh.nHits();
 
@@ -68,6 +75,13 @@ void CAHitNtupletGeneratorKernelsCPU::buildDoublets(HitsOnCPU const &hh, cudaStr
 }
 
 template <>
+/**
+ * Launches kernels for generating hit n-tuplets on CPU.
+ * @param hh Hits on CPU
+ * @param tracks_d Tracks data structure
+ * @param cudaStream CUDA stream
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernelsCPU::launchKernels(HitsOnCPU const &hh, TkSoA *tracks_d, cudaStream_t cudaStream) {
   auto *tuples_d = &tracks_d->hitIndices;
   auto *quality_d = (Quality *)(&tracks_d->m_quality);
@@ -147,6 +161,16 @@ void CAHitNtupletGeneratorKernelsCPU::launchKernels(HitsOnCPU const &hh, TkSoA *
 }
 
 template <>
+/**
+ * Classifies tuples of hits into tracks based on kinematic properties,
+ * applies track cleaning algorithms, removes duplicate tracks,
+ * fills hit-to-track mapping, and generates statistics.
+ *
+ * @param hh             Container of hits on CPU
+ * @param tracks_d        Pointer to SoA structure containing track data on GPU
+ * @param cudaStream     CUDA stream object for parallel execution
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernelsCPU::classifyTuples(HitsOnCPU const &hh, TkSoA *tracks_d, cudaStream_t cudaStream) {
   auto const *tuples_d = &tracks_d->hitIndices;
   auto *quality_d = (Quality *)(&tracks_d->m_quality);

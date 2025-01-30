@@ -12,6 +12,16 @@
 #include "StreamSchedule.h"
 
 namespace edm {
+/**
+ * Constructs StreamSchedule object with specified parameters
+ * @param reg ProductRegistry instance
+ * @param pluginManager PluginManager reference
+ * @param source Source pointer
+ * @param eventSetup EventSetup constant pointer
+ * @param streamId integer identifier of the stream
+ * @param path vector of strings representing module paths
+ */
+// The above comment was written by an LLM. 
   StreamSchedule::StreamSchedule(ProductRegistry reg,
                                  edmplugin::PluginManager& pluginManager,
                                  Source* source,
@@ -42,6 +52,11 @@ namespace edm {
   StreamSchedule::StreamSchedule(StreamSchedule&&) = default;
   StreamSchedule& StreamSchedule::operator=(StreamSchedule&&) = default;
 
+/**
+ * Runs the stream schedule asynchronously to completion 
+ * @param h WaitingTaskHolder object 
+ */
+// The above comment was written by an LLM. 
   void StreamSchedule::runToCompletionAsync(WaitingTaskHolder h) {
     auto task = make_functor_task([this, h]() mutable { processOneEventAsync(std::move(h)); });
     if (streamId_ == 0) {
@@ -58,6 +73,12 @@ namespace edm {
     }
   }
 
+/**
+ * Process one asynchronous event from the stream source.
+ *
+ * @param h The waiting task holder containing the current task.
+ */
+// The above comment was written by an LLM. 
   void StreamSchedule::processOneEventAsync(WaitingTaskHolder h) {
     auto event = source_->produce(streamId_, registry_);
     if (event) {
@@ -92,6 +113,10 @@ namespace edm {
     }
   }
 
+/**
+ * Ends the job for all workers in the current stream schedule path
+ */
+// The above comment was written by an LLM. 
   void StreamSchedule::endJob() {
     for (auto& w : path_) {
       w->doEndJob();

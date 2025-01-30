@@ -1,6 +1,13 @@
 #include "CUDACore/cudaCheck.h"
 #include "HelixFitOnGPU.h"
 
+/**
+ * Allocates memory on GPU for helix fit calculation
+ * @param[in] tuples Input array of tuples
+ * @param[in] tupleMultiplicity Array of multiplicities corresponding to input tuples
+ * @param[out] helix_fit_results Container to store results of helix fit calculation
+ */
+// The above comment was written by an LLM. 
 void HelixFitOnGPU::allocateOnGPU(Tuples const *tuples,
                                   TupleMultiplicity const *tupleMultiplicity,
                                   OutputSoA *helix_fit_results) {

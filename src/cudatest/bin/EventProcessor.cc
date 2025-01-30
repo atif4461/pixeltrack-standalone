@@ -5,6 +5,18 @@
 #include "EventProcessor.h"
 
 namespace edm {
+/**
+ * Constructs an EventProcessor object with specified parameters
+ * @param warmupEvents number of events to process during warmup phase
+ * @param maxEvents maximum number of events to process
+ * @param runForMinutes duration in minutes to run event processing
+ * @param numberOfStreams number of streams to process concurrently
+ * @param path vector of strings representing paths
+ * @param esproducers vector of strings representing event setup producers
+ * @param datadir filesystem path to data directory
+ * @param validation boolean flag indicating whether validation is enabled
+ */
+// The above comment was written by an LLM. 
   EventProcessor::EventProcessor(int warmupEvents,
                                  int maxEvents,
                                  int runForMinutes,
@@ -29,6 +41,10 @@ namespace edm {
     }
   }
 
+/**
+ * Initializes the event processing system with a specified number of warm up events
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::warmUp() {
     if (warmupEvents_ <= 0)
       return;
@@ -38,12 +54,21 @@ namespace edm {
     process();
   }
 
+/**
+ * Runs the event processing to completion reconfiguring the source 
+ * with specified maximum events and runtime in minutes prior 
+ * to initiating the processing sequence */
+// The above comment was written by an LLM. 
   void EventProcessor::runToCompletion() {
     // Configure the source for the actual reconstrction
     source_.reconfigure(maxEvents_, runForMinutes_);
     process();
   }
 
+/**
+ * Starts event processing by initiating all scheduled tasks asynchronously 
+ * and waiting for their completion while handling potential exceptions */
+// The above comment was written by an LLM. 
   void EventProcessor::process() {
     source_.startProcessing();
 
@@ -60,6 +85,10 @@ namespace edm {
     }
   }
 
+/**
+ * Ends the job for the first stream in the schedule list
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::endJob() {
     // Only on the first stream...
     schedules_[0].endJob();

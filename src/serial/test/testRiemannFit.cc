@@ -45,6 +45,17 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills the hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and the corresponding columns of the
+ * hitsGe matrix with hardcoded numbers depending on the number of columns in the
+ * input matrix.
+ *
+ * @param[out] hits The output hits matrix to be filled.
+ * @param[out] hits_ge The output hits covariance matrix to be partially filled.
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +98,89 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests the fit functionality of the Rfit library.
+ *
+ * This function generates hits and their covariance matrices, performs fast fit,
+ * circle fit, and line fit, and prints out the fitted values and their covariance
+ * matrices.
+ 
+void testFit();
+ * @brief Fills the hits matrix with generated data.
+ *
+ * @param[out] hits The matrix containing the hit data.
+ * @param[out] hits_ge The matrix containing the hit covariance data.
+ 
+void fillHitsAndHitsCov(Rfit::Matrix3xNd<N> &hits, Rfit::Matrix6xNf<N> &hits_ge);
+ * @brief Performs a fast fit on the given hits.
+ *
+ * @param[in] hits The matrix containing the hit data.
+ * @param[out] results The vector containing the fitted values.
+ 
+void Fast_fit(const Rfit::Matrix3xNd<N> &hits, Vector4d &results);
+ * @brief Prepares the broken line data for fitting.
+ *
+ * @param[in] hits The matrix containing the hit data.
+ * @param[in] fast_fit_results The vector containing the fast fit results.
+ * @param[in] B The magnetic field strength.
+ * @param[out] data The prepared broken line data.
+ 
+void prepareBrokenLineData(const Rfit::Matrix3xNd<N> &hits, const Vector4d &fast_fit_results, double B, BrokenLine::PreparedBrokenLineData<N> &data);
+ * @brief Performs a line fit on the given hits.
+ *
+ * @param[in] hits_ge The matrix containing the hit covariance data.
+ * @param[in] fast_fit_results The vector containing the fast fit results.
+ * @param[in] B The magnetic field strength.
+ * @param[in] data The prepared broken line data.
+ * @param[out] results The struct containing the fitted values.
+ 
+void BL_Line_fit(const Rfit::Matrix6xNf<N> &hits_ge, const Vector4d &fast_fit_results, double B, const BrokenLine::PreparedBrokenLineData<N> &data, Rfit::line_fit &results);
+ * @brief Performs a circle fit on the given hits.
+ *
+ * @param[in] hits The matrix containing the hit data.
+ * @param[in] hits_ge The matrix containing the hit covariance data.
+ * @param[in] fast_fit_results The vector containing the fast fit results.
+ * @param[in] B The magnetic field strength.
+ * @param[in] data The prepared broken line data.
+ * @param[out] results The struct containing the fitted values.
+ 
+void BL_Circle_fit(const Rfit::Matrix3xNd<N> &hits, const Rfit::Matrix6xNf<N> &hits_ge, const Vector4d &fast_fit_results, double B, const BrokenLine::PreparedBrokenLineData<N> &data, BrokenLine::karimaki_circle_fit &results);
+ * @brief Loads the 2D covariance matrix from the given hits.
+ *
+ * @param[in] hits_ge The matrix containing the hit covariance data.
+ * @param[out] hits_cov The loaded 2D covariance matrix.
+ 
+void loadCovariance2D(const Rfit::Matrix6xNf<N> &hits_ge, Rfit::Matrix2Nd<N> &hits_cov);
+ * @brief Performs a circle fit on the given hits.
+ *
+ * @param[in] hits The matrix containing the hit data.
+ * @param[in] hits_cov The 2D covariance matrix.
+ * @param[in] fast_fit_results The vector containing the fast fit results.
+ * @param[in] rad The radii of the hits.
+ * @param[in] B The magnetic field strength.
+ * @param[in] use_fast_fit Whether to use the fast fit results as initial values.
+ * @param[out] results The struct containing the fitted values.
+ 
+Rfit::circle_fit Circle_fit(const Rfit::Matrix2Nd<N> &hits, const Rfit::Matrix2Nd<N> &hits_cov, const Vector4d &fast_fit_results, const Rfit::VectorNd<N> &rad, double B, bool use_fast_fit);
+ * @brief Performs a line fit on the given hits.
+ *
+ * @param[in] hits The matrix containing the hit data.
+ * @param[in] hits_ge The matrix containing the hit covariance data.
+ * @param[in] circle_fit_results The struct containing the circle fit results.
+ * @param[in] fast_fit_results The vector containing the fast fit results.
+ * @param[in] B The magnetic field strength.
+ * @param[in] use_fast_fit Whether to use the fast fit results as initial values.
+ * @param[out] results The struct containing the fitted values.
+ 
+Rfit::line_fit Line_fit(const Rfit::Matrix3xNd<N> &hits, const Rfit::Matrix6xNf<N> &hits_ge, const Rfit::circle_fit &circle_fit_results, const Vector4d &fast_fit_results, double B, bool use_fast_fit);
+ * @brief Updates the parameters of the circle fit results.
+ *
+ * @param[in,out] circle_fit_results The struct containing the circle fit results.
+ * @param[in] B The magnetic field strength.
+ * @param[in] use_fast_fit Whether to use the fast fit results as initial values.
+ 
+void par_uvrtopak(Rfit::circle_fit &circle_fit_results, double B, bool use_fast_fit);*/
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -144,6 +238,10 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * Main program entry point 
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

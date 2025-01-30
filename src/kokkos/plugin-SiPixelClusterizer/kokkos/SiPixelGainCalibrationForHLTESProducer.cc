@@ -38,6 +38,11 @@ namespace KOKKOS_NAMESPACE {
     std::string data_;
   };
 
+/**
+ * @brief Produces pixel gain calibration data for HLT ES producer
+ * @param eventSetup Reference to EventSetup object
+ */
+// The above comment was written by an LLM. 
   void SiPixelGainCalibrationForHLTESProducer::produce(edm::EventSetup& eventSetup) {
     std::ifstream in((data_ + "/gain.bin").c_str(), std::ios::binary);
     in.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);

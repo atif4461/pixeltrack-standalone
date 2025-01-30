@@ -10,6 +10,12 @@
 namespace cms::alpakatools {
 
   template <typename TPlatform>
+/**
+ * Initialise the platform and retrieve available devices.
+ *
+ * @param[in] verbose flag indicating whether to print detailed messages
+ */
+// The above comment was written by an LLM. 
   void initialise(bool verbose) {
     constexpr const char* suffix[] = {"devices.", "device:", "devices:"};
 

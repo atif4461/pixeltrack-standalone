@@ -32,12 +32,23 @@ private:
   pixelgpudetails::PixelRecHitGPUKernel gpuAlgo_;
 };
 
+/**
+ * Constructor initializing data members with consumed and produced products from ProductRegistry
+ */
+// The above comment was written by an LLM. 
 SiPixelRecHitSYCL::SiPixelRecHitSYCL(edm::ProductRegistry& reg)
     : tBeamSpot(reg.consumes<cms::sycltools::Product<BeamSpotSYCL>>()),
       token_(reg.consumes<cms::sycltools::Product<SiPixelClustersSYCL>>()),
       tokenDigi_(reg.consumes<cms::sycltools::Product<SiPixelDigisSYCL>>()),
       tokenHit_(reg.produces<cms::sycltools::Product<TrackingRecHit2DSYCL>>()) {}
 
+/**
+ * Produces pixel rechits from event data and setup.
+ *
+ * @param iEvent Event object containing input data
+ * @param es Event setup object containing configuration data
+ */
+// The above comment was written by an LLM. 
 void SiPixelRecHitSYCL::produce(edm::Event& iEvent, const edm::EventSetup& es) {
   PixelCPEFast const& fcpe = es.get<PixelCPEFast>();
 

@@ -6,6 +6,13 @@
 #include "Source.h"
 
 namespace {
+/**
+ * Reads raw data from an input stream into a collection of FED raw data objects
+ * @param is Input stream containing raw data
+ * @param nfeds Number of FEDs in the input stream
+ * @return Collection of FED raw data objects
+ */
+// The above comment was written by an LLM. 
   FEDRawDataCollection readRaw(std::ifstream &is, unsigned int nfeds) {
     FEDRawDataCollection rawCollection;
     for (unsigned int ifed = 0; ifed < nfeds; ++ifed) {
@@ -23,6 +30,15 @@ namespace {
 }  // namespace
 
 namespace edm {
+/**
+ * Constructor for Source class 
+ * @param maxEvents maximum number of events to process
+ * @param runForMinutes duration of processing in minutes
+ * @param reg reference to ProductRegistry object
+ * @param datadir path to directory containing input data files
+ * @param validation flag indicating whether validation is enabled
+ */
+// The above comment was written by an LLM. 
   Source::Source(
       int maxEvents, int runForMinutes, ProductRegistry &reg, std::filesystem::path const &datadir, bool validation)
       : maxEvents_(maxEvents),
@@ -83,6 +99,12 @@ namespace edm {
     }
   }
 
+/**
+ * Reconfigures the source with new parameters.
+ * @param maxEvents The maximum number of events to process.
+ * @param runForMinutes The duration in minutes to run the source.
+ */
+// The above comment was written by an LLM. 
   void Source::reconfigure(int maxEvents, int runForMinutes) {
     std::scoped_lock lock(timeMutex_);
     maxEvents_ = maxEvents;
@@ -92,12 +114,23 @@ namespace edm {
     numEvents_ = 0;
   }
 
+/**
+ * Starts the processing of the source data
+ */
+// The above comment was written by an LLM. 
   void Source::startProcessing() {
     if (runForMinutes_ >= 0) {
       startTime_ = std::chrono::steady_clock::now();
     }
   }
 
+/**
+ * @brief Produces an event based on the given stream ID and product registry.
+ * @param streamId The identifier of the stream.
+ * @param reg The product registry.
+ * @return A unique pointer to the produced event or nullptr if production should stop.
+ */
+// The above comment was written by an LLM. 
   std::unique_ptr<Event> Source::produce(int streamId, ProductRegistry const &reg) {
     if (shouldStop_) {
       return nullptr;

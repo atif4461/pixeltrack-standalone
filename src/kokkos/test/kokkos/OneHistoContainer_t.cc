@@ -11,6 +11,80 @@ using team_policy = Kokkos::TeamPolicy<KokkosExecSpace>;
 using member_type = Kokkos::TeamPolicy<KokkosExecSpace>::member_type;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Main entry point of the program
+ *
+ * This function initializes random number generators, creates views for device and host memory,
+ * and performs various operations such as histogram calculation and window-based searches.
+ 
+void go()
+ * @brief Calculate minimum and maximum values for random number generation
+ *
+ * Depending on the value of NBINS, calculate either the minimum and maximum values of type T
+ * or custom limits for the random number distribution.
+ 
+int rmin = std::numeric_limitsT>::min()
+int rmax = std::numeric_limitsT>::max()
+ * @brief Create random number generator with uniform distribution
+ *
+ * Initialize a random number engine with a seed value and create a uniform integer distribution
+ * within the calculated range [rmin, rmax].
+ 
+std::default_random_engine generator(1234)
+std::uniform_int_distributionT> rgen(rmin, rmax)
+ * @brief Allocate device and host memory for data storage
+ *
+ * Create views for device and host memory to store data, where the device view is unmanaged.
+ 
+constexpr uint32_t N = 12000
+Kokkos::ViewT*, KokkosExecSpace> v_d_own("v_d", N)
+auto v_d = cms::kokkos::make_restrictUnmanaged(v_d_own)
+auto v_h = Kokkos::create_mirror_view(v_d_own)
+ * @brief Print HistoContainer properties
+ *
+ * Output the number of bits, bins, capacity, and bin size of the HistoContainer class.
+ 
+std::cout << "HistoContainer " << Hist::nbits() <<'' << Hist::nbins() <<'' << Hist::capacity() <<'' << (rmax - rmin) / Hist::nbins() << std::endl
+ * @brief Fill host data array with random numbers
+ *
+ * Populate the host data array with random numbers generated from the uniform distribution.
+ 
+for (long long j = 0; j  N; j++) v_h(j) = rgen(eng)
+ * @brief Copy data from host to device memory
+ *
+ * Perform a deep copy of the data from the host array to the device array.
+ 
+Kokkos::deep_copy(KokkosExecSpace(), v_d, v_h)
+ * @brief Launch parallel kernels for histogram calculation
+ *
+ * Execute parallel kernels to set zeros, count elements, finalize the histogram, and perform assertions.
+ 
+Kokkos::parallel_for("set_zero",...)
+Kokkos::parallel_for("set_zero_bin",...)
+Kokkos::parallel_for("count",...)
+Kokkos::parallel_for("assert_check",...)
+ * @brief Fill histogram with data from device memory
+ *
+ * Populate the histogram with data from the device array.
+ 
+Kokkos::parallel_for("fill",...)
+ * @brief Verify histogram properties
+ *
+ * Check that the offset at index 0 is zero and the total size of the histogram matches the input data size.
+ 
+assert(0 == histo_h(0).off[0])
+assert(N == histo_h(0).size())
+ * @brief Validate bin assignments
+ *
+ * Iterate through the sorted data and verify that bin assignments are correct and non-decreasing.
+ 
+Kokkos::parallel_for("bin",...)
+ * @brief Test window-based search functionality
+ *
+ * Perform window-based searches within the histogram and verify the correctness of the results.
+ 
+Kokkos::parallel_for("forEachInWindow",...)*/
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -140,6 +214,14 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ * 
+ * Initializes Kokkos scope guard and executes test functions with various data types and parameters
+ *
+ * @return Program exit status
+ */
+// The above comment was written by an LLM. 
 int main() {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   // cudaDeviceSetLimit(cudaLimitPrintfFifoSize,1024*1024*1024);

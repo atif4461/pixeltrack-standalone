@@ -2,6 +2,11 @@
 
 #include "CUDADataFormats/SiPixelDigis.h"
 
+/**
+ * Constructor initializing SiPixelDigis object with specified maximum number of FED words
+ * @param maxFedWords Maximum number of FED words
+ */
+// The above comment was written by an LLM. 
 SiPixelDigis::SiPixelDigis(size_t maxFedWords)
     : xx_d{std::make_unique<uint16_t[]>(maxFedWords)},
       yy_d{std::make_unique<uint16_t[]>(maxFedWords)},

@@ -18,6 +18,14 @@ namespace gpuVertexFinder {
   // split vertices with a chi2/NDoF greater than this
   constexpr float maxChi2ForSplit = 9.f;
 
+/**
+ * Loads tracks from a TrackSoA object into a workspace.
+ * @param[in] ptracks pointer to TrackSoA object containing track data
+ * @param[out] soa pointer to ZVertexSoA object to store output data
+ * @param[out] pws pointer to WorkSpace object to store temporary results
+ * @param[in] ptMin minimum transverse momentum threshold
+ */
+// The above comment was written by an LLM. 
   __global__ void loadTracks(TkSoA const* ptracks, ZVertexSoA* soa, WorkSpace* pws, float ptMin) {
     assert(ptracks);
     assert(soa);
@@ -55,6 +63,16 @@ namespace gpuVertexFinder {
 
 // #define THREE_KERNELS
 #ifndef THREE_KERNELS
+/**
+ * @brief Finds vertices in a set of data using a density-based clustering approach
+ * @param[in] pdata pointer to ZVertices data structure
+ * @param[in,out] pws pointer to WorkSpace data structure
+ * @param[in] minT minimum number of neighbors required to seed a cluster
+ * @param[in] eps maximum absolute distance to consider points part of a cluster
+ * @param[in] errmax maximum error allowed for seeding a cluster
+ * @param[in] chi2max maximum normalized distance to consider points part of a cluster
+ */
+// The above comment was written by an LLM. 
   __global__ void vertexFinderOneKernel(gpuVertexFinder::ZVertices* pdata,
                                         gpuVertexFinder::WorkSpace* pws,
                                         int minT,      // min number of neighbours to be "seed"
@@ -73,6 +91,16 @@ namespace gpuVertexFinder {
     sortByPt2(pdata, pws);
   }
 #else
+/**
+ * @brief Finds vertices in a set of data points using density-based clustering
+ * @param pdata pointer to ZVertices data structure
+ * @param pws pointer to WorkSpace data structure
+ * @param minT minimum number of neighbors required to seed a cluster
+ * @param eps maximum absolute distance to consider points part of a cluster
+ * @param errmax maximum error allowed for seeding a cluster
+ * @param chi2max maximum normalized distance to consider points part of a cluster
+ */
+// The above comment was written by an LLM. 
   __global__ void vertexFinderKernel1(gpuVertexFinder::ZVertices* pdata,
                                       gpuVertexFinder::WorkSpace* pws,
                                       int minT,      // min number of neighbours to be "seed"
@@ -85,6 +113,12 @@ namespace gpuVertexFinder {
     fitVertices(pdata, pws, maxChi2ForFirstFit);
   }
 
+/**
+ * Brief kernel function to find vertices in parallel on GPU
+ * @param[in,out] pdata pointer to ZVertices data structure
+ * @param[in,out] pws pointer to WorkSpace data structure
+ */
+// The above comment was written by an LLM. 
   __global__ void vertexFinderKernel2(gpuVertexFinder::ZVertices* pdata, gpuVertexFinder::WorkSpace* pws) {
     fitVertices(pdata, pws, maxChi2ForFinalFit);
     __syncthreads();
@@ -93,6 +127,64 @@ namespace gpuVertexFinder {
 #endif
 
 #ifdef __CUDACC__
+/**
+ * @brief Produces heterogeneous vertices from tracks.
+ *
+ * This function generates vertices from an array of tracks with a minimum transverse momentum.
+ *
+ * @param[in] stream CUDA stream object
+ * @param[in] tksoa Array of tracks
+ * @param[in] ptMin Minimum transverse momentum
+ *
+ * @return Unique pointer to heterogeneous vertices
+  
+ * @brief Initializes the workspace for vertex finding.
+ *
+ * This function sets up the necessary data structures for the vertex finding process.
+ *
+ * @param[out] soa Structure of arrays for vertices
+ * @param[in,out] ws_d Workspace data structure
+ 
+  * @brief Loads tracks into the vertex finder.
+ *
+ * This function transfers track data into the vertex finder's internal storage.
+ *
+ * @param[in] tksoa Array of tracks
+ * @param[out] soa Structure of arrays for vertices
+ * @param[in,out] ws_d Workspace data structure
+ * @param[in] ptMin Minimum transverse momentum
+ 
+  * @brief Finds vertices in the loaded tracks.
+ *
+ * This function identifies potential vertices within the track data.
+ *
+ * @param[in,out] soa Structure of arrays for vertices
+ * @param[in,out] ws_d Workspace data structure
+ 
+  * @brief Fits vertices to the found clusters.
+ *
+ * This function performs a fitting procedure to refine the vertex positions.
+ *
+ * @param[in,out] soa Structure of arrays for vertices
+ * @param[in,out] ws_d Workspace data structure
+ * @param[in] maxChi2ForFit Maximum chi-squared value for the fit
+ 
+  * @brief Splits merged vertices.
+ *
+ * This function separates merged vertices into individual ones.
+ *
+ * @param[in,out] soa Structure of arrays for vertices
+ * @param[in,out] ws_d Workspace data structure
+ * @param[in] maxChi2ForSplit Maximum chi-squared value for splitting
+ 
+  * @brief Sorts vertices by their pT^2 values.
+ *
+ * This function rearranges the vertices according to their transverse momentum squared.
+ *
+ * @param[in,out] soa Structure of arrays for vertices
+ * @param[in] ws_d Workspace data structure
+ */
+// The above comment was written by an LLM. 
   ZVertexHeterogeneous Producer::makeAsync(cudaStream_t stream, TkSoA const* tksoa, float ptMin) const {
 #ifdef PIXVERTEX_DEBUG_PRODUCE
     std::cout << "producing Vertices on GPU" << std::endl;

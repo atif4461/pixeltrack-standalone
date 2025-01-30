@@ -3,6 +3,13 @@
 #include "Framework/Worker.h"
 
 namespace edm {
+/**
+ * Initiates asynchronous data retrieval in advance of actual usage 
+ * @param event reference to event object
+ * @param eventSetup constant reference to event setup object
+ * @param iTask waiting task holder object
+ */
+// The above comment was written by an LLM. 
   void Worker::prefetchAsync(Event& event, EventSetup const& eventSetup, WaitingTaskHolder iTask) {
     //std::cout << "prefetchAsync for " << this << " iTask " << iTask << std::endl;
     bool expected = false;

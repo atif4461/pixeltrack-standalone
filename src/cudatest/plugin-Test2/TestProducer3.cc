@@ -23,6 +23,12 @@ private:
 TestProducer3::TestProducer3(edm::ProductRegistry& reg)
     : getToken_(reg.consumes<cms::cuda::Product<cms::cuda::device::unique_ptr<float[]>>>()) {}
 
+/**
+ * @brief Produces data for an event in the TestProducer3 module
+ * @param event Reference to the current event being processed
+ * @param eventSetup Constant reference to the event setup configuration
+ */
+// The above comment was written by an LLM. 
 void TestProducer3::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
   auto const& tmp = event.get(getToken_);
   cms::cuda::ScopedContextProduce ctx(tmp);

@@ -93,6 +93,10 @@ namespace KOKKOS_NAMESPACE {
       {"vertex_ndof", SimpleAtomicHisto(170, 0, 170)},
       {"vertex_pt2", SimpleAtomicHisto(100, 0, 4000)}};
 
+/**
+ * Constructor initializing data tokens for pixel digis clusters hits tracks and vertices
+ */
+// The above comment was written by an LLM. 
   HistoValidator::HistoValidator(edm::ProductRegistry& reg)
       : digiToken_(reg.consumes<cms::kokkos::Product<SiPixelDigisKokkos<KokkosDeviceMemSpace>>>()),
         clusterToken_(reg.consumes<cms::kokkos::Product<SiPixelClustersKokkos<KokkosDeviceMemSpace>>>()),
@@ -100,6 +104,13 @@ namespace KOKKOS_NAMESPACE {
         trackToken_(reg.consumes<cms::kokkos::shared_ptr<pixelTrack::TrackSoA, KokkosHostMemSpace>>()),
         vertexToken_(reg.consumes<cms::kokkos::shared_ptr<ZVertexSoA, KokkosHostMemSpace>>()) {}
 
+/**
+ * Acquires event data from the specified event and setup objects
+ * @param iEvent The input event object
+ * @param iSetup The input event setup object
+ * @param waitingTaskHolder The holder for waiting task with arena
+ */
+// The above comment was written by an LLM. 
   void HistoValidator::acquire(const edm::Event& iEvent,
                                const edm::EventSetup& iSetup,
                                edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -131,6 +142,12 @@ namespace KOKKOS_NAMESPACE {
     h_sizey = hits.ysizeToHostAsync(ctx.execSpace());
   }
 
+/**
+ * @brief Produces histograms for event data
+ * @param iEvent Event object containing data to be processed
+ * @param iSetup Event setup object providing configuration information
+ */
+// The above comment was written by an LLM. 
   void HistoValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     histos["digi_n"].fill(nDigis);
     for (uint32_t i = 0; i < nDigis; ++i) {
@@ -207,6 +224,11 @@ namespace KOKKOS_NAMESPACE {
     }
   }
 
+/**
+ * Finalizes the job by writing histogram data to an output file
+ * depending on the Kokkos backend being used.
+ */
+// The above comment was written by an LLM. 
   void HistoValidator::endJob() {
 #ifdef KOKKOS_BACKEND_SERIAL
     std::ofstream out("histograms_kokkos_serial.txt");

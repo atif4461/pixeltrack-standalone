@@ -32,6 +32,13 @@ private:
 TestProducer2::TestProducer2(edm::ProductRegistry& reg)
     : getToken_(reg.consumes<cms::sycltools::Product<cms::sycltools::device::unique_ptr<float[]>>>()) {}
 
+/**
+ * Acquires an event and performs processing on the GPU.
+ * @param event The input event to be processed.
+ * @param eventSetup The event setup configuration.
+ * @param holder The waiting task with arena holder.
+ */
+// The above comment was written by an LLM. 
 void TestProducer2::acquire(edm::Event const& event,
                             edm::EventSetup const& eventSetup,
                             edm::WaitingTaskWithArenaHolder holder) {
@@ -46,6 +53,12 @@ void TestProducer2::acquire(edm::Event const& event,
             << array.get() << std::endl;
 }
 
+/**
+ * Produces data for an event in the framework
+ * @param event reference to the current event being processed
+ * @param eventSetup constant reference to the setup for the current event
+ */
+// The above comment was written by an LLM. 
 void TestProducer2::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
   std::cout << "TestProducer2::produce Event " << event.eventID() << " stream " << event.streamID() << std::endl;
   ++nevents;

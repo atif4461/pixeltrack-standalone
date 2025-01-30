@@ -33,11 +33,19 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     ZVertexHost soa_;
   };
 
+/**
+ * Constructor for initializing PixelVertexSoAFromAlpaka object with ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
   PixelVertexSoAFromAlpaka::PixelVertexSoAFromAlpaka(edm::ProductRegistry& reg)
       : tokenDevice_(reg.consumes<cms::alpakatools::Product<Queue, ZVertexAlpaka>>()),
         tokenHost_(reg.produces<ZVertexHost>()),
         soa_(cms::alpakatools::make_host_buffer<ZVertexSoA, Platform>()) {}
 
+/**
+ * Acquires event data from the input stream and stores it in a host buffer
+ */
+// The above comment was written by an LLM. 
   void PixelVertexSoAFromAlpaka::acquire(edm::Event const& iEvent,
                                          edm::EventSetup const& iSetup,
                                          edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -49,6 +57,12 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     alpaka::memcpy(ctx.stream(), soa_, inputData);
   }
 
+/**
+ * Produces PixelVertex data from Alpaka and stores it in the event
+ * @param iEvent reference to the Event object being processed
+ * @param iSetup constant reference to the EventSetup object
+ */
+// The above comment was written by an LLM. 
   void PixelVertexSoAFromAlpaka::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
     // No copies....
     iEvent.emplace(tokenHost_, std::move(soa_));

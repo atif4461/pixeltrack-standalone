@@ -2,6 +2,13 @@
 
 namespace ALPAKA_ACCELERATOR_NAMESPACE {
 
+/**
+ * Allocates memory on GPU for helix fit calculation
+ * @param[in] tuples Input data in form of tuples
+ * @param[in] tupleMultiplicity Multiplicity of input tuples
+ * @param[out] helix_fit_results Container to store results of helix fit
+ */
+// The above comment was written by an LLM. 
   void HelixFitOnGPU::allocateOnGPU(Tuples const *tuples,
                                     TupleMultiplicity const *tupleMultiplicity,
                                     OutputSoA *helix_fit_results) {

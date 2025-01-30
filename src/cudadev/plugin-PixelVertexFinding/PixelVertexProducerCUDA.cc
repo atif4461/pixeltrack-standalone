@@ -35,6 +35,12 @@ private:
   const float ptMin_;
 };
 
+/**
+ * Constructor for PixelVertexProducerCUDA class 
+ * initializes member variables and registers GPU or CPU tracks and vertices 
+ * depending on whether the algorithm is run on GPU or CPU 
+ */
+// The above comment was written by an LLM. 
 PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
     : onGPU_(true),
       gpuAlgo_(true,   // oneKernel
@@ -57,6 +63,13 @@ PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
   }
 }
 
+/**
+ * Produce pixel vertices on GPU.
+ *
+ * @param iEvent reference to the event object
+ * @param iSetup reference to the event setup object
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerCUDA::produceOnGPU(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const& ptracks = iEvent.get(tokenGPUTrack_);
 
@@ -68,6 +81,13 @@ void PixelVertexProducerCUDA::produceOnGPU(edm::Event& iEvent, const edm::EventS
   ctx.emplace(iEvent, tokenGPUVertex_, gpuAlgo_.makeAsync(ctx.stream(), tracks, ptMin_));
 }
 
+/**
+ * Produces pixel vertices on CPU.
+ *
+ * @param iEvent reference to the event object
+ * @param iSetup reference to the event setup object
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerCUDA::produceOnCPU(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   auto const* tracks = iEvent.get(tokenCPUTrack_).get();
   assert(tracks);
@@ -91,6 +111,12 @@ void PixelVertexProducerCUDA::produceOnCPU(edm::Event& iEvent, const edm::EventS
   iEvent.emplace(tokenCPUVertex_, gpuAlgo_.make(tracks, ptMin_));
 }
 
+/**
+ * @brief Produces pixel vertices for an event using either GPU or CPU depending on configuration
+ * @param iEvent Event object containing data for processing
+ * @param iSetup Event setup object providing necessary configuration
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   if (onGPU_) {
     produceOnGPU(iEvent, iSetup);

@@ -29,6 +29,12 @@ namespace KOKKOS_NAMESPACE {
       : rawGetToken_(reg.consumes<FEDRawDataCollection>()),
         putToken_(reg.produces<cms::kokkos::Product<Kokkos::View<const float*, KokkosExecSpace>>>()) {}
 
+/**
+ * Produce data for an event in the TestProducer module
+ * @param event reference to the current event being processed
+ * @param eventSetup constant reference to the setup for the current event
+ */
+// The above comment was written by an LLM. 
   void TestProducer::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
     auto const value = event.get(rawGetToken_).FEDData(1200).size();
     std::cout << "TestProducer  Event " << event.eventID() << " stream " << event.streamID() << " ES int "

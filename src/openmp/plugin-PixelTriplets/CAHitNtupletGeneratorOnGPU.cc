@@ -18,6 +18,10 @@ namespace {
     return x * x;
   }
 
+/**
+ * @return QualityCuts object containing parameters for track quality assessment
+ */
+// The above comment was written by an LLM. 
   cAHitNtupletGenerator::QualityCuts makeQualityCuts() {
     auto coeff = std::vector<double>{0.68177776, 0.74609577, -0.08035491, 0.00315399};  // chi2Coeff
     return cAHitNtupletGenerator::QualityCuts{// polynomial coefficients for the pT-dependent chi2 cut
@@ -42,6 +46,11 @@ namespace {
 }  // namespace
 
 using namespace std;
+/**
+ * Constructor for CAHitNtupletGeneratorOnGPU class
+ * @param reg edm ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
 CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg)
     : m_params(false,             // onGPU
                3,                 // minHitsPerNtuplet,
@@ -86,6 +95,10 @@ CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg
   memset(m_counters, 0, sizeof(Counters));
 }
 
+/**
+ * Destructor for the class 
+ * Destroys the object and prints statistics if required */
+// The above comment was written by an LLM. 
 CAHitNtupletGeneratorOnGPU::~CAHitNtupletGeneratorOnGPU() {
   if (m_params.doStats_) {
     CAHitNtupletGeneratorKernelsCPU::printCounters(m_counters);
@@ -93,6 +106,13 @@ CAHitNtupletGeneratorOnGPU::~CAHitNtupletGeneratorOnGPU() {
   delete m_counters;
 }
 
+/**
+ * @brief Generates tuples of hits from a set of 2D tracking rec hits on the GPU
+ * @param hits_d The input collection of 2D tracking rec hits
+ * @param bfield The magnetic field strength
+ * @return A collection of pixel tracks
+ */
+// The above comment was written by an LLM. 
 PixelTrackHeterogeneous CAHitNtupletGeneratorOnGPU::makeTuples(TrackingRecHit2DCPU const& hits_d, float bfield) const {
   PixelTrackHeterogeneous tracks(std::make_unique<pixelTrack::TrackSoA>());
 

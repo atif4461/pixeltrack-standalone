@@ -32,6 +32,13 @@ private:
 TestProducer2::TestProducer2(edm::ProductRegistry& reg)
     : getToken_(reg.consumes<cms::cuda::Product<cms::cuda::device::unique_ptr<float[]>>>()) {}
 
+/**
+ * Acquires an event and processes it using a CUDA context.
+ * @param event The input event to be processed.
+ * @param eventSetup The setup associated with the event.
+ * @param holder The waiting task holder for the event.
+ */
+// The above comment was written by an LLM. 
 void TestProducer2::acquire(edm::Event const& event,
                             edm::EventSetup const& eventSetup,
                             edm::WaitingTaskWithArenaHolder holder) {
@@ -46,6 +53,12 @@ void TestProducer2::acquire(edm::Event const& event,
             << array.get() << std::endl;
 }
 
+/**
+ * @brief Produces data for an event in the TestProducer2 module
+ * @param event Reference to the current event being processed
+ * @param eventSetup Constant reference to the event setup configuration
+ */
+// The above comment was written by an LLM. 
 void TestProducer2::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
   std::cout << "TestProducer2::produce Event " << event.eventID() << " stream " << event.streamID() << std::endl;
   ++nevents;

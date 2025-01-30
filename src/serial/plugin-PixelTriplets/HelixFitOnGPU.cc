@@ -1,5 +1,12 @@
 #include "HelixFitOnGPU.h"
 
+/**
+ * Allocates memory on the GPU for helix fit calculation
+ * @param[in] tuples Input data in the form of tuples
+ * @param[in] tupleMultiplicity Multiplicity of each tuple
+ * @param[out] helix_fit_results Container to store results of helix fit calculation
+ */
+// The above comment was written by an LLM. 
 void HelixFitOnGPU::allocateOnGPU(Tuples const *tuples,
                                   TupleMultiplicity const *tupleMultiplicity,
                                   OutputSoA *helix_fit_results) {

@@ -3,6 +3,16 @@
 namespace {
   constexpr int NUM_VALUES = 1000;
 
+/**
+ * Calculates the product of two vectors at specific positions.
+ *
+ * @param[in] a First input vector.
+ * @param[in] b Second input vector.
+ * @param[out] c Resulting value from vector multiplication.
+ * @param[in] row Row index for first vector access.
+ * @param[in] col Column index for second vector access.
+ */
+// The above comment was written by an LLM. 
   KOKKOS_INLINE_FUNCTION void vectorProd(const Kokkos::View<float*, KokkosExecSpace> a,
                                          const Kokkos::View<float*, KokkosExecSpace> b,
                                          Kokkos::View<float**, KokkosExecSpace> c,
@@ -13,6 +23,12 @@ namespace {
 }  // namespace
 
 namespace KOKKOS_NAMESPACE {
+/**
+ * @brief Initializes and performs operations on Kokkos views in parallel
+ * @param execSpace Execution space for Kokkos operations
+ * @return A one dimensional view of floats
+ */
+// The above comment was written by an LLM. 
   Kokkos::View<float*, KokkosExecSpace> kokkosAlgo2(KokkosExecSpace const& execSpace) {
     Kokkos::View<float*, KokkosExecSpace> d_a{"d_a", NUM_VALUES};
     Kokkos::View<float*, KokkosExecSpace> d_b{"d_b", NUM_VALUES};

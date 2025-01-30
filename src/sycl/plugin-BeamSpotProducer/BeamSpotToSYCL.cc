@@ -26,6 +26,12 @@ private:
 BeamSpotToSYCL::BeamSpotToSYCL(edm::ProductRegistry& reg)
     : bsPutToken_{reg.produces<cms::sycltools::Product<BeamSpotSYCL>>()} {}
 
+/**
+ * Produces beam spot data for an event using SYCL acceleration
+ * @param iEvent reference to the current event being processed
+ * @param iSetup reference to the event setup configuration
+ */
+// The above comment was written by an LLM. 
 void BeamSpotToSYCL::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   cms::sycltools::ScopedContextProduce ctx{iEvent.streamID()};
 

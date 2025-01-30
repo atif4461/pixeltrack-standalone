@@ -6,6 +6,12 @@
 using Vector5d = Eigen::Matrix<double, 5, 1>;
 using Matrix5d = Eigen::Matrix<double, 5, 5>;
 
+/**
+ * @brief Loads a covariance matrix from a given vector.
+ * @param[in] e Input vector used to compute diagonal elements of the covariance matrix.
+ * @return Computed covariance matrix with positive definite properties.
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION Matrix5d loadCov(Vector5d const& e) {
   Matrix5d cov;
   for (int i = 0; i < 5; ++i)
@@ -22,6 +28,12 @@ KOKKOS_INLINE_FUNCTION Matrix5d loadCov(Vector5d const& e) {
 
 using TS = TrajectoryStateSoA<128>;
 
+/**
+ * @brief Tests the serialization of a tensor state object 
+ * @param[in] vts View of tensor states in the execution space
+ * @param[in] i Index of the tensor state to be tested
+ */
+// The above comment was written by an LLM. 
 KOKKOS_INLINE_FUNCTION void testTSSoA(Kokkos::View<TS, KokkosExecSpace> vts, const size_t i) {
   Vector5d par0;
   par0 << 0.2, 0.1, 3.5, 0.8, 0.1;
@@ -47,6 +59,13 @@ KOKKOS_INLINE_FUNCTION void testTSSoA(Kokkos::View<TS, KokkosExecSpace> vts, con
   }
 }
 
+/**
+ * @brief Tests the functionality of TS SoA data structure
+ *
+ * @details Creates a mirror view of the device data and performs parallel operations
+ *          on it, followed by deep copying the results back to the host
+ */
+// The above comment was written by an LLM. 
 void test() {
   Kokkos::View<TS, KokkosExecSpace> ts_d("ts_d");
   auto ts_h = Kokkos::create_mirror_view(ts_d);
@@ -59,6 +78,10 @@ void test() {
   KokkosExecSpace().fence();
 }
 
+/**
+ * Initializes the Kokkos scope guard and executes the test function
+ */
+// The above comment was written by an LLM. 
 int main() {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   test();

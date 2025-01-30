@@ -30,6 +30,13 @@ private:
 
 TestProducer2::TestProducer2(edm::ProductRegistry& reg) : getToken_(reg.consumes<unsigned int>()) {}
 
+/**
+ * Acquires an event and performs necessary operations
+ * @param event reference to the EDM event object
+ * @param eventSetup reference to the EDM event setup object
+ * @param holder WaitingTaskWithArenaHolder object to manage task execution
+ */
+// The above comment was written by an LLM. 
 void TestProducer2::acquire(edm::Event const& event,
                             edm::EventSetup const& eventSetup,
                             edm::WaitingTaskWithArenaHolder holder) {
@@ -49,6 +56,12 @@ void TestProducer2::acquire(edm::Event const& event,
 #endif
 }
 
+/**
+ * @brief Produces data for an event in the framework test
+ * @param event Reference to the current event being processed
+ * @param eventSetup Constant reference to the setup for the current event
+ */
+// The above comment was written by an LLM. 
 void TestProducer2::produce(edm::Event& event, edm::EventSetup const& eventSetup) {
 #ifndef FWTEST_SILENT
   std::cout << "TestProducer2::produce Event " << event.eventID() << " stream " << event.streamID() << " from future "

@@ -22,6 +22,18 @@ using team_policy = Kokkos::TeamPolicy<KokkosExecSpace>;
 using member_type = Kokkos::TeamPolicy<KokkosExecSpace>::member_type;
 
 #ifdef ONE_KERNEL
+/**
+ * @brief Finds vertices in a set of tracks using density-based clustering
+ * @param[in] vdata 
+ * @param[in] vws 
+ * @param[out] hdata 
+ * @param[in] minT minimum number of neighbors to consider a seed point
+ * @param[in] eps maximum absolute distance to cluster points
+ * @param[in] errmax maximum error allowed for a seed point
+ * @param[in] chi2max maximum normalized distance to cluster points
+ * @param[in] policy execution policy for parallel operations
+ */
+// The above comment was written by an LLM. 
 void vertexFinderOneKernel(
     const Kokkos::View<KOKKOS_NAMESPACE::gpuVertexFinder::ZVertices, KokkosExecSpace, RestrictUnmanaged>& vdata,
     const Kokkos::View<KOKKOS_NAMESPACE::gpuVertexFinder::WorkSpace, KokkosExecSpace, RestrictUnmanaged>& vws,
@@ -63,6 +75,15 @@ struct ClusterGenerator {
   explicit ClusterGenerator(float nvert, float ntrack)
       : rgen(-13., 13), errgen(0.005, 0.025), clusGen(nvert), trackGen(ntrack), gauss(0., 1.), ptGen(1.) {}
 
+/**
+ * Brief description of the function that generates an event.
+ *
+ * This function populates an Event object with simulated data including 
+ * vertex positions and tracking information.
+ *
+ * @param[in,out] ev The Event object being populated with simulated data.
+ */
+// The above comment was written by an LLM. 
   void operator()(Event& ev) {
     int nclus = clusGen(reng);
     ev.zvert.resize(nclus);
@@ -110,6 +131,19 @@ struct ClusterGenerator {
 // a macro SORRY
 #define LOC_WS(M) ((char*)(ws_h.data()) + offsetof(KOKKOS_NAMESPACE::gpuVertexFinder::WorkSpace, M))
 
+/**
+
+### Function Comments
+
+1. ` @brief Test function 
+2. ` @brief Initialize variables on GPU `
+3. ` @brief Print variables on GPU `
+4. ` @brief Find vertices using one kernel `
+5. ` @brief Clusterize tracks `
+6. ` @brief Fit vertices kernel `
+7. ` @brief Split vertices kernel `
+8. ` @brief Sort by Pt2 on host `*/
+// The above comment was written by an LLM. 
 void test() {
   Kokkos::View<KOKKOS_NAMESPACE::gpuVertexFinder::ZVertices, KokkosDeviceMemSpace> onGPU_d("onGPU_d");
   Kokkos::View<KOKKOS_NAMESPACE::gpuVertexFinder::WorkSpace, KokkosDeviceMemSpace> ws_d("ws_d");
@@ -318,6 +352,11 @@ void test() {
   }    // lopp on ave vert
 }
 
+/**
+ * @brief Main program entry point
+ * @return Integer indicating program execution status
+ */
+// The above comment was written by an LLM. 
 int main(void) {
   kokkos_common::InitializeScopeGuard kokkosGuard({KokkosBackend<KokkosExecSpace>::value});
   test();

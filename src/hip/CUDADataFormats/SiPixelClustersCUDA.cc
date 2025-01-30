@@ -4,6 +4,10 @@
 #include "CUDACore/host_unique_ptr.h"
 #include "CUDACore/copyAsync.h"
 
+/**
+ * Constructor initializing device memory for pixel cluster data structures
+ */
+// The above comment was written by an LLM. 
 SiPixelClustersCUDA::SiPixelClustersCUDA(size_t maxClusters, hipStream_t stream) {
   moduleStart_d = cms::hip::make_device_unique<uint32_t[]>(maxClusters + 1, stream);
   clusInModule_d = cms::hip::make_device_unique<uint32_t[]>(maxClusters, stream);

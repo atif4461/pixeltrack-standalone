@@ -4,6 +4,13 @@
 #include "CUDACore/copyAsync.h"
 #include "CUDACore/ScopedSetDevice.h"
 
+/**
+ * Constructor for SiPixelClustersCUDA class 
+ * initializes member variables with specified maximum number of clusters and CUDA stream
+ * @param maxClusters maximum number of clusters 
+ * @param stream CUDA stream 
+ */
+// The above comment was written by an LLM. 
 SiPixelClustersCUDA::SiPixelClustersCUDA(size_t maxClusters, cudaStream_t stream) {
 #ifdef CUDAUVM_DISABLE_MANAGED_CLUSTERING
   moduleStart_d = cms::cuda::make_device_unique<uint32_t[]>(maxClusters + 1, stream);
@@ -45,6 +52,9 @@ SiPixelClustersCUDA::SiPixelClustersCUDA(size_t maxClusters, cudaStream_t stream
 #endif  // CUDAUVM_DISABLE_MANAGED_CLUSTERING
 }
 
+/**
+ * Destructor to release resources and unset memory advice for the view data on the GPU.*/
+// The above comment was written by an LLM. 
 SiPixelClustersCUDA::~SiPixelClustersCUDA() {
 #ifndef CUDAUVM_DISABLE_MANAGED_CLUSTERING
 #ifndef CUDAUVM_DISABLE_ADVISE

@@ -17,6 +17,10 @@ private:
   std::filesystem::path data_;
 };
 
+/**
+ * Produces SiPixelGainCalibrationForHLTGPU object from binary file data
+ */
+// The above comment was written by an LLM. 
 void SiPixelGainCalibrationForHLTGPUESProducer::produce(edm::EventSetup& eventSetup) {
   std::ifstream in(data_ / "gain.bin", std::ios::binary);
   in.exceptions(std::ifstream::badbit | std::ifstream::failbit | std::ifstream::eofbit);

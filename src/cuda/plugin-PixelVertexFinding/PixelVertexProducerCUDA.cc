@@ -31,6 +31,11 @@ private:
   const float m_ptMin;
 };
 
+/**
+ * Constructor for PixelVertexProducerCUDA class 
+ * initializes member variables and registers GPU or CPU tracks and vertices
+ */
+// The above comment was written by an LLM. 
 PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
     : m_OnGPU(true),
       m_gpuAlgo(true,   // oneKernel
@@ -53,6 +58,14 @@ PixelVertexProducerCUDA::PixelVertexProducerCUDA(edm::ProductRegistry& reg)
   }
 }
 
+/**
+ * Produces pixel vertices from input event data using either GPU or CPU algorithm
+ * depending on the configuration setting mOnGPU.
+ *
+ * @param iEvent The input event data object
+ * @param iSetup The event setup object
+ */
+// The above comment was written by an LLM. 
 void PixelVertexProducerCUDA::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   if (m_OnGPU) {
     auto const& ptracks = iEvent.get(tokenGPUTrack_);

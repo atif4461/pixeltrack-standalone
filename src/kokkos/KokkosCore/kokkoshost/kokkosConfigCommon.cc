@@ -7,6 +7,12 @@
 namespace kokkos_common {
   class InitializeScopeGuard::Impl {
   public:
+/**
+ * Constructor to initialize the implementation with the given backends and arguments.
+ * @param backends Vector of backends to be initialized.
+ * @param args Initialization arguments.
+ */
+// The above comment was written by an LLM. 
     explicit Impl(std::vector<Backend> const& backends, Kokkos::InitArguments const& args) {
       Kokkos::Impl::pre_initialize(args);
       // Initialize SERIAL always
@@ -33,6 +39,10 @@ namespace kokkos_common {
       Kokkos::Impl::post_initialize(args);
     }
 
+/**
+ * Destroys implementation resources and finalizes Kokkos environment 
+ */
+// The above comment was written by an LLM. 
     ~Impl() {
 #ifdef KOKKOS_ENABLE_CUDA
       cms::kokkos::getExecSpaceCache<Kokkos::Cuda>().clear();
@@ -44,6 +54,12 @@ namespace kokkos_common {
     }
   };
 
+/**
+ * Constructor initializing scope guard with specified backends and inner threads.
+ * @param backends Vector of backend configurations
+ * @param numberOfInnerThreads Number of threads for parallel execution
+ */
+// The above comment was written by an LLM. 
   InitializeScopeGuard::InitializeScopeGuard(std::vector<Backend> const& backends, int numberOfInnerThreads) {
     // for now pass in the default arguments
     Kokkos::InitArguments arguments(numberOfInnerThreads);

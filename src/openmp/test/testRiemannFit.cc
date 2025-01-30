@@ -45,6 +45,16 @@ Error: 641,4 1824: 2.852843e-05,7.956492e-06,3.117701e-06,-1.060541e-06,8.777413
 */
 
 template <typename M3xN, typename M6xN>
+/**
+ * @brief Fills the hits and hits covariance matrices with predefined values.
+ *
+ * This function populates the hits matrix and the hits_ge matrix with specific
+ * numerical values depending on the compile-time size of the hits matrix.
+ *
+ * @param[out] hits The matrix to be filled with hit values.
+ * @param[out] hits_ge The matrix to be filled with hit covariance values.
+ */
+// The above comment was written by an LLM. 
 void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
   constexpr uint32_t N = M3xN::ColsAtCompileTime;
 
@@ -87,6 +97,77 @@ void fillHitsAndHitsCov(M3xN& hits, M6xN& hits_ge) {
 }
 
 template <int N>
+/**
+ * @brief Tests fitting functionality of the library
+ *
+ * This function tests various fitting functions including Fast Fit, Circle Fit, and Line Fit
+ * It generates random hits, performs fits, and prints out the fitted parameters and covariance matrices
+ 
+  * @brief Fills hit and hit covariance matrices with generated data
+ *
+ * @param[out] hits matrix containing hit data
+ * @param[out] hits_ge matrix containing hit covariance data
+ 
+  * @brief Performs fast fit on the input hits
+ *
+ * @param[in] hits matrix containing hit data
+ * @param[out] results vector containing fitted parameters
+ 
+  * @brief Prepares broken line data from hits and initial fit results
+ *
+ * @param[in] hits matrix containing hit data
+ * @param[in] init_results vector containing initial fit parameters
+ * @param[in] b curvature parameter
+ * @param[out] data prepared broken line data structure
+ 
+  * @brief Fits a line to the input hits using the prepared broken line data
+ *
+ * @param[in] hits_ge matrix containing hit covariance data
+ * @param[in] init_results vector containing initial fit parameters
+ * @param[in] b curvature parameter
+ * @param[in] data prepared broken line data structure
+ * @param[out] results line fit result structure
+ 
+  * @brief Fits a circle to the input hits using the prepared broken line data
+ *
+ * @param[in] hits matrix containing hit data
+ * @param[in] hits_ge matrix containing hit covariance data
+ * @param[in] init_results vector containing initial fit parameters
+ * @param[in] b curvature parameter
+ * @param[in] data prepared broken line data structure
+ * @param[out] results circle fit result structure
+ 
+  * @brief Calculates the jacobian of the circle fit transformation
+ *
+ * @param[in] results circle fit result structure
+ * @return calculated jacobian matrix
+ 
+  * @brief Loads 2D covariance matrix from the input hit covariance matrix
+ *
+ * @param[in] hits_ge matrix containing hit covariance data
+ * @param[out] hits_cov 2D covariance matrix
+ 
+  * @brief Fits a circle to the input hits using the loaded covariance matrix
+ *
+ * @param[in] hits matrix containing hit data
+ * @param[in] hits_cov 2D covariance matrix
+ * @param[in] init_results vector containing initial fit parameters
+ * @param[in] rad radii of the hits
+ * @param[in] b curvature parameter
+ * @param[in] is_3d flag indicating if the fit is in 3D space
+ * @param[out] results circle fit result structure
+ 
+  * @brief Fits a line to the input hits using the circle fit results
+ *
+ * @param[in] hits matrix containing hit data
+ * @param[in] hits_ge matrix containing hit covariance data
+ * @param[in] circle_results circle fit result structure
+ * @param[in] init_results vector containing initial fit parameters
+ * @param[in] b curvature parameter
+ * @param[in] is_3d flag indicating if the fit is in 3D space
+ * @param[out] results line fit result structure
+ */
+// The above comment was written by an LLM. 
 void testFit() {
   constexpr double B = 0.0113921;
   Rfit::Matrix3xNd<N> hits;
@@ -144,6 +225,10 @@ void testFit() {
   std::cout << "Fitted cov (LineFit): CPU\n" << line_fit_results.cov << std::endl;
 }
 
+/**
+ * Main program entry point 
+ */
+// The above comment was written by an LLM. 
 int main(int argc, char* argv[]) {
   testFit<4>();
   testFit<3>();

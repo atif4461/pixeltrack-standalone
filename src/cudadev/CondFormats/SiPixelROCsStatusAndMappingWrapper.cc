@@ -15,6 +15,12 @@
 #include "CUDADataFormats/gpuClusteringConstants.h"
 #include "CondFormats/SiPixelROCsStatusAndMappingWrapper.h"
 
+/**
+ * Constructor initializing the object with a cabling map and module to unpartitioned mapping.
+ * @param cablingMap Reference to SiPixelROCsStatusAndMapping object containing cabling information.
+ * @param modToUnp Vector of unsigned characters representing module to unpartitioned mapping.
+ */
+// The above comment was written by an LLM. 
 SiPixelROCsStatusAndMappingWrapper::SiPixelROCsStatusAndMappingWrapper(SiPixelROCsStatusAndMapping const& cablingMap,
                                                                        std::vector<unsigned char> modToUnp)
     : modToUnpDefault(modToUnp.size()), hasQuality_(true) {
@@ -26,6 +32,13 @@ SiPixelROCsStatusAndMappingWrapper::SiPixelROCsStatusAndMappingWrapper(SiPixelRO
 
 SiPixelROCsStatusAndMappingWrapper::~SiPixelROCsStatusAndMappingWrapper() { cudaCheck(cudaFreeHost(cablingMapHost)); }
 
+/**
+ * Retrieves the GPU product asynchronously.
+ *
+ * @param[in] cudaStream CUDA stream used for asynchronous operation
+ * @return pointer to the SiPixelROCsStatusAndMapping object on the GPU
+ */
+// The above comment was written by an LLM. 
 const SiPixelROCsStatusAndMapping* SiPixelROCsStatusAndMappingWrapper::getGPUProductAsync(
     cudaStream_t cudaStream) const {
   const auto& data = gpuData_.dataForCurrentDeviceAsync(cudaStream, [this](GPUData& data, cudaStream_t stream) {
@@ -39,6 +52,10 @@ const SiPixelROCsStatusAndMapping* SiPixelROCsStatusAndMappingWrapper::getGPUPro
   return data.cablingMapDevice;
 }
 
+/**
+ * Returns pointer to module to unpack status and mapping data for current device
+ */
+// The above comment was written by an LLM. 
 const unsigned char* SiPixelROCsStatusAndMappingWrapper::getModToUnpAllAsync(cudaStream_t cudaStream) const {
   const auto& data =
       modToUnp_.dataForCurrentDeviceAsync(cudaStream, [this](ModulesToUnpack& data, cudaStream_t stream) {

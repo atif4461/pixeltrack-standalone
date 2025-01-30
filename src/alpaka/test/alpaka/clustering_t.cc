@@ -21,6 +21,62 @@
 using namespace cms::alpakatools;
 using namespace ALPAKA_ACCELERATOR_NAMESPACE;
 
+/**
+
+### Function Comments
+
+#### `main` Function * @brief Main entry point of the program.
+ *
+ * Initializes the environment, generates test data, launches kernels for clustering,
+ * and performs cross-checks on the results.
+ *
+ * @return 0 upon successful execution.
+  
+
+
+#### `generateClusters` Lambda Function * @brief Generates test clusters with varying characteristics.
+ *
+ * Creates a set of clusters with different patterns and noise levels.
+ *
+ * @param kn The iteration number used to introduce variations in the generated pattern.
+ 
+
+
+#### Kernel Functions
+
+The following functions appear to be part of a larger namespace or class named `gpuClustering`. Without access to their definitions, we can infer their purposes based on how they're called:
+
+- `countModules` * @brief Counts modules in the input data.
+ *
+ * @param d_id Data identifier buffer.
+ * @param d_moduleStart Module start indices buffer.
+ * @param d_clus Cluster assignment buffer.
+ * @param n Number of elements to process.
+ 
+
+- `findClus` * @brief Finds clusters within modules based on spatial proximity.
+ *
+ * @param d_id Data identifier buffer.
+ * @param d_x X-coordinate buffer.
+ * @param d_y Y-coordinate buffer.
+ * @param d_moduleStart Module start indices buffer.
+ * @param d_clusInModule Clusters per module counter buffer.
+ * @param d_moduleId Module ID buffer.
+ * @param d_clus Cluster assignment buffer.
+ * @param n Number of elements to process.
+ 
+
+- `clusterChargeCut` * @brief Applies charge cuts to filter out low-charge clusters.
+ *
+ * @param d_id Data identifier buffer.
+ * @param d_adc ADC (Analog-to-Digital Converter) values buffer.
+ * @param d_moduleStart Module start indices buffer.
+ * @param d_clusInModule Clusters per module counter buffer.
+ * @param d_moduleId Module ID buffer.
+ * @param d_clus Cluster assignment buffer.
+ * @param n Number of elements to process.
+ */
+// The above comment was written by an LLM. 
 int main(void) {
   initialise();
   const Device device = devices<Platform>().at(0);

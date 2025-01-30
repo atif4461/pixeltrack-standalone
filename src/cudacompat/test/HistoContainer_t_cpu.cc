@@ -10,6 +10,35 @@
 using namespace cms::cuda;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Function to test histogram functionality
+ *
+ * This function tests various aspects of histogram creation, population, and querying.
+ * It uses random number generation to populate histograms and verifies their contents.
+ 
+void go()
+ * @brief Lambda function to verify relationships between elements in a histogram bin
+ *
+ * Verifies that elements within a certain distance of each other have the correct relationship.
+ *
+ * @param i Index of the current element being processed
+ * @param j Index of another element being compared with the current one
+ * @param k Index of a reference element used for comparison
+ * @param t1 Index of an element used for verification
+ * @param t2 Index of another element used for verification
+ 
+auto verify = [&](uint32_t i, uint32_t j, uint32_t k, uint32_t t1, uint32_t t2)
+ * @brief Function to iterate over elements in specified bins of a histogram
+ *
+ * Applies a callback function to all elements within a certain distance of a given value.
+ *
+ * @param hist Histogram object being queried
+ * @param val Value around which elements are retrieved
+ * @param width Distance from the value within which elements are considered
+ * @param func Callback function applied to each retrieved element
+ 
+forEachInBins(h, v[j], w, ftest)*/
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -137,6 +166,10 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int16_t>();
   go<uint8_t, 128, 8, 4>();

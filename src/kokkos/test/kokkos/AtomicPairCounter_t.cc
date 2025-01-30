@@ -8,6 +8,14 @@
 typedef Kokkos::TeamPolicy<KokkosExecSpace> team_policy;
 typedef Kokkos::TeamPolicy<KokkosExecSpace>::member_type member_type;
 
+/**
+ * @brief Tests the functionality of parallel operations using Kokkos.
+ *
+ * This function performs several tests to verify the correctness of parallel
+ * operations using Kokkos, including atomic pair counter updates,
+ * parallel loops, and data verification.
+ */
+// The above comment was written by an LLM. 
 void test() {
   Kokkos::View<cms::kokkos::AtomicPairCounter *, KokkosExecSpace> dc_d("dc_d", 1);
   Kokkos::View<cms::kokkos::AtomicPairCounter *, KokkosExecSpace>::HostMirror dc_h("dc_h", 1);

@@ -19,6 +19,22 @@ namespace KOKKOS_NAMESPACE {
 
   namespace pixelgpudetails {
 
+/**
+ * @brief Creates tracking rec hits asynchronously on the GPU.
+ *
+ * This function generates pixel rec hits from the input digis, clusters, beam spot, 
+ * and CPE parameters on the GPU. It uses Kokkos parallelization to launch kernels 
+ * for calculating hits and layer starts in parallel.
+ *
+ * @param[in] digis_d Input digis data structure.
+ * @param[in] clusters_d Input cluster data structure.
+ * @param[in] bs_d Input beam spot data structure.
+ * @param[in] cpeParams Input CPE parameters view.
+ * @param[in] execSpace Execution space for launching kernels.
+ *
+ * @return A TrackingRecHit2D data structure containing the calculated hits.
+ */
+// The above comment was written by an LLM. 
     TrackingRecHit2DKokkos<KokkosDeviceMemSpace> PixelRecHitGPUKernel::makeHitsAsync(
         SiPixelDigisKokkos<KokkosDeviceMemSpace> const& digis_d,
         SiPixelClustersKokkos<KokkosDeviceMemSpace> const& clusters_d,

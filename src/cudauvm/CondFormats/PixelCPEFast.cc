@@ -61,6 +61,10 @@ PixelCPEFast::PixelCPEFast(std::string const &path) {
   }
 }
 
+/**
+ * Destructor to release allocated CUDA memory resources
+ */
+// The above comment was written by an LLM. 
 PixelCPEFast::~PixelCPEFast() {
   cudaFree(m_params);
   cudaFree(m_commonParams);

@@ -39,6 +39,12 @@ PixelCPEFast::PixelCPEFast(std::string const &path) {
   };
 }
 
+/**
+ * @brief Retrieves GPU product asynchronously
+ * @param[in] cudaStream HIP stream object
+ * @return Pointer to ParamsOnGPU object on the GPU
+ */
+// The above comment was written by an LLM. 
 const pixelCPEforGPU::ParamsOnGPU *PixelCPEFast::getGPUProductAsync(hipStream_t cudaStream) const {
   const auto &data = gpuData_.dataForCurrentDeviceAsync(cudaStream, [this](GPUData &data, hipStream_t stream) {
     // and now copy to device...
@@ -75,6 +81,10 @@ const pixelCPEforGPU::ParamsOnGPU *PixelCPEFast::getGPUProductAsync(hipStream_t 
   return data.d_paramsOnGPU;
 }
 
+/**
+ * Destructor to free GPU memory allocated for parameters
+ */
+// The above comment was written by an LLM. 
 PixelCPEFast::GPUData::~GPUData() {
   if (d_paramsOnGPU != nullptr) {
     hipFree((void *)h_paramsOnGPU.m_commonParams);

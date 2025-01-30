@@ -33,12 +33,22 @@ namespace KOKKOS_NAMESPACE {
     pixelgpudetails::PixelRecHitGPUKernel gpuAlgo_;
   };
 
+/**
+ * Constructor initializing member variables with consumed and produced products from ProductRegistry
+ */
+// The above comment was written by an LLM. 
   SiPixelRecHitKokkos::SiPixelRecHitKokkos(edm::ProductRegistry& reg)
       : tBeamSpot(reg.consumes<cms::kokkos::Product<BeamSpotKokkos<KokkosDeviceMemSpace>>>()),
         token_(reg.consumes<cms::kokkos::Product<SiPixelClustersKokkos<KokkosDeviceMemSpace>>>()),
         tokenDigi_(reg.consumes<cms::kokkos::Product<SiPixelDigisKokkos<KokkosDeviceMemSpace>>>()),
         tokenHit_(reg.produces<cms::kokkos::Product<TrackingRecHit2DKokkos<KokkosDeviceMemSpace>>>()) {}
 
+/**
+ * Produces pixel rec hits in an event using Kokkos parallelization
+ * @param iEvent the event to produce hits for
+ * @param es the event setup containing necessary configuration
+ */
+// The above comment was written by an LLM. 
   void SiPixelRecHitKokkos::produce(edm::Event& iEvent, const edm::EventSetup& es) {
     auto const& fcpe = es.get<PixelCPEFast<KokkosDeviceMemSpace>>();
 

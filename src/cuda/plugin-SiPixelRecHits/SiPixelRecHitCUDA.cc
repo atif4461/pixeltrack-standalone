@@ -32,12 +32,24 @@ private:
   pixelgpudetails::PixelRecHitGPUKernel gpuAlgo_;
 };
 
+/**
+ * Constructor initializing the SiPixelRecHitCUDA object with ProductRegistry
+ * @param reg edm ProductRegistry reference
+ */
+// The above comment was written by an LLM. 
 SiPixelRecHitCUDA::SiPixelRecHitCUDA(edm::ProductRegistry& reg)
     : tBeamSpot(reg.consumes<cms::cuda::Product<BeamSpotCUDA>>()),
       token_(reg.consumes<cms::cuda::Product<SiPixelClustersCUDA>>()),
       tokenDigi_(reg.consumes<cms::cuda::Product<SiPixelDigisCUDA>>()),
       tokenHit_(reg.produces<cms::cuda::Product<TrackingRecHit2DCUDA>>()) {}
 
+/**
+ * Produces pixel reconstruction hits in an event using CUDA acceleration.
+ *
+ * @param[in] iEvent The event containing the input data.
+ * @param[in] es The event setup providing access to the configuration.
+ */
+// The above comment was written by an LLM. 
 void SiPixelRecHitCUDA::produce(edm::Event& iEvent, const edm::EventSetup& es) {
   PixelCPEFast const& fcpe = es.get<PixelCPEFast>();
 

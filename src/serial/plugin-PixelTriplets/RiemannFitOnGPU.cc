@@ -1,5 +1,13 @@
 #include "RiemannFitOnGPU.h"
 
+/**
+ * Launches Riemann kernels on CPU for helix fit.
+ *
+ * @param hv               The HitsView object containing hit data.
+ * @param nhits             The number of hits in the view.
+ * @param maxNumberOfTuples The maximum number of tuples to process.
+ */
+// The above comment was written by an LLM. 
 void HelixFitOnGPU::launchRiemannKernelsOnCPU(HitsView const *hv, uint32_t nhits, uint32_t maxNumberOfTuples) {
   assert(tuples_d);
 

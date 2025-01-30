@@ -36,6 +36,13 @@ PixelVertexSoAFromSYCL::PixelVertexSoAFromSYCL(edm::ProductRegistry& reg)
     : tokenSYCL_(reg.consumes<cms::sycltools::Product<ZVertexHeterogeneous>>()),
       tokenSOA_(reg.produces<ZVertexHeterogeneous>()) {}
 
+/**
+ * Acquires event data from the SYCL environment and transfers it to host memory
+ * @param iEvent reference to the event object containing input data
+ * @param iSetup reference to the event setup object
+ * @param waitingTaskHolder holder for waiting task with arena
+ */
+// The above comment was written by an LLM. 
 void PixelVertexSoAFromSYCL::acquire(edm::Event const& iEvent,
                                      edm::EventSetup const& iSetup,
                                      edm::WaitingTaskWithArenaHolder waitingTaskHolder) {
@@ -46,6 +53,10 @@ void PixelVertexSoAFromSYCL::acquire(edm::Event const& iEvent,
   m_soa = inputData.toHostAsync(ctx.stream());
 }
 
+/**
+ * Produces an event with a heterogeneous vertex in SoA format
+ */
+// The above comment was written by an LLM. 
 void PixelVertexSoAFromSYCL::produce(edm::Event& iEvent, edm::EventSetup const& iSetup) {
   // No copies....
   iEvent.emplace(tokenSOA_, ZVertexHeterogeneous(std::move(m_soa)));

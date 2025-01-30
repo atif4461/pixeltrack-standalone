@@ -7,6 +7,13 @@
 
 #include <cassert>
 
+/**
+ * Constructor initializing SiPixelDigiErrorsCUDA object with specified parameters
+ * @param maxFedWords Maximum number of FED words
+ * @param errors Pixel formatter errors
+ * @param stream CUDA stream for asynchronous operations
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsCUDA::SiPixelDigiErrorsCUDA(size_t maxFedWords, PixelFormatterErrors errors, cudaStream_t stream)
     : formatterErrors_h(std::move(errors)) {
   error_d = cms::cuda::make_device_unique<cms::cuda::SimpleVector<PixelErrorCompact>>(stream);
@@ -26,6 +33,12 @@ void SiPixelDigiErrorsCUDA::copyErrorToHostAsync(cudaStream_t stream) {
   cms::cuda::copyAsync(error_h, error_d, stream);
 }
 
+/**
+ * @brief Copies pixel errors from device memory to host memory asynchronously
+ * @param stream CUDA stream used for asynchronous operation
+ * @return HostDataError object containing copied pixel errors and associated data
+ */
+// The above comment was written by an LLM. 
 SiPixelDigiErrorsCUDA::HostDataError SiPixelDigiErrorsCUDA::dataErrorToHostAsync(cudaStream_t stream) const {
   // On one hand size() could be sufficient. On the other hand, if
   // someone copies the SimpleVector<>, (s)he might expect the data

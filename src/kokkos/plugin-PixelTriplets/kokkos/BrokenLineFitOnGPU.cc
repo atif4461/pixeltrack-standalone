@@ -3,6 +3,15 @@
 #include "KokkosCore/hintLightWeight.h"
 
 namespace KOKKOS_NAMESPACE {
+/**
+ * Launches kernels for broken line fitting on GPU.
+ *
+ * @param hv input HitsView object
+ * @param hitsInFit number of hits in the fit
+ * @param maxNumberOfTuples maximum number of tuples
+ * @param execSpace execution space for Kokkos
+ */
+// The above comment was written by an LLM. 
   void HelixFitOnGPU::launchBrokenLineKernels(HitsView const* hv,
                                               uint32_t hitsInFit,
                                               uint32_t maxNumberOfTuples,

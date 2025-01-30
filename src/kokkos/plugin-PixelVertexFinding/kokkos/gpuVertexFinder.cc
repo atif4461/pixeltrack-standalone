@@ -12,6 +12,15 @@
 
 namespace KOKKOS_NAMESPACE {
   namespace gpuVertexFinder {
+/**
+ * Loads tracks into workspace.
+ * @param[in] tracks Container of tracks in Structure-of-Arrays format.
+ * @param[in] soa Vertex container in Structure-of-Arrays format.
+ * @param[out] ws Workspace containing loaded tracks.
+ * @param[in] ptMin Minimum transverse momentum threshold.
+ * @param[in] idx Track index.
+ */
+// The above comment was written by an LLM. 
     KOKKOS_INLINE_FUNCTION void loadTracks(
         const Kokkos::View<const pixelTrack::TrackSoA, KokkosDeviceMemSpace, RestrictUnmanaged>& tracks,
         const Kokkos::View<ZVertexSoA, KokkosDeviceMemSpace, RestrictUnmanaged>& soa,
@@ -48,6 +57,19 @@ namespace KOKKOS_NAMESPACE {
 
 // #define THREE_KERNELS
 #ifndef THREE_KERNELS
+/**
+ * @brief Finds vertices in a set of tracks using density-based clustering
+ * @param[in] vdata input track data
+ * @param[in] vws workspace data
+ * @param[out] hdata host output data
+ * @param[in] minT minimum number of neighbors for seeding
+ * @param[in] eps maximum absolute distance for clustering
+ * @param[in] errmax maximum error for seeding
+ * @param[in] chi2max maximum normalized distance for clustering
+ * @param[in] execSpace execution space
+ * @param[in] teamPolicy team policy for parallel execution
+ */
+// The above comment was written by an LLM. 
     void vertexFinderOneKernel(
         const Kokkos::View<gpuVertexFinder::ZVertices, KokkosDeviceMemSpace, RestrictUnmanaged>& vdata,
         const Kokkos::View<gpuVertexFinder::WorkSpace, KokkosDeviceMemSpace, RestrictUnmanaged>& vws,
@@ -80,6 +102,18 @@ namespace KOKKOS_NAMESPACE {
       sortByPt2Host(vdata, vws, hdata, execSpace, teamPolicy);
     }
 #else
+/**
+ * @brief Finds vertices in a graph by clustering tracks based on density
+ * @param[in] vdata Input data containing ZVertices
+ * @param[in] vws Workspace data
+ * @param[in] minT Minimum number of neighbors to consider a seed
+ * @param[in] eps Maximum absolute distance to cluster
+ * @param[in] errmax Maximum error to consider a seed
+ * @param[in] chi2max Maximum normalized distance to cluster
+ * @param[in] execSpace Execution space
+ * @param[in] teamPolicy Team policy for parallel execution
+ */
+// The above comment was written by an LLM. 
     void vertexFinderKernel1(
         const Kokkos::View<gpuVertexFinder::ZVertices, KokkosDeviceMemSpace, RestrictUnmanaged>& vdata,
         const Kokkos::View<gpuVertexFinder::WorkSpace, KokkosDeviceMemSpace, RestrictUnmanaged>& vws,
@@ -99,6 +133,27 @@ namespace KOKKOS_NAMESPACE {
           });
     }
 
+/**
+ * @brief Performs parallel computation of vertex finding kernel
+ * @param vdata View of ZVertices in device memory space
+ * @param vws View of WorkSpace in device memory space
+ * @param hdata View of ZVertices in host memory space
+ * @param execSpace Execution space for parallel operation
+ * @param teamPolicy Team policy for parallel execution
+  
+ * @brief Fits vertices in parallel using Kokkos parallel_for
+ * @param vdata View of ZVertices in device memory space
+ * @param vws View of WorkSpace in device memory space
+ * @param teamMember Team member for parallel execution
+ 
+ * @brief Sorts data by Pt2 and transfers it to host
+ * @param vdata View of ZVertices in device memory space
+ * @param vws View of WorkSpace in device memory space
+ * @param hdata View of ZVertices in host memory space
+ * @param execSpace Execution space for parallel operation
+ * @param teamPolicy Team policy for parallel execution
+ */
+// The above comment was written by an LLM. 
     void vertexFinderKernel2(
         const Kokkos::View<gpuVertexFinder::ZVertices, KokkosDeviceMemSpace, RestrictUnmanaged>& vdata,
         const Kokkos::View<gpuVertexFinder::WorkSpace, KokkosDeviceMemSpace, RestrictUnmanaged>& vws,
@@ -117,6 +172,19 @@ namespace KOKKOS_NAMESPACE {
     }
 #endif
 
+/**
+ * @brief Produces ZVertices from pixel tracks.
+ *
+ * This function generates ZVertices from the input pixel tracks. It uses various algorithms
+ * such as clustering and fitting to produce the final set of vertices.
+ *
+ * @param[in] tksoa_ptr Pointer to the TrackSoA object containing the input tracks.
+ * @param[in] ptMin Minimum transverse momentum for track selection.
+ * @param[in] execSpace Execution space for parallel operations.
+ *
+ * @return A shared pointer to the produced ZVertexSoA object.
+ */
+// The above comment was written by an LLM. 
     cms::kokkos::shared_ptr<ZVertexSoA, KokkosDeviceMemSpace> Producer::make(
         cms::kokkos::shared_ptr<pixelTrack::TrackSoA, KokkosDeviceMemSpace> const& tksoa_ptr,
         float ptMin,

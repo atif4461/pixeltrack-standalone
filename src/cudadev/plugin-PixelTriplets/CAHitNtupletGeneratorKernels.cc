@@ -11,6 +11,12 @@ void CAHitNtupletGeneratorKernelsCPU::fillHitDetIndices(HitsView const *hv, TkSo
 }
 
 template <>
+/**
+ * Builds doublets from the input hits on the CPU.
+ * @param hh The input hits.
+ * @param stream The CUDA stream to use.
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernelsCPU::buildDoublets(HitsOnCPU const &hh, cudaStream_t stream) {
   auto nhits = hh.nHits();
 
@@ -74,6 +80,93 @@ void CAHitNtupletGeneratorKernelsCPU::buildDoublets(HitsOnCPU const &hh, cudaStr
 }
 
 template <>
+/**
+ * Launches kernels for generating ntuplets from hit data on CPU.
+ * @param hh              container of hits on CPU
+ * @param tracks_d         pointer to track data structure on device
+ * @param cudaStream      CUDA stream for execution
+  
+ * Applies combinatorial cleaning to reduce computational complexity.
+ * @param device_hitTuple_apc_   
+ * @param device_hitToTuple_apc_  
+ * @param hh                
+ * @param device_theCells_    
+ * @param device_nCells_     
+ * @param device_theCellNeighbors_ 
+ * @param device_isOuterHitOfCell_ 
+ * @param params_hardCurvCut_      
+ * @param params_ptmin_          
+ * @param params_CAThetaCutBarrel_ 
+ * @param params_CAThetaCutForward_
+ * @param params_dcaCutInnerTriplet_
+ * @param params_dcaCutOuterTriplet_
+ 
+ * Performs early fishbone filtering to reduce number of doublets.
+ * @param hh                    
+ * @param device_theCells_    
+ * @param device_nCells_     
+ * @param device_isOuterHitOfCell_ 
+ * @param nhits              
+ * @param false             
+ 
+ * Finds ntuplets in the cell data structure.
+ * @param hh                    
+ * @param device_theCells_    
+ * @param device_nCells_     
+ * @param device_theCellTracks_ 
+ * @param tuples_d           
+ * @param device_hitTuple_apc_ 
+ * @param quality_d         
+ * @param params_minHitsPerNtuplet_
+ 
+ * Marks used cells for statistics purposes.
+ * @param hh                    
+ * @param device_theCells_    
+ * @param device_nCells_     
+ 
+ * Finalizes bulk operations on device memory.
+ * @param device_hitTuple_apc_ 
+ * @param tuples_d           
+ 
+ * Removes duplicate tracks that share a doublet.
+ * @param device_theCells_    
+ * @param device_nCells_     
+ * @param tuples_d           
+ * @param quality_d         
+ 
+ * Counts multiplicity of ntuplets.
+ * @param tuples_d           
+ * @param quality_d         
+ * @param device_tupleMultiplicity_ 
+ 
+ * Fills multiplicity array with calculated values.
+ * @param tuples_d           
+ * @param quality_d         
+ * @param device_tupleMultiplicity_ 
+ 
+ * Performs late fishbone filtering to further reduce number of doublets.
+ * @param hh                    
+ * @param device_theCells_    
+ * @param device_nCells_     
+ * @param device_isOuterHitOfCell_ 
+ * @param nhits              
+ * @param true              
+ 
+ * Checks for overflows in tracking data structures.
+ * @param tuples_d           
+ * @param device_tupleMultiplicity_ 
+ * @param device_hitToTuple_  
+ * @param device_hitTuple_apc_ 
+ * @param device_theCells_    
+ * @param device_nCells_     
+ * @param device_theCellNeighbors_ 
+ * @param device_theCellTracks_ 
+ * @param device_isOuterHitOfCell_ 
+ * @param nhits              
+ * @param params_maxNumberOfDoublets_
+ * @param counters          
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernelsCPU::launchKernels(HitsOnCPU const &hh, TkSoA *tracks_d, cudaStream_t cudaStream) {
   auto *tuples_d = &tracks_d->hitIndices;
   auto *quality_d = tracks_d->qualityData();
@@ -153,6 +246,16 @@ void CAHitNtupletGeneratorKernelsCPU::launchKernels(HitsOnCPU const &hh, TkSoA *
 }
 
 template <>
+/**
+ * Classifies tuples of hits into tracks based on kinematic properties,
+ * applies track cleaning algorithms, removes duplicate tracks,
+ * and updates hit-to-track mapping.
+ *
+ * @param[in] hh Container of hits on CPU
+ * @param[out] tracks_d Pointer to SoA structure containing track data on device
+ * @param[in] cudaStream CUDA stream object for parallel execution
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletGeneratorKernelsCPU::classifyTuples(HitsOnCPU const &hh, TkSoA *tracks_d, cudaStream_t cudaStream) {
   auto const *tuples_d = &tracks_d->hitIndices;
   auto *quality_d = tracks_d->qualityData();

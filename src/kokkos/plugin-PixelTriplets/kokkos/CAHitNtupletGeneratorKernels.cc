@@ -4,6 +4,13 @@
 #include "KokkosCore/hintLightWeight.h"
 
 namespace KOKKOS_NAMESPACE {
+/**
+ * Fills hit detector indices for tracks in parallel
+ * @param[in] hits view of hits
+ * @param[out] tracks device memory pointer to track data structure
+ * @param[in] execution space 
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::fillHitDetIndices(HitsView const *hv,
                                                        cms::kokkos::shared_ptr<TkSoA, KokkosDeviceMemSpace> &tracks_d,
                                                        KokkosExecSpace const &execSpace) {
@@ -17,6 +24,19 @@ namespace KOKKOS_NAMESPACE {
 #endif
   }
 
+/**
+ * @brief Launches kernels for generating hit n-tuplets.
+ *
+ * This function takes in a set of CPU hits, tracks on device, and an execution space.
+ * It launches several kernels to generate hit n-tuplets, including kernel_connect,
+ * early fishbone, kernel_find_ntuplets, kernel_mark_used, kernel_earlyDuplicateRemover,
+ * kernel_countMultiplicity, kernel_fillMultiplicity, late fishbone, and kernel_checkOverflows.
+ *
+ * @param hh Hits on CPU.
+ * @param tracks_d Tracks on device.
+ * @param execSpace Execution space.
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::launchKernels(HitsOnCPU const &hh,
                                                    cms::kokkos::shared_ptr<TkSoA, KokkosDeviceMemSpace> &tracks_d,
                                                    KokkosExecSpace const &execSpace) {
@@ -224,6 +244,13 @@ namespace KOKKOS_NAMESPACE {
 #endif
   }
 
+/**
+ * Builds doublets from hits on CPU.
+ *
+ * @param[in] hh         The hits on CPU.
+ * @param[in] execSpace  The execution space.
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::buildDoublets(HitsOnCPU const &hh, KokkosExecSpace const &execSpace) {
     auto nhits = hh.nHits();
 
@@ -330,6 +357,14 @@ namespace KOKKOS_NAMESPACE {
 #endif
   }
 
+/**
+ * Classifies tuples of hits into tracks based on predefined criteria.
+ *
+ * @param[in] hh HitsOnCPU object containing hit data
+ * @param[out] tracks_d Shared pointer to TkSoA object storing track data on device memory space
+ * @param[in] execSpace Execution space for parallel operations
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::classifyTuples(HitsOnCPU const &hh,
                                                     cms::kokkos::shared_ptr<TkSoA, KokkosDeviceMemSpace> &tracks_d,
                                                     KokkosExecSpace const &execSpace) {
@@ -447,6 +482,10 @@ namespace KOKKOS_NAMESPACE {
 #endif
   }
 
+/**
+ * Prints counters from the given shared pointer object
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::printCounters(
       const cms::kokkos::shared_ptr<Counters, KokkosDeviceMemSpace> &counters) {
 #ifdef TODO
@@ -454,6 +493,10 @@ namespace KOKKOS_NAMESPACE {
 #endif
   }
 
+/**
+ * Allocates memory on the GPU for intermediate results used in the kernel operations
+ */
+// The above comment was written by an LLM. 
   void CAHitNtupletGeneratorKernels::allocateOnGPU(KokkosExecSpace const &execSpace) {
     //////////////////////////////////////////////////////////
     // ALLOCATIONS FOR THE INTERMEDIATE RESULTS (STAYS ON WORKER)

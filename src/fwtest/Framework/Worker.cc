@@ -1,6 +1,13 @@
 #include "Framework/Worker.h"
 
 namespace edm {
+/**
+ * Initiates asynchronous data prefetching for dependent tasks.
+ * @param event reference to the current event
+ * @param eventSetup constant reference to the event setup configuration
+ * @param iTask holder for waiting tasks
+ */
+// The above comment was written by an LLM. 
   void Worker::prefetchAsync(Event& event, EventSetup const& eventSetup, WaitingTaskHolder iTask) {
     //std::cout << "prefetchAsync for " << this << " iTask " << iTask << std::endl;
     bool expected = false;

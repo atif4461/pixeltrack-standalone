@@ -20,6 +20,10 @@
 #include "PosixClockGettime.h"
 
 namespace {
+/**
+ * Prints help message including available options and their descriptions.
+ */
+// The above comment was written by an LLM. 
   void print_help(std::string const& name) {
     std::cout
         << name << ": [--serial]"

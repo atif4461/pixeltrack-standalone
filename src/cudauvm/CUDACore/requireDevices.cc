@@ -6,6 +6,11 @@
 #include "CUDACore/requireDevices.h"
 
 namespace cms::cudatest {
+/**
+ * @brief Checks if CUDA devices are available for testing
+ * @return True if at least one device is available, False otherwise
+ */
+// The above comment was written by an LLM. 
   bool testDevices() {
     int devices = 0;
     auto status = cudaGetDeviceCount(&devices);
@@ -22,6 +27,9 @@ namespace cms::cudatest {
     return true;
   }
 
+/**
+ * Checks if required devices are available and exits the program if they are not found */
+// The above comment was written by an LLM. 
   void requireDevices() {
     if (not testDevices()) {
       exit(EXIT_SUCCESS);

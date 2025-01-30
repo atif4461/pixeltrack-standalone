@@ -10,6 +10,36 @@
 using namespace cms::cuda;
 
 template <typename T, int NBINS = 128, int S = 8 * sizeof(T), int DELTA = 1000>
+/**
+ * @brief Function to test histogram functionality
+ *
+ * This function tests various aspects of histogram creation, 
+ * data insertion, and retrieval. It uses random number generation 
+ * to populate the histograms and verifies their correctness.
+  
+ * @brief Lambda function to verify histogram bin contents
+ *
+ * This lambda function is used to verify that the elements in a 
+ * particular range of bins satisfy certain conditions.
+ *
+ * @param i The current bin index
+ * @param j The neighboring bin index
+ * @param k The index of the element being verified
+ * @param t1 The first index to compare with
+ * @param t2 The second index to compare with
+ 
+ 
+ * @brief Function to iterate over all elements in specified bins
+ *
+ * This function iterates over all elements within a specified 
+ * distance from a given bin and applies a callback function.
+ *
+ * @param hist The histogram object
+ * @param val The value around which to search
+ * @param width The distance from the bin to consider
+ * @param func The callback function to apply
+ */
+// The above comment was written by an LLM. 
 void go() {
   std::mt19937 eng;
 
@@ -137,6 +167,27 @@ void go() {
   }
 }
 
+/**
+ * @brief Main program entry point
+ *
+ * @return Integer value indicating program execution status
+  
+ * @brief Template function to perform operations on different data types
+ *
+ * @tparam T Data type to be used in the operation
+ *
+ * @return None
+ 
+ * @brief Specialization of template function for specific data type with additional parameters
+ *
+ * @tparam T Data type to be used in the operation
+ * @tparam U First parameter value
+ * @tparam V Second parameter value
+ * @tparam W Third parameter value
+ *
+ * @return None
+ */
+// The above comment was written by an LLM. 
 int main() {
   go<int16_t>();
   go<uint8_t, 128, 8, 4>();

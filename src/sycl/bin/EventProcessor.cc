@@ -5,6 +5,18 @@
 #include "EventProcessor.h"
 
 namespace edm {
+/**
+ * Constructs an EventProcessor object with specified parameters
+ * @param warmupEvents number of events for warm up
+ * @param maxEvents maximum number of events to process
+ * @param runForMinutes duration in minutes to run event processing
+ * @param numberOfStreams number of streams for parallel processing
+ * @param path vector of strings representing file paths
+ * @param esproducers vector of strings representing event setup producers
+ * @param datadir filesystem path for data directory
+ * @param validation boolean flag indicating whether validation is required
+ */
+// The above comment was written by an LLM. 
   EventProcessor::EventProcessor(int warmupEvents,
                                  int maxEvents,
                                  int runForMinutes,
@@ -29,6 +41,10 @@ namespace edm {
     }
   }
 
+/**
+ * Initializes the event processing system with a specified number of warmup events.
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::warmUp() {
     if (warmupEvents_ <= 0)
       return;
@@ -38,12 +54,22 @@ namespace edm {
     process();
   }
 
+/**
+ * Runs the event processing to completion by reconfiguring the source 
+ * and initiating the processing of events.
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::runToCompletion() {
     // Configure the source for the actual reconstrction
     source_.reconfigure(maxEvents_, runForMinutes_);
     process();
   }
 
+/**
+ * Starts processing events by initiating all scheduled tasks asynchronously 
+ * and waiting for their completion, handling any exceptions that may occur.
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::process() {
     source_.startProcessing();
 
@@ -60,6 +86,10 @@ namespace edm {
     }
   }
 
+/**
+ * Ends the job processing for the first stream.
+ */
+// The above comment was written by an LLM. 
   void EventProcessor::endJob() {
     // Only on the first stream...
     schedules_[0].endJob();

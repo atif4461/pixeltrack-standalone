@@ -9,6 +9,12 @@
 #include "CUDACore/ScopedSetDevice.h"
 #include "CUDACore/StreamCache.h"
 
+/**
+ * Constructor initializing SiPixelGainCalibrationForHLTGPU object with gain and gain data
+ * @param gain SiPixelGainForHLTonGPU object containing gain calibration data
+ * @param gainData vector of character data used for gain calibration
+ */
+// The above comment was written by an LLM. 
 SiPixelGainCalibrationForHLTGPU::SiPixelGainCalibrationForHLTGPU(SiPixelGainForHLTonGPU const& gain,
                                                                  std::vector<char> const& gainData) {
   cudaCheck(cudaMallocManaged(&gainForHLT_, sizeof(SiPixelGainForHLTonGPU)));
@@ -31,6 +37,10 @@ SiPixelGainCalibrationForHLTGPU::SiPixelGainCalibrationForHLTGPU(SiPixelGainForH
   }
 }
 
+/**
+ * Destructor to free GPU memory allocated for gain calibration data
+ */
+// The above comment was written by an LLM. 
 SiPixelGainCalibrationForHLTGPU::~SiPixelGainCalibrationForHLTGPU() {
   cudaCheck(cudaFree(gainForHLT_));
   cudaCheck(cudaFree(gainData_));

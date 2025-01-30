@@ -22,6 +22,10 @@ namespace {
     return x * x;
   }
 
+/**
+ * @return QualityCuts object containing parameters for track quality assessment
+ */
+// The above comment was written by an LLM. 
   cAHitNtupletGenerator::QualityCuts makeQualityCuts() {
     auto coeff = std::vector<double>{0.68177776, 0.74609577, -0.08035491, 0.00315399};  // chi2Coeff
     return cAHitNtupletGenerator::QualityCuts{// polynomial coefficients for the pT-dependent chi2 cut
@@ -46,6 +50,11 @@ namespace {
 }  // namespace
 
 using namespace std;
+/**
+ * Constructor initializing parameters for hit ntuplet generation on GPU
+ * @param reg Product registry reference
+ */
+// The above comment was written by an LLM. 
 CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg)
     : m_params(3,                 // minHitsPerNtuplet,
                458752,            // maxNumberOfDoublets
@@ -67,6 +76,14 @@ CAHitNtupletGeneratorOnGPU::CAHitNtupletGeneratorOnGPU(edm::ProductRegistry& reg
                0.25,              // dcaCutOuterTriplet
                makeQualityCuts()) {}
 
+/**
+ * @brief Generates tuples asynchronously on GPU
+ * @param hits_d TrackingRecHit2D data structure
+ * @param bfield magnetic field strength
+ * @param stream SYCL queue for asynchronous operations
+ * @return generated pixel tracks
+ */
+// The above comment was written by an LLM. 
 PixelTrackHeterogeneous CAHitNtupletGeneratorOnGPU::makeTuplesAsync(TrackingRecHit2DSYCL const& hits_d,
                                                                     float bfield,
                                                                     sycl::queue stream) {

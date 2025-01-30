@@ -13,6 +13,13 @@ namespace {
 }
 
 namespace cms::cuda {
+/**
+ * Allocates device memory of specified size in bytes on the GPU
+ * @param nbytes number of bytes to be allocated
+ * @param stream CUDA stream handle
+ * @return pointer to allocated device memory
+ */
+// The above comment was written by an LLM. 
   void *allocate_device(size_t nbytes, cudaStream_t stream) {
     void *ptr = nullptr;
     if constexpr (allocator::policy == allocator::Policy::Caching) {
@@ -31,6 +38,10 @@ namespace cms::cuda {
     return ptr;
   }
 
+/**
+ * Frees device memory allocated with the specified pointer and optionally 
+ * associated with a CUDA stream depending on the allocator policy */
+// The above comment was written by an LLM. 
   void free_device(void *ptr, cudaStream_t stream) {
     if constexpr (allocator::policy == allocator::Policy::Caching) {
       allocator::getCachingDeviceAllocator().free(ptr);

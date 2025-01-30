@@ -29,6 +29,11 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     const float m_ptMin;
   };
 
+/**
+ * Constructor for the class 
+ * @param reg EDM product registry
+ */
+// The above comment was written by an LLM. 
   PixelVertexProducerAlpaka::PixelVertexProducerAlpaka(edm::ProductRegistry& reg)
       : tokenTrack_(reg.consumes<cms::alpakatools::Product<Queue, PixelTrackAlpaka>>()),
         tokenVertex_(reg.produces<cms::alpakatools::Product<Queue, ZVertexAlpaka>>()),
@@ -44,6 +49,13 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
         m_ptMin(0.5)  // 0.5 GeV
   {}
 
+/**
+ * Produce pixel vertices from input tracks in an event.
+ *
+ * @param iEvent Reference to the current event being processed.
+ * @param iSetup Reference to the setup for the current event.
+ */
+// The above comment was written by an LLM. 
   void PixelVertexProducerAlpaka::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     cms::alpakatools::Product<Queue, PixelTrackAlpaka> const& tracksWrapped = iEvent.get(tokenTrack_);
     cms::alpakatools::ScopedContextProduce<Queue> ctx{tracksWrapped};

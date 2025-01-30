@@ -55,6 +55,10 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
   std::mutex CountValidator::sumTrackDifferenceMutex;
   float CountValidator::sumTrackDifference = 0;
 
+/**
+ * Constructor initializing data member tokens for consuming various products from the product registry
+ */
+// The above comment was written by an LLM. 
   CountValidator::CountValidator(edm::ProductRegistry& reg)
       : digiClusterCountToken_(reg.consumes<DigiClusterCount>()),
         trackCountToken_(reg.consumes<TrackCount>()),
@@ -64,6 +68,12 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
         trackToken_(reg.consumes<PixelTrackHost>()),
         vertexToken_(reg.consumes<ZVertexHost>()) {}
 
+/**
+ * @brief Produces validation results for an event
+ * @param iEvent The input event to be validated
+ * @param iSetup The setup for the current event
+ */
+// The above comment was written by an LLM. 
   void CountValidator::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
     constexpr float trackTolerance = 0.012f;  // in 200 runs of 1k events all events are withing this tolerance
     constexpr int vertexTolerance = 1;
@@ -137,6 +147,10 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     }
   }
 
+/**
+ * Finalizes the job execution and reports validation results.
+ */
+// The above comment was written by an LLM. 
   void CountValidator::endJob() {
     if (allEvents == goodEvents) {
       std::cout << "CountValidator: all " << allEvents << " events passed validation\n";

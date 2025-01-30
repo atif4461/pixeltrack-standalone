@@ -22,11 +22,22 @@ private:
   CAHitNtupletGeneratorOnGPU gpuAlgo_;
 };
 
+/**
+ * Constructor for CAHitNtupletCUDA class 
+ * initializes dependencies from ProductRegistry 
+ */
+// The above comment was written by an LLM. 
 CAHitNtupletCUDA::CAHitNtupletCUDA(edm::ProductRegistry& reg)
     : tokenHitCPU_{reg.consumes<TrackingRecHit2DCPU>()},
       tokenTrackCPU_{reg.produces<PixelTrackHeterogeneous>()},
       gpuAlgo_(reg) {}
 
+/**
+ * Produce track candidates from hit collections in an event
+ * @param[in] iEvent Event object containing input data
+ * @param[in] es Event setup object providing configuration
+ */
+// The above comment was written by an LLM. 
 void CAHitNtupletCUDA::produce(edm::Event& iEvent, const edm::EventSetup& es) {
   auto bf = 0.0114256972711507;  // 1/fieldInGeV
 
